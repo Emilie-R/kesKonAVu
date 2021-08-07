@@ -8,7 +8,15 @@ public class Season {
     private List<Episode> episodes;
 
     public void CalculateSeasonStatus(){
-        // Si au  moins un episode non vu, alors status "En cours"
+        if(status == Status.AVOIR.toString()) {
+            long numberOfNonViewedEpisodes = 0;
+            numberOfNonViewedEpisodes = episodes.stream()
+                    .filter(episode -> episode.getStatus() == Status.AVOIR.toString())
+                    .count();
+            if (numberOfNonViewedEpisodes == 0) {
+                this.status = Status.VU.toString();
+            }
+        }
 
     }
 

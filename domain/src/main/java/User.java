@@ -12,8 +12,15 @@ public class User {
     private List<UserProgression> userProgressions;
 
 
-    //constructeurs
+    //Specific methods : à coder ***********!!!!!!!!!!!!!!
+    public void Evaluate(){
+    }
+    public void ModifyUEvaluation(){
+    }
+    public void DeleteEvaluation(){
+    }
 
+    //constructors
     public User(){
     }
 
@@ -24,10 +31,8 @@ public class User {
         this.passWord = passWord;
         this.role = role;
     }
-
-    public int getId ( ) {
-        return id;
-    }
+    //getters et setters
+    public int getId ( ) { return id; }
 
     public void setId (int id) {
         this.id = id;

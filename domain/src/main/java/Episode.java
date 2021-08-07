@@ -3,7 +3,7 @@ public class Episode {
     private int number;
     private String title;
     private String externalId;
-    private Status status;
+    private String status;
 
     public Episode(){
 
@@ -48,11 +48,11 @@ public class Episode {
         this.externalId = externalId;
     }
 
-    public Status getStatus ( ) {
+    public String getStatus ( ) {
         return status;
     }
 
-    public void setStatus (Status status) {
+    public void setStatus (String status) {
         this.status = status;
     }
 }
