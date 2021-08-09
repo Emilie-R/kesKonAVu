@@ -1,21 +1,24 @@
+package Entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.time.LocalDate;
 
-public class UserProgression {
+@Entity
+public class EpisodeFollowUp {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String status;
-    private float progression;
-    private Serie serie;
-    private Movie movie;
-    private User user;
     private LocalDate creationDate;
     private LocalDate lastModificationDate;
+    private int note;
+    private Episode episode;
 
-    //constructeurs
-
-    public UserProgression(){
-
+    public EpisodeFollowUp(){
     }
-    //getters et setters
 
     public int getId ( ) {
         return id;
@@ -49,35 +52,19 @@ public class UserProgression {
         this.lastModificationDate = lastModificationDate;
     }
 
-    public Serie getSerie ( ) {
-        return serie;
+    public int getNote ( ) {
+        return note;
     }
 
-    public void setSerie (Serie serie) {
-        this.serie = serie;
+    public void setNote (int note) {
+        this.note = note;
     }
 
-    public Movie getMovie ( ) {
-        return movie;
+    public Episode getEpisode ( ) {
+        return episode;
     }
 
-    public void setMovie (Movie movie) {
-        this.movie = movie;
-    }
-
-    public User getUser ( ) {
-        return user;
-    }
-
-    public void setUser (User user) {
-        this.user = user;
-    }
-
-    public float getProgression ( ) {
-        return progression;
-    }
-
-    public void setProgression (float progression) {
-        this.progression = progression;
+    public void setEpisode (Episode episode) {
+        this.episode = episode;
     }
 }

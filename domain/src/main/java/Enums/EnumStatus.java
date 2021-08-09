@@ -1,9 +1,11 @@
-public enum Status {
+package Enums;
+
+public enum EnumStatus {
 
     AVOIR("à voir"), VU("visionné");
     private String valeur;
 
-    Status(String valeur)
+    EnumStatus (String valeur)
     {
         this.valeur = valeur;
     }

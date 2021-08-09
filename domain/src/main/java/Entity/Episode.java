@@ -1,19 +1,15 @@
+package Entity;
+
 public class Episode {
     private int id;
     private int number;
     private String title;
     private String externalId;
+    private int seasonNumber;
     private String status;
 
     public Episode(){
 
-    }
-
-    public Episode (int id, int number, String title, String externalId) {
-        this.id = id;
-        this.number = number;
-        this.title = title;
-        this.externalId = externalId;
     }
 
     public int getId ( ) {
@@ -46,6 +42,14 @@ public class Episode {
 
     public void setExternalId (String externalId) {
         this.externalId = externalId;
+    }
+
+    public int getSeasonNumber ( ) {
+        return seasonNumber;
+    }
+
+    public void setSeasonNumber (int seasonNumber) {
+        this.seasonNumber = seasonNumber;
     }
 
     public String getStatus ( ) {

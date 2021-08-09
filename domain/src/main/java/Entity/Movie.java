@@ -1,10 +1,17 @@
-import java.time.LocalDate;
-import java.util.List;
+package Entity;
 
-public abstract class Resource {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.time.LocalDate;
+
+@Entity
+public class Movie {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String title;
-    private String externalId;
     private String year;
     private String pictureUrl;
     private String synopsis;
@@ -12,11 +19,10 @@ public abstract class Resource {
     private String category;
     private String director;
     private LocalDate creationDate;
-    private List<Evaluation> evaluations;
-    private List<UserProgression> userProgressions;
-    private List<User> users;
+    private int duration;
+    public Movie ( ) {
+    }
 
-    //getters et setters
     public int getId ( ) {
         return id;
     }
@@ -31,14 +37,6 @@ public abstract class Resource {
 
     public void setTitle (String title) {
         this.title = title;
-    }
-
-    public String getExternalId ( ) {
-        return externalId;
-    }
-
-    public void setExternalId (String externalId) {
-        this.externalId = externalId;
     }
 
     public String getYear ( ) {
@@ -97,27 +95,11 @@ public abstract class Resource {
         this.creationDate = creationDate;
     }
 
-    public List<Evaluation> getEvaluations ( ) {
-        return evaluations;
+    public int getDuration ( ) {
+        return duration;
     }
 
-    public void setEvaluations (List<Evaluation> evaluations) {
-        this.evaluations = evaluations;
-    }
-
-    public List<UserProgression> getUserProgressions ( ) {
-        return userProgressions;
-    }
-
-    public void setUserProgressions (List<UserProgression> userProgressions) {
-        this.userProgressions = userProgressions;
-    }
-
-    public List<User> getUsers ( ) {
-        return users;
-    }
-
-    public void setUsers (List<User> users) {
-        this.users = users;
+    public void setDuration (int duration) {
+        this.duration = duration;
     }
 }
