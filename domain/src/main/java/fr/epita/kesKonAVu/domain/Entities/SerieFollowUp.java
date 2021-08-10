@@ -1,6 +1,6 @@
-package Entities;
+package fr.epita.kesKonAVu.domain.Entities;
 
-import Enums.EnumStatus;
+import fr.epita.kesKonAVu.domain.Enums.EnumStatus;
 
 import javax.persistence.*;
 import java.util.Set;

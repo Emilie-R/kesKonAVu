@@ -1,4 +1,4 @@
-package Entities;
+package fr.epita.kesKonAVu.domain.Entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,7 +17,7 @@ public class Member {
     private String role;
     private LocalDate creationDate;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "member")
+    @OneToMany(fetch = FetchType.EAGER)
     private Set<ResourceFollowUp> resourceFollowUps;
 
     //Specific methods

@@ -1,4 +1,4 @@
-package Entities;
+package fr.epita.kesKonAVu.domain.Entities;
 
 import javax.persistence.*;
 
