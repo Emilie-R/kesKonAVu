@@ -1,4 +1,4 @@
-package Entities;
+package fr.epita.kesKonAVu.domain.Entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -8,7 +8,8 @@ public class Resource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
+
     private String title;
     private String year;
     private String pictureUrl;
@@ -21,17 +22,16 @@ public class Resource {
     private String resourceType;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "catalogId",referencedColumnName="externalCatalogId")
     private ExternalKey externalKey;
 
     public Resource ( ) {
     }
 
-    public int getId ( ) {
+    public Long getId ( ) {
         return id;
     }
 
-    public void setId (int id) {
+    public void setId (Long id) {
         this.id = id;
     }
 

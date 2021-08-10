@@ -1,4 +1,4 @@
-package Enums;
+package fr.epita.kesKonAVu.domain.Enums;
 
 public enum EnumRoles {
 
