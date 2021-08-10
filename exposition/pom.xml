@@ -12,6 +12,7 @@
     <artifactId>kesKonAVu-exposition</artifactId>
     <name>${project.artifactId}</name>
     <packaging>jar</packaging>
+
     <dependencies>
         <!-- Module dependencies -->
         <dependency>

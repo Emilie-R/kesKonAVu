@@ -1,17 +1,17 @@
 package Entities;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Serie extends Resource {
+
     private int numberOfSeasons;
     private int numberOfEpisodes;
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<Episode> episodes;
+
+    @OneToMany
+    private Set<Episode> episodes;
 
     // constructeurs
     public Serie(){
@@ -35,11 +35,11 @@ public class Serie extends Resource {
         this.numberOfEpisodes = numberOfEpisodes;
     }
 
-    public List<Episode> getEpisodes ( ) {
+    public Set<Episode> getEpisodes ( ) {
         return episodes;
     }
 
-    public void setEpisodes (List<Episode> episodes) {
+    public void setEpisodes (Set<Episode> episodes) {
         this.episodes = episodes;
     }
 }

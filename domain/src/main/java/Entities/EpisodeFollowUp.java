@@ -5,67 +5,49 @@ import java.time.LocalDate;
 
 @Entity
 public class EpisodeFollowUp {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    private Boolean status;
-    private LocalDate creationDate;
-    private LocalDate lastModificationDate;
-    private int note;
+    private Long id;
+
+    @ManyToOne
     private Episode episode;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "serieFollowUp_id")
-    private SerieFollowUp serieFollowUp;
+    private Boolean status;
+    private LocalDate lastModificationDate;
 
     public EpisodeFollowUp(){
     }
 
-    public int getId ( ) {
+    public Long getId() {
         return id;
     }
 
-    public void setId (int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Boolean getStatus ( ) {
-        return status;
-    }
-
-    public void setStatus (Boolean status) {
-        this.status = status;
-    }
-
-    public LocalDate getCreationDate ( ) {
-        return creationDate;
-    }
-
-    public void setCreationDate (LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
-
-    public LocalDate getLastModificationDate ( ) {
-        return lastModificationDate;
-    }
-
-    public void setLastModificationDate (LocalDate lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
-    }
-
-    public int getNote ( ) {
-        return note;
-    }
-
-    public void setNote (int note) {
-        this.note = note;
-    }
-
-    public Episode getEpisode ( ) {
+    public Episode getEpisode() {
         return episode;
     }
 
-    public void setEpisode (Episode episode) {
+    public void setEpisode(Episode episode) {
         this.episode = episode;
+    }
+
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
+    }
+
+    public LocalDate getLastModificationDate() {
+        return lastModificationDate;
+    }
+
+    public void setLastModificationDate(LocalDate lastModificationDate) {
+        this.lastModificationDate = lastModificationDate;
     }
 }

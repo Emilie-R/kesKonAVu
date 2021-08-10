@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 @Entity
 public class Resource {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,7 +22,7 @@ public class Resource {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "catalogId",referencedColumnName="externalCatalogId")
-    private ExternalCatalog externalCatalog;
+    private ExternalKey externalKey;
 
     public Resource ( ) {
     }
@@ -114,11 +115,11 @@ public class Resource {
         this.resourceType = resourceType;
     }
 
-    public ExternalCatalog getExternalCatalogId ( ) {
-        return externalCatalog;
+    public ExternalKey getExternalCatalogId ( ) {
+        return externalKey;
     }
 
-    public void setExternalCatalogId (ExternalCatalog externalCatalog) {
-        this.externalCatalog = externalCatalog;
+    public void setExternalCatalogId (ExternalKey externalCatalog) {
+        this.externalKey = externalCatalog;
     }
 }
