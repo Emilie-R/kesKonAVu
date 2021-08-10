@@ -1,71 +1,63 @@
 package Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 
 @Entity
 public class Episode {
-    private int id;
-    private int number;
-    private String title;
-    private String externalId;
-    private int seasonNumber;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "catalogId",referencedColumnName="externalCatalogId")
-    private ExternalCatalog externalCatalog;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long idEpisode;
+
+    private int seasonNumber;
+    private int number;
+
+    private String title;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    private ExternalKey externalKey;
 
     public Episode(){
 
     }
 
-    public int getId ( ) {
-        return id;
+    public Long getIdEpisode() {
+        return idEpisode;
     }
 
-    public void setId (int id) {
-        this.id = id;
+    public void setIdEpisode(Long idEpisode) {
+        this.idEpisode = idEpisode;
     }
 
-    public int getNumber ( ) {
-        return number;
-    }
-
-    public void setNumber (int number) {
-        this.number = number;
-    }
-
-    public String getTitle ( ) {
-        return title;
-    }
-
-    public void setTitle (String title) {
-        this.title = title;
-    }
-
-    public String getExternalId ( ) {
-        return externalId;
-    }
-
-    public void setExternalId (String externalId) {
-        this.externalId = externalId;
-    }
-
-    public int getSeasonNumber ( ) {
+    public int getSeasonNumber() {
         return seasonNumber;
     }
 
-    public void setSeasonNumber (int seasonNumber) {
+    public void setSeasonNumber(int seasonNumber) {
         this.seasonNumber = seasonNumber;
     }
 
-    public ExternalCatalog getExternalCatalog ( ) {
-        return externalCatalog;
+    public int getNumber() {
+        return number;
     }
 
-    public void setExternalCatalog (ExternalCatalog externalCatalog) {
-        this.externalCatalog = externalCatalog;
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public ExternalKey getExternalKey() {
+        return externalKey;
+    }
+
+    public void setExternalKey(ExternalKey externalKey) {
+        this.externalKey = externalKey;
     }
 }

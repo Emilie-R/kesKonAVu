@@ -2,14 +2,15 @@ package Entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private int idMember;
+
     private String pseudo;
     private  String email;
     private String passWord;
@@ -17,10 +18,7 @@ public class Member {
     private LocalDate creationDate;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "member")
-    private List<ResourceFollowUp> resourceFollowUps;
-
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "member")
-    private List<SerieFollowUp> serieFollowUps;
+    private Set<ResourceFollowUp> resourceFollowUps;
 
     //Specific methods
     public void AddMovieFollowUp(ResourceFollowUp resourceFollowUp){
@@ -29,12 +27,6 @@ public class Member {
     public void RemoveMovieFollowUp(ResourceFollowUp resourceFollowUp){
         resourceFollowUps.remove(resourceFollowUp);
     }
-    public void AddSerieFollowUp(SerieFollowUp serieFollowUp){
-        serieFollowUps.add(serieFollowUp);
-    }
-    public void RemoveSerieFollowUp(SerieFollowUp serieFollowUp){
-        serieFollowUps.remove(serieFollowUp);
-    }
 
     //constructors
     public Member (){
@@ -42,67 +34,60 @@ public class Member {
 
     //getters et setters
 
-    public int getId ( ) {
-        return id;
+
+    public int getIdMember() {
+        return idMember;
     }
 
-    public void setId (int id) {
-        this.id = id;
+    public void setIdMember(int idMember) {
+        this.idMember = idMember;
     }
 
-    public String getPseudo ( ) {
+    public String getPseudo() {
         return pseudo;
     }
 
-    public void setPseudo (String pseudo) {
+    public void setPseudo(String pseudo) {
         this.pseudo = pseudo;
     }
 
-    public String getEmail ( ) {
+    public String getEmail() {
         return email;
     }
 
-    public void setEmail (String email) {
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public String getPassWord ( ) {
+    public String getPassWord() {
         return passWord;
     }
 
-    public void setPassWord (String passWord) {
+    public void setPassWord(String passWord) {
         this.passWord = passWord;
     }
 
-    public String getRole ( ) {
+    public String getRole() {
         return role;
     }
 
-    public void setRole (String role) {
+    public void setRole(String role) {
         this.role = role;
     }
 
-    public LocalDate getCreationDate ( ) {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate (LocalDate creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
-    public List<ResourceFollowUp> getMovieFollowUps ( ) {
+    public Set<ResourceFollowUp> getResourceFollowUps() {
         return resourceFollowUps;
     }
 
-    public void setMovieFollowUps (List<ResourceFollowUp> resourceFollowUps) {
+    public void setResourceFollowUps(Set<ResourceFollowUp> resourceFollowUps) {
         this.resourceFollowUps = resourceFollowUps;
-    }
-
-    public List<SerieFollowUp> getSerieFollowUps ( ) {
-        return serieFollowUps;
-    }
-
-    public void setSerieFollowUps (List<SerieFollowUp> serieFollowUps) {
-        this.serieFollowUps = serieFollowUps;
     }
 }
