@@ -4,6 +4,6 @@ import org.springframework.stereotype.Repository;
 
 
 @Repository
-public interface DaoResource extends JpaRepository<Resource, Integer> {
+public interface DaoResource extends JpaRepository<Resource, Long> {
 
 }

@@ -9,7 +9,7 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idMember;
+    private Long idMember;
 
     private String pseudo;
     private  String email;
@@ -35,11 +35,11 @@ public class Member {
     //getters et setters
 
 
-    public int getIdMember() {
+    public Long getIdMember() {
         return idMember;
     }
 
-    public void setIdMember(int idMember) {
+    public void setIdMember(Long idMember) {
         this.idMember = idMember;
     }
 
