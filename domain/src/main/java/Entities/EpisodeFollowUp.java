@@ -1,9 +1,6 @@
-package Entity;
+package Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -11,11 +8,15 @@ public class EpisodeFollowUp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String status;
+    private Boolean status;
     private LocalDate creationDate;
     private LocalDate lastModificationDate;
     private int note;
     private Episode episode;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "serieFollowUp_id")
+    private SerieFollowUp serieFollowUp;
 
     public EpisodeFollowUp(){
     }
@@ -28,11 +29,11 @@ public class EpisodeFollowUp {
         this.id = id;
     }
 
-    public String getStatus ( ) {
+    public Boolean getStatus ( ) {
         return status;
     }
 
-    public void setStatus (String status) {
+    public void setStatus (Boolean status) {
         this.status = status;
     }
 

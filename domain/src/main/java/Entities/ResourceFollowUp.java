@@ -1,13 +1,10 @@
-package Entity;
+package Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class MovieFollowUp {
+public class ResourceFollowUp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -15,10 +12,13 @@ public class MovieFollowUp {
     private LocalDate creationDate;
     private LocalDate lastModificationDate;
     private int note;
-    private Movie movie;
-    private User user;
+    private Resource resource;
 
-    public MovieFollowUp (){
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    public ResourceFollowUp (){
 
     }
 
@@ -45,12 +45,12 @@ public class MovieFollowUp {
     public void setLastModificationDate (LocalDate lastModificationDate) {
         this.lastModificationDate = lastModificationDate;
     }
-    public User getUser ( ) {
-        return user;
+    public Member getUser ( ) {
+        return member;
     }
 
-    public void setUser (User user) {
-        this.user = user;
+    public void setUser (Member member) {
+        this.member = member;
     }
 
     public String getStatus ( ) {
@@ -69,11 +69,11 @@ public class MovieFollowUp {
         this.creationDate = creationDate;
     }
 
-    public Movie getMovie ( ) {
-        return movie;
+    public Resource getMovie ( ) {
+        return resource;
     }
 
-    public void setMovie (Movie movie) {
-        this.movie = movie;
+    public void setMovie (Resource resource) {
+        this.resource = resource;
     }
 }

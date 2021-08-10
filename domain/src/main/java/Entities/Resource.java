@@ -1,13 +1,10 @@
-package Entity;
+package Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-public class Movie {
+public class Resource {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -20,7 +17,13 @@ public class Movie {
     private String director;
     private LocalDate creationDate;
     private int duration;
-    public Movie ( ) {
+    private String resourceType;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "catalogId",referencedColumnName="externalCatalogId")
+    private ExternalCatalog externalCatalog;
+
+    public Resource ( ) {
     }
 
     public int getId ( ) {
@@ -101,5 +104,21 @@ public class Movie {
 
     public void setDuration (int duration) {
         this.duration = duration;
+    }
+
+    public String getResourceType ( ) {
+        return resourceType;
+    }
+
+    public void setResourceType (String resourceType) {
+        this.resourceType = resourceType;
+    }
+
+    public ExternalCatalog getExternalCatalogId ( ) {
+        return externalCatalog;
+    }
+
+    public void setExternalCatalogId (ExternalCatalog externalCatalog) {
+        this.externalCatalog = externalCatalog;
     }
 }

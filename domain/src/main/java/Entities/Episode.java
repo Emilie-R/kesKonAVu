@@ -1,12 +1,21 @@
-package Entity;
+package Entities;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Episode {
     private int id;
     private int number;
     private String title;
     private String externalId;
     private int seasonNumber;
-    private String status;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "catalogId",referencedColumnName="externalCatalogId")
+    private ExternalCatalog externalCatalog;
 
     public Episode(){
 
@@ -52,11 +61,11 @@ public class Episode {
         this.seasonNumber = seasonNumber;
     }
 
-    public String getStatus ( ) {
-        return status;
+    public ExternalCatalog getExternalCatalog ( ) {
+        return externalCatalog;
     }
 
-    public void setStatus (String status) {
-        this.status = status;
+    public void setExternalCatalog (ExternalCatalog externalCatalog) {
+        this.externalCatalog = externalCatalog;
     }
 }

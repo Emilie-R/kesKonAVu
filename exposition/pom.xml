@@ -23,6 +23,12 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>fr.epita</groupId>
+            <artifactId>kesKonAVu-domain</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -1,20 +1,22 @@
-package Entity;
+package Entities;
 
 import Enums.EnumStatus;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
-public class SerieFollowUp extends MovieFollowUp {
+public class SerieFollowUp extends ResourceFollowUp {
     private Float progression;
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "serieFollowUp")
     private List<EpisodeFollowUp> episodeFollowUps;
+
     private Serie serie;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     public SerieFollowUp(){
     }
@@ -24,7 +26,7 @@ public class SerieFollowUp extends MovieFollowUp {
         if (this.getStatus() != EnumStatus.VU.toString()) {
             long result = 0;
             result = episodeFollowUps.stream()
-                    .filter(e -> e.getStatus() == EnumStatus.AVOIR.toString())
+                    .filter(e -> e.getStatus() == false)
                     .count();
             if(result == 0){
                 this.setStatus(EnumStatus.VU.toString());
@@ -36,7 +38,7 @@ public class SerieFollowUp extends MovieFollowUp {
         if (this.progression <= 100.0f) {
             long episodesUnviewed = 0;
             episodesUnviewed = episodeFollowUps.stream()
-                    .filter(e -> e.getStatus() == EnumStatus.AVOIR.toString())
+                    .filter(e -> e.getStatus() == false)
                     .count();
 
             if(this.serie.getNumberOfEpisodes() != 0){

@@ -1,11 +1,11 @@
-package Entity;
+package Entities;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-public class User {
+public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,17 +15,19 @@ public class User {
     private String passWord;
     private String role;
     private LocalDate creationDate;
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    private List<MovieFollowUp> movieFollowUps;
-    @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "member")
+    private List<ResourceFollowUp> resourceFollowUps;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "member")
     private List<SerieFollowUp> serieFollowUps;
 
     //Specific methods
-    public void AddMovieFollowUp(MovieFollowUp movieFollowUp){
-        movieFollowUps.add(movieFollowUp);
+    public void AddMovieFollowUp(ResourceFollowUp resourceFollowUp){
+        resourceFollowUps.add(resourceFollowUp);
     }
-    public void RemoveMovieFollowUp(MovieFollowUp movieFollowUp){
-        movieFollowUps.remove(movieFollowUp);
+    public void RemoveMovieFollowUp(ResourceFollowUp resourceFollowUp){
+        resourceFollowUps.remove(resourceFollowUp);
     }
     public void AddSerieFollowUp(SerieFollowUp serieFollowUp){
         serieFollowUps.add(serieFollowUp);
@@ -35,7 +37,7 @@ public class User {
     }
 
     //constructors
-    public User(){
+    public Member (){
     }
 
     //getters et setters
@@ -88,12 +90,12 @@ public class User {
         this.creationDate = creationDate;
     }
 
-    public List<MovieFollowUp> getMovieFollowUps ( ) {
-        return movieFollowUps;
+    public List<ResourceFollowUp> getMovieFollowUps ( ) {
+        return resourceFollowUps;
     }
 
-    public void setMovieFollowUps (List<MovieFollowUp> movieFollowUps) {
-        this.movieFollowUps = movieFollowUps;
+    public void setMovieFollowUps (List<ResourceFollowUp> resourceFollowUps) {
+        this.resourceFollowUps = resourceFollowUps;
     }
 
     public List<SerieFollowUp> getSerieFollowUps ( ) {

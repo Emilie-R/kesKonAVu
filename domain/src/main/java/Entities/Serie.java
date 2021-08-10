@@ -1,4 +1,4 @@
-package Entity;
+package Entities;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -7,7 +7,7 @@ import javax.persistence.OneToMany;
 import java.util.List;
 
 @Entity
-public class Serie extends Movie {
+public class Serie extends Resource {
     private int numberOfSeasons;
     private int numberOfEpisodes;
     @OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST,CascadeType.MERGE})
