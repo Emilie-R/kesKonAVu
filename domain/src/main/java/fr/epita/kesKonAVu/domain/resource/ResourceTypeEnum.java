@@ -1,10 +1,10 @@
-package fr.epita.kesKonAVu.domain.Enums;
+package fr.epita.kesKonAVu.domain.resource;
 
-public enum EnumsResourceTypes {
+public enum ResourceTypeEnum {
     MOVIE("movie"), SERIE("serie");
     private String valeur;
 
-    EnumsResourceTypes (String valeur)
+    ResourceTypeEnum(String valeur)
     {
         this.valeur = valeur;
     }

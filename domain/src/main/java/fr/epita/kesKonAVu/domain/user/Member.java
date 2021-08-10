@@ -1,10 +1,13 @@
-package fr.epita.kesKonAVu.domain.Entities;
+package fr.epita.kesKonAVu.domain.user;
+
+import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
+@Table(name="utilisateur")
 public class Member {
 
     @Id
@@ -12,13 +15,18 @@ public class Member {
     private int idMember;
 
     private String pseudo;
-    private  String email;
-    private String passWord;
-    private String role;
+    private String email;
+    private String password;
     private LocalDate creationDate;
 
     @OneToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="utilisateurSuivi")
     private Set<ResourceFollowUp> resourceFollowUps;
+
+    @ElementCollection
+    @Enumerated(EnumType.STRING)
+    @JoinTable(name="utilisateurRole")
+    private Set<UserRoleEnum> roles;
 
     //Specific methods
     public void AddMovieFollowUp(ResourceFollowUp resourceFollowUp){
@@ -59,20 +67,12 @@ public class Member {
         this.email = email;
     }
 
-    public String getPassWord() {
-        return passWord;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPassWord(String passWord) {
-        this.passWord = passWord;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public LocalDate getCreationDate() {
@@ -89,5 +89,13 @@ public class Member {
 
     public void setResourceFollowUps(Set<ResourceFollowUp> resourceFollowUps) {
         this.resourceFollowUps = resourceFollowUps;
+    }
+
+    public Set<UserRoleEnum> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<UserRoleEnum> roles) {
+        this.roles = roles;
     }
 }

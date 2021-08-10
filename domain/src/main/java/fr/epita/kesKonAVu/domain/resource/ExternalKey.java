@@ -1,12 +1,10 @@
-package fr.epita.kesKonAVu.domain.Entities;
+package fr.epita.kesKonAVu.domain.resource;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="catalogueReferenceExterne")
 public class ExternalKey {
 
     @Id

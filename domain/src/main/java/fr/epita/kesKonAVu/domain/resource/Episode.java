@@ -1,8 +1,9 @@
-package fr.epita.kesKonAVu.domain.Entities;
+package fr.epita.kesKonAVu.domain.resource;
 
 import javax.persistence.*;
 
 @Entity
+@Table(name="catalogueEpisode")
 public class Episode {
 
     @Id
