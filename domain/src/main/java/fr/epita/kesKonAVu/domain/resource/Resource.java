@@ -1,14 +1,15 @@
-package fr.epita.kesKonAVu.domain.Entities;
+package fr.epita.kesKonAVu.domain.resource;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name="catalogueResource")
 public class Resource {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idResource;
 
     private String title;
     private String year;
@@ -19,7 +20,7 @@ public class Resource {
     private String director;
     private LocalDate creationDate;
     private int duration;
-    private String resourceType;
+    private ResourceTypeEnum resourceType;
 
     @OneToOne(fetch = FetchType.EAGER)
     private ExternalKey externalKey;
@@ -27,12 +28,12 @@ public class Resource {
     public Resource ( ) {
     }
 
-    public Long getId ( ) {
-        return id;
+    public Long getIdResource( ) {
+        return idResource;
     }
 
-    public void setId (Long id) {
-        this.id = id;
+    public void setIdResource(Long idResource) {
+        this.idResource = idResource;
     }
 
     public String getTitle ( ) {
@@ -107,19 +108,19 @@ public class Resource {
         this.duration = duration;
     }
 
-    public String getResourceType ( ) {
+    public ResourceTypeEnum getResourceType() {
         return resourceType;
     }
 
-    public void setResourceType (String resourceType) {
+    public void setResourceType(ResourceTypeEnum resourceType) {
         this.resourceType = resourceType;
     }
 
-    public ExternalKey getExternalCatalogId ( ) {
+    public ExternalKey getExternalKey() {
         return externalKey;
     }
 
-    public void setExternalCatalogId (ExternalKey externalCatalog) {
-        this.externalKey = externalCatalog;
+    public void setExternalKey(ExternalKey externalKey) {
+        this.externalKey = externalKey;
     }
 }

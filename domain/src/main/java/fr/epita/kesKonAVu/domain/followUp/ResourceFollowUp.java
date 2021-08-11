@@ -1,9 +1,12 @@
-package fr.epita.kesKonAVu.domain.Entities;
+package fr.epita.kesKonAVu.domain.followUp;
+
+import fr.epita.kesKonAVu.domain.resource.Resource;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+@Table(name="suiviResource")
 public class ResourceFollowUp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,7 +15,7 @@ public class ResourceFollowUp {
     @ManyToOne
     private Resource resource;
 
-    private String status;
+    private StatusEnum status;
     private LocalDate creationDate;
     private LocalDate lastModificationDate;
     private int note;
@@ -37,14 +40,6 @@ public class ResourceFollowUp {
         this.resource = resource;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public LocalDate getCreationDate() {
         return creationDate;
     }
@@ -67,5 +62,13 @@ public class ResourceFollowUp {
 
     public void setNote(int note) {
         this.note = note;
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
     }
 }

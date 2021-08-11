@@ -1,11 +1,11 @@
-package fr.epita.kesKonAVu.domain.Enums;
+package fr.epita.kesKonAVu.domain.user;
 
-public enum EnumRoles {
+public enum UserRoleEnum {
 
         USER("user"), ADMIN("administrator");
         private String valeur;
 
-        EnumRoles(String valeur)
+        UserRoleEnum(String valeur)
         {
             this.valeur = valeur;
         }
