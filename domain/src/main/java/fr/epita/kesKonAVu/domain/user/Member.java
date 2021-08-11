@@ -4,6 +4,7 @@ import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,29 +13,21 @@ public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idMember;
+    private Long idMember;
 
     private String pseudo;
     private String email;
     private String password;
     private LocalDate creationDate;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name="utilisateurSuivi")
     private Set<ResourceFollowUp> resourceFollowUps;
 
     @ElementCollection
     @Enumerated(EnumType.STRING)
     @JoinTable(name="utilisateurRole")
-    private Set<UserRoleEnum> roles;
-
-    //Specific methods
-    public void AddMovieFollowUp(ResourceFollowUp resourceFollowUp){
-        resourceFollowUps.add(resourceFollowUp);
-    }
-    public void RemoveMovieFollowUp(ResourceFollowUp resourceFollowUp){
-        resourceFollowUps.remove(resourceFollowUp);
-    }
+    private Set<TypeRoleEnum> roles = new HashSet<>();
 
     //constructors
     public Member (){
@@ -42,12 +35,11 @@ public class Member {
 
     //getters et setters
 
-
-    public int getIdMember() {
+    public Long getIdMember() {
         return idMember;
     }
 
-    public void setIdMember(int idMember) {
+    public void setIdMember(Long idMember) {
         this.idMember = idMember;
     }
 
@@ -91,11 +83,30 @@ public class Member {
         this.resourceFollowUps = resourceFollowUps;
     }
 
-    public Set<UserRoleEnum> getRoles() {
+    public Set<TypeRoleEnum> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRoleEnum> roles) {
+    public void setRoles(Set<TypeRoleEnum> roles) {
         this.roles = roles;
+    }
+
+
+    //Specific methods
+
+    public void addResourceFollowUp(ResourceFollowUp resourceFollowUp) {
+        this.resourceFollowUps.add(resourceFollowUp);
+    }
+
+    public void removeResourceFollowUp(ResourceFollowUp resourceFollowUp) {
+        this.resourceFollowUps.remove(resourceFollowUp);
+    }
+
+    public void addRole (final TypeRoleEnum role) {
+        this.roles.add(role);
+    }
+
+    public void removeRole (final TypeRoleEnum role) {
+        this.roles.remove(role);
     }
 }
