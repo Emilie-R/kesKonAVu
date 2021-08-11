@@ -25,9 +25,25 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
+        <!--dépendances inter-modules-->
         <dependency>
             <groupId>fr.epita</groupId>
             <artifactId>kesKonAVu-domain</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.epita</groupId>
+            <artifactId>kesKonAVu-application</artifactId>
+        </dependency>
+        <!--  -->
+
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>fr.epita</groupId>
+            <artifactId>kesKonAVu-application</artifactId>
         </dependency>
 
     </dependencies>
