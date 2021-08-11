@@ -11,7 +11,7 @@ public class ExternalKey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String catalogName;
+    private CatalogReferenceEnum catalogName;
     private String resourceId;
 
     public ExternalKey(){
@@ -25,11 +25,11 @@ public class ExternalKey {
         this.id = id;
     }
 
-    public String getCatalogName() {
+    public CatalogReferenceEnum getCatalogName() {
         return catalogName;
     }
 
-    public void setCatalogName(String catalogName) {
+    public void setCatalogName(CatalogReferenceEnum catalogName) {
         this.catalogName = catalogName;
     }
 

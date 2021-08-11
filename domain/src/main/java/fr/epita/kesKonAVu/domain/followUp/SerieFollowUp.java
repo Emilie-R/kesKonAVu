@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.domain.followUp;
 
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.common.ResourceTypeException;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 

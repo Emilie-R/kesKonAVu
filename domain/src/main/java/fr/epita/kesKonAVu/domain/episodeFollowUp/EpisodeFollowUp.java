@@ -1,5 +1,6 @@
-package fr.epita.kesKonAVu.domain.followUp;
+package fr.epita.kesKonAVu.domain.episodeFollowUp;
 
+import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.domain.resource.Episode;
 
 import javax.persistence.*;
