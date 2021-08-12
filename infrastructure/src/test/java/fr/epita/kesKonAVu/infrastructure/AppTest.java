@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu;
+package fr.epita.kesKonAVu.infrastructure;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
