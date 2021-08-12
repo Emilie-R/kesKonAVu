@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.infrastructure;
+package fr.epita.kesKonAVu.infrastructure.user;
 
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
