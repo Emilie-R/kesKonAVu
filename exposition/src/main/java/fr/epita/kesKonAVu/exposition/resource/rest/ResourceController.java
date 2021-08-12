@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/apiResource")
+@RequestMapping("/movies")
 public class ResourceController {
 
     @Autowired
@@ -16,30 +16,27 @@ public class ResourceController {
     @Autowired
     ResourceService resourceService;
 
-    @GetMapping(value = "/id/{id}")
+    @GetMapping("/id/{id}")
     public ResourceDTO getResourceById(@PathVariable("id") String resourceId) {
 
         ResourceMapper resourceMapper = new ResourceMapper();
-        ResourceDTO dto = resourceMapper.mapToDto(resourceService.findByIdResource(resourceId));
-        return dto;
+        return resourceMapper.mapToDto(resourceService.findByIdResource(resourceId));
 
     }
 
-    @GetMapping(value = "/title/{title}")
+    @GetMapping("/title/{title}")
     public ResourceDTO getResourceByTitle(@PathVariable("title") String title) {
 
         ResourceMapper resourceMapper = new ResourceMapper();
-        ResourceDTO dto = resourceMapper.mapToDto(resourceService.findByTitle(title));
-        return dto;
+        return resourceMapper.mapToDto(resourceService.findByTitle(title));
 
     }
 
-    @GetMapping(value = "/externalreference/{externalId}")
+    @GetMapping("/external/{externalId}")
     public ResourceDTO getResourceByExternalReference(@PathVariable("externalId") String externalId) {
 
         ResourceMapper resourceMapper = new ResourceMapper();
-        ResourceDTO dto = resourceMapper.mapToDto(resourceService.findByExternalKey(externalId));
-        return dto;
+        return resourceMapper.mapToDto(resourceService.findByExternalKey(externalId));
 
     }
 }

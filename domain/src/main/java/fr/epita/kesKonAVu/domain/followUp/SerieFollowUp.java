@@ -48,7 +48,9 @@ public class SerieFollowUp extends ResourceFollowUp {
              episodesViewed = episodeFollowUps.stream()
                      .filter(e -> e.getStatus() == StatusEnum.VU)
                      .count();
-             this.progression = Float.valueOf(100 * episodesViewed/ ((Serie) this.getResource()).getNumberOfEpisodes());
+             if (((Serie) this.getResource()).getNumberOfEpisodes() > 0 ) {
+                 this.progression = Float.valueOf(100 * episodesViewed / ((Serie) this.getResource()).getNumberOfEpisodes());
+             } else {this.progression = 0F;}
 
          } else {
              throw new ResourceTypeException();
