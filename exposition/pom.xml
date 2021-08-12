@@ -42,8 +42,9 @@
             <artifactId>postgresql</artifactId>
         </dependency>
         <dependency>
-            <groupId>fr.epita</groupId>
-            <artifactId>kesKonAVu-application</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
 
     </dependencies>
