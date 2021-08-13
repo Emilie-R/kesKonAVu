@@ -20,7 +20,7 @@ public class Member {
     private String password;
     private LocalDate creationDate;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
     @JoinTable(name="utilisateurSuivi")
     private Set<ResourceFollowUp> resourceFollowUps;
 

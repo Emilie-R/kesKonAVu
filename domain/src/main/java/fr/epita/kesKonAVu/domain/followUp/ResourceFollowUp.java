@@ -1,6 +1,7 @@
 package fr.epita.kesKonAVu.domain.followUp;
 
 import fr.epita.kesKonAVu.domain.resource.Resource;
+import fr.epita.kesKonAVu.domain.user.Member;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,6 +20,9 @@ public class ResourceFollowUp {
     private LocalDate creationDate;
     private LocalDate lastModificationDate;
     private int note;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Member member;
 
     public ResourceFollowUp (){
 
