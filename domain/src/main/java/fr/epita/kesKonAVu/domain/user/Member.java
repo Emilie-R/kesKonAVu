@@ -24,13 +24,19 @@ public class Member {
     //@JoinTable(name="utilisateurSuivi")
     private Set<ResourceFollowUp> resourceFollowUps;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @JoinTable(name="utilisateurRole")
     private Set<TypeRoleEnum> roles = new HashSet<>();
 
     //constructors
     public Member (){
+    }
+
+    public Member(String pseudo, String email, String password) {
+        this.pseudo = pseudo;
+        this.email = email;
+        this.password = password;
     }
 
     //getters et setters

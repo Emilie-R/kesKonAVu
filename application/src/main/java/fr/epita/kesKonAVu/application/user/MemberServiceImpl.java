@@ -11,18 +11,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    private final int miniPseudoSize = 6;
-    private final int miniPasswordSize = 6;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     MemberRepository memberRepository;
+
+    private final int miniPseudoSize = 6;
+    private final int miniPasswordSize = 6;
+
 
     @Override
     public Member createMember(Member member) {
@@ -47,6 +51,9 @@ public class MemberServiceImpl implements MemberService {
         roleUser.add(TypeRoleEnum.USER);
         member.setRoles(roleUser);
 
+        //Set Creation Date
+        member.setCreationDate(LocalDate.now());
+
         // Encode memberPassword
         member.setPassword(passwordEncoder.encode(member.getPassword()));
 
@@ -56,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public void updateMember(Member member) {
-        // TODO - Don't need it actually
+        // TODO - Don't needed actually
     }
 
     @Override
