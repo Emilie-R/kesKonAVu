@@ -5,7 +5,9 @@ import fr.epita.kesKonAVu.domain.resource.ExternalKey;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import fr.epita.kesKonAVu.exposition.common.AbstractMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class SerieMapper extends AbstractMapper<Serie, SerieDTO> {
     @Override
     public SerieDTO mapToDto (Serie entity) {
