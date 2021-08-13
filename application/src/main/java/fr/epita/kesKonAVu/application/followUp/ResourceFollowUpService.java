@@ -11,5 +11,7 @@ public interface ResourceFollowUpService {
 
     List<ResourceFollowUp> findByResource(Resource resource);
 
-    //List<ResourceFollowUp> SortByCriteria(String critere);
+    List<List<ResourceFollowUp>> SeparateByStatus(List<ResourceFollowUp> resourceFollowUpList);
+
+    List<Resource> SortByCriteria(List<ResourceFollowUp> resourceFollowUpList, SortCriteriaEnum criteria);
 }
