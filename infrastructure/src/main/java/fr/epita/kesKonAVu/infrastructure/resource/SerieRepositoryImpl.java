@@ -1,6 +1,7 @@
 package fr.epita.kesKonAVu.infrastructure.resource;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import fr.epita.kesKonAVu.domain.resource.SerieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,7 @@ public class SerieRepositoryImpl implements SerieRepository {
     @Override
     public Serie findByTitle (String title) {
         Serie serieOut = new Serie();
-        Serie result = serieJpaRepository.findByTitle(title);
+        Serie result = serieJpaRepository.findByTitleAndResourceType(title, ResourceTypeEnum.SERIE);
         if (result != null){
             serieOut = result;
         } else {
@@ -29,7 +30,7 @@ public class SerieRepositoryImpl implements SerieRepository {
     public Serie findByIdResource (String idResource) {
 
         Serie serieOut = new Serie();
-        Serie result = serieJpaRepository.findByIdResource(idResource);
+        Serie result = serieJpaRepository.findByIdResourceAndResourceType(idResource,ResourceTypeEnum.SERIE);
         if (result != null){
             serieOut = result;
         } else {
@@ -42,7 +43,7 @@ public class SerieRepositoryImpl implements SerieRepository {
     @Override
     public Serie findByExternalKey (String externalKey) {
         Serie serieOut = new Serie();
-        Serie result = serieJpaRepository.findByExternalKey(externalKey);
+        Serie result = serieJpaRepository.findByExternalKeyAndResourceType(externalKey,ResourceTypeEnum.SERIE);
         if (result != null){
             serieOut = result;
         } else {

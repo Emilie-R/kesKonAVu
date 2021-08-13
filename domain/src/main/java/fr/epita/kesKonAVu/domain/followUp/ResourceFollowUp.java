@@ -21,7 +21,7 @@ public class ResourceFollowUp {
     private LocalDate lastModificationDate;
     private int note;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Member member;
 
     public ResourceFollowUp (){

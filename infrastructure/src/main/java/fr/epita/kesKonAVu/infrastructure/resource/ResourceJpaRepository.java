@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.infrastructure.resource;
 import fr.epita.kesKonAVu.domain.resource.Resource;
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -7,9 +8,9 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ResourceJpaRepository extends JpaRepository<Resource, Long>{
 
-    Resource findByTitle(String title);
+    Resource findByTitleAndResourceType(String title, ResourceTypeEnum resourceTypeEnum);
 
-    Resource findByIdResource(String idResource);
+    Resource findByIdResourceAndResourceType(String idResource,ResourceTypeEnum resourceTypeEnum);
 
-    Resource findByExternalKey(String externalKey);
+    Resource findByExternalKeyAndResourceType(String externalKey,ResourceTypeEnum resourceTypeEnum);
 }

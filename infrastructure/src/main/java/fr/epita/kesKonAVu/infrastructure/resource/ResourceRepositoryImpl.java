@@ -3,6 +3,7 @@ package fr.epita.kesKonAVu.infrastructure.resource;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     @Override
     public Resource findByTitle (String title) {
         Resource resourceOut = new Resource();
-        Resource result = resourceJpaRepository.findByTitle(title);
+        Resource result = resourceJpaRepository.findByTitleAndResourceType(title, ResourceTypeEnum.MOVIE);
         if (result != null){
             resourceOut = result;
         } else {
@@ -29,7 +30,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     public Resource findByIdResource (String idResource) {
 
         Resource resourceOut = new Resource();
-        Resource result = resourceJpaRepository.findByIdResource(idResource);
+        Resource result = resourceJpaRepository.findByIdResourceAndResourceType(idResource,ResourceTypeEnum.MOVIE);
         if (result != null){
             resourceOut = result;
         } else {
@@ -42,7 +43,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     @Override
     public Resource findByExternalKey (String externalKey) {
         Resource resourceOut = new Resource();
-        Resource result = resourceJpaRepository.findByExternalKey(externalKey);
+        Resource result = resourceJpaRepository.findByExternalKeyAndResourceType(externalKey,ResourceTypeEnum.MOVIE);
         if (result != null){
             resourceOut = result;
         } else {
