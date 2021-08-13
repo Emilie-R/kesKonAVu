@@ -41,10 +41,6 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
-        <dependency>
-            <groupId>fr.epita</groupId>
-            <artifactId>kesKonAVu-application</artifactId>
-        </dependency>
 
     </dependencies>
 

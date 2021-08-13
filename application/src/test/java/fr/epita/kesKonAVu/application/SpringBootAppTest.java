@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = { "fr.epita.kesKonAVu.application" }, lazyInit = true)
+@ComponentScan(basePackages = { "fr.epita.kesKonAVu" }, lazyInit = true)
 public class SpringBootAppTest {
     /**
      * @param args
