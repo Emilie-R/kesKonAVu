@@ -2,7 +2,9 @@ package fr.epita.kesKonAVu.exposition.member.rest;
 
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.exposition.common.AbstractMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class MemberMapper extends AbstractMapper<Member,MemberDTO> {
     @Override
     public MemberDTO mapToDto(final Member entity) {
@@ -12,7 +14,6 @@ public class MemberMapper extends AbstractMapper<Member,MemberDTO> {
         memberDTO.setEmail(entity.getEmail());
         memberDTO.setPassword(entity.getPassword());
         memberDTO.setCreationDate(entity.getCreationDate());
-        memberDTO.setResourceFollowUps(entity.getResourceFollowUps());
         memberDTO.setRoles(entity.getRoles());
         return memberDTO;
     }
@@ -25,7 +26,6 @@ public class MemberMapper extends AbstractMapper<Member,MemberDTO> {
         member.setEmail(dto.getEmail());
         member.setPassword(dto.getPassword());
         member.setCreationDate(dto.getCreationDate());
-        member.setResourceFollowUps(dto.getResourceFollowUps());
         member.setRoles(member.getRoles());
         return null;
     }

@@ -18,12 +18,15 @@ import java.util.Set;
 @Service
 public class MemberServiceImpl implements MemberService {
 
-    private final int miniPseudoSize = 6;
-    private final int miniPasswordSize = 6;
-    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     MemberRepository memberRepository;
+
+    private final int miniPseudoSize = 6;
+    private final int miniPasswordSize = 6;
+
 
     @Override
     public Member createMember(Member member) {

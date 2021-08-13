@@ -24,7 +24,7 @@ public class Member {
     @JoinTable(name="utilisateurSuivi")
     private Set<ResourceFollowUp> resourceFollowUps;
 
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
     @JoinTable(name="utilisateurRole")
     private Set<TypeRoleEnum> roles = new HashSet<>();

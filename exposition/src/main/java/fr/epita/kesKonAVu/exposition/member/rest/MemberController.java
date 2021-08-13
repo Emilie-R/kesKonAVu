@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.*;
 public class MemberController {
 
     @Autowired
-    MemberMapper memberMapper;
+    MemberService memberService;
 
     @Autowired
-    MemberService memberService;
+    MemberMapper memberMapper;
 
     @GetMapping(value="/{id}", produces={"application/json"})
     public MemberDTO getMemberAccountData(@PathVariable("id") Long idMember){
@@ -24,7 +24,8 @@ public class MemberController {
     @PostMapping(value = "/create")
     public MemberDTO createNewMember(@RequestBody MemberDTOLight memberDTOLight){
         Member memberToCreate = memberMapper.mapLightToEntity(memberDTOLight);
-        return memberMapper.mapToDto(memberService.createMember(memberToCreate));
+        Member memberCreated = memberService.createMember(memberToCreate);
+        return memberMapper.mapToDto(memberCreated);
     }
 
 

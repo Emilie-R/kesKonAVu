@@ -13,7 +13,6 @@ public class MemberDTO {
     private String email;
     private String password;
     private LocalDate creationDate;
-    private Set<ResourceFollowUp> resourceFollowUps;
     private Set<TypeRoleEnum> roles;
 
     public Long getIdMember() {
@@ -54,14 +53,6 @@ public class MemberDTO {
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
-    }
-
-    public Set<ResourceFollowUp> getResourceFollowUps() {
-        return resourceFollowUps;
-    }
-
-    public void setResourceFollowUps(Set<ResourceFollowUp> resourceFollowUps) {
-        this.resourceFollowUps = resourceFollowUps;
     }
 
     public Set<TypeRoleEnum> getRoles() {
