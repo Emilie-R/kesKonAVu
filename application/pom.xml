@@ -22,10 +22,20 @@
             <artifactId>spring-boot-starter-test</artifactId>
         </dependency>
 
-        <!-- Spring security - Cryptage du mdp Utilisateur et protection des end-points-->
+        <!-- Spring security - Cryptage du mdp Utilisateur et protection des end-points -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>fr.epita</groupId>
+            <artifactId>kesKonAVu-infrastructure</artifactId>
         </dependency>
 
     </dependencies>

@@ -21,7 +21,7 @@ public class Member {
     private LocalDate creationDate;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
-    @JoinTable(name="utilisateurSuivi")
+    //@JoinTable(name="utilisateurSuivi")
     private Set<ResourceFollowUp> resourceFollowUps;
 
     @ElementCollection
