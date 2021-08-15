@@ -1,20 +1,19 @@
 package fr.epita.kesKonAVu.domain.followUp;
 
+import fr.epita.kesKonAVu.domain.SpringBootAppTest;
 import fr.epita.kesKonAVu.domain.common.ResourceTypeException;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import org.junit.jupiter.api.Assertions;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-import fr.epita.kesKonAVu.domain.SpringBootAppTest;
+
 import java.util.HashSet;
 import java.util.Set;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest(classes = { SpringBootAppTest.class })
+
+@SpringBootTest(classes = { SpringBootAppTest.class })
 public class SerieFollowUpTest {
 
     @Test

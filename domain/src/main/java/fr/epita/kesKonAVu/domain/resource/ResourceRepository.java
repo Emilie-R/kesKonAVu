@@ -7,4 +7,9 @@ public interface ResourceRepository {
     Resource findByIdResource(String idResource);
 
     Resource findByExternalKey(String externalKey);
+
+    Resource save(Resource resource);
+
+    Resource findResourceWithOmdbApi(String externalKey);
+
 }

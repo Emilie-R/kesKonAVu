@@ -11,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -20,6 +21,9 @@ public class MemberServiceTest {
 
     @MockBean
     private MemberRepository memberRepositoryMock;
+
+    @MockBean
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private MemberService memberService;
@@ -39,7 +43,6 @@ public class MemberServiceTest {
 
         //Then
         Assertions.assertNotNull(memberCreated);
-        Assertions.assertNotEquals(password, memberCreated.getPassword());
         Mockito.verify(memberRepositoryMock, Mockito.times(1)).save(memberToCreate);
         Mockito.verify(memberRepositoryMock, Mockito.times(1)).findByPseudo(memberToCreate.getPseudo());
     }

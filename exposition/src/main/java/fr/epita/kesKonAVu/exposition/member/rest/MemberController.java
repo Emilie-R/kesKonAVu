@@ -21,7 +21,7 @@ public class MemberController {
         return memberMapper.mapToDto(member);
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/create", produces={"application/json"}, consumes = {"application/json"})
     public MemberDTO createNewMember(@RequestBody MemberDTOLight memberDTOLight){
         Member memberToCreate = memberMapper.mapLightToEntity(memberDTOLight);
         Member memberCreated = memberService.createMember(memberToCreate);

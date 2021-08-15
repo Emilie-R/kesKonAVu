@@ -4,6 +4,7 @@ import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
+import fr.epita.kesKonAVu.infrastructure.resource.omdbApi.ResourceOmdbApiRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,9 @@ public class ResourceRepositoryImpl implements ResourceRepository {
 
     @Autowired
     ResourceJpaRepository resourceJpaRepository;
+
+    @Autowired
+    ResourceOmdbApiRepository resourceOmdbApiRepository;
 
     @Override
     public Resource findByTitle (String title) {
@@ -52,4 +56,16 @@ public class ResourceRepositoryImpl implements ResourceRepository {
 
         return resourceOut;
     }
+
+    @Override
+    public Resource save(Resource resource) {
+        return resourceJpaRepository.save(resource);
+    }
+
+    @Override
+    public Resource findResourceWithOmdbApi(String externalKey) {
+        return resourceOmdbApiRepository.findResourceByImdbId(externalKey);
+    }
+
+
 }

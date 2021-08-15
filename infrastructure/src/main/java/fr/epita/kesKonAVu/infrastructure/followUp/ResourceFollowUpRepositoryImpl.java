@@ -17,6 +17,11 @@ public class ResourceFollowUpRepositoryImpl implements ResourceFollowUpRepositor
     ResourceFollowUpJpaRepository resourceFollowUpJpaRepository;
 
     @Override
+    public ResourceFollowUp save(ResourceFollowUp resourceFollowUp) {
+        return resourceFollowUpJpaRepository.save(resourceFollowUp);
+    }
+
+    @Override
     public List<ResourceFollowUp> findByMember (Member member) {
 
         if(member == null) {

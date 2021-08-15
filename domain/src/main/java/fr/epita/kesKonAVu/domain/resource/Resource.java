@@ -22,7 +22,7 @@ public class Resource {
     private int duration;
     private ResourceTypeEnum resourceType;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private ExternalKey externalKey;
 
     public Resource ( ) {
