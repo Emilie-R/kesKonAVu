@@ -10,6 +10,8 @@ public interface ResourceRepository {
 
     Resource save(Resource resource);
 
-    Resource findResourceWithOmdbApi(String externalKey);
+    Resource getResourceFromOmdbCatalogueByImdbId(String externalKey);
+
+    Resource findById(Long idResource);
 
 }

@@ -4,9 +4,12 @@ import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
-import fr.epita.kesKonAVu.infrastructure.resource.omdbApi.ResourceOmdbApiRepository;
+import fr.epita.kesKonAVu.infrastructure.resource.omdbDataAccess.OmdbCatalogueApiAccess;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ResourceRepositoryImpl implements ResourceRepository {
@@ -15,7 +18,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     ResourceJpaRepository resourceJpaRepository;
 
     @Autowired
-    ResourceOmdbApiRepository resourceOmdbApiRepository;
+    OmdbCatalogueApiAccess omdbCatalogueApiAccess;
 
     @Override
     public Resource findByTitle (String title) {
@@ -63,8 +66,16 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findResourceWithOmdbApi(String externalKey) {
-        return resourceOmdbApiRepository.findResourceByImdbId(externalKey);
+    public Resource getResourceFromOmdbCatalogueByImdbId(String imdbId) {
+        return omdbCatalogueApiAccess.findResourceByImdbId(imdbId);
+    }
+
+    @Override
+    public Resource findById(Long idResource) {
+        if (! resourceJpaRepository.findById(idResource).isPresent()) {
+            throw new NotFoundException("Resource with the catalog id n° " + idResource + " Not found");
+        }
+        return resourceJpaRepository.findById(idResource).get();
     }
 
 
