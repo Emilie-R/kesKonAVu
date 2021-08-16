@@ -1,6 +1,7 @@
 package fr.epita.kesKonAVu.exposition.resource.rest;
 
 public class ResourceDTO {
+    private Long idResource;
     private String title;
     private String year;
     private String pictureUrl;
@@ -88,5 +89,13 @@ public class ResourceDTO {
 
     public void setExternalKey (String externalKey) {
         this.externalKey = externalKey;
+    }
+
+    public Long getIdResource ( ) {
+        return idResource;
+    }
+
+    public void setIdResource (Long idResource) {
+        this.idResource = idResource;
     }
 }

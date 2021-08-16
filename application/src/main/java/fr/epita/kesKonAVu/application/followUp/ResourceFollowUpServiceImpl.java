@@ -8,10 +8,7 @@ import fr.epita.kesKonAVu.domain.user.Member;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,11 +29,12 @@ public class ResourceFollowUpServiceImpl implements ResourceFollowUpService{
     /**
      *
      * @param resourceFollowUpList : List<ResourceFollowUp> = liste des suivis films suivis par l'utilisateur
-     * @return renvoie 2 listes de films : la première regroupe les
-     * films déjà vus; la seconde liste contient les films 'pas vu'.
+     * @return renvoie une map<Status.Enum,List<ResourceFollowUp
+     * : la première paire (clé,valeur) regroupe les
+     * films déjà vus; la seconde paire contient les films 'pas vu'.
      */
     @Override
-    public List<List<ResourceFollowUp>> SeparateByStatus (List<ResourceFollowUp> resourceFollowUpList) {
+    public Map<StatusEnum,List<ResourceFollowUp>> SeparateByStatus (List<ResourceFollowUp> resourceFollowUpList) {
 
         List<ResourceFollowUp> listOfSeenMovies = resourceFollowUpList.stream()
                 .filter(r -> r.getStatus() == StatusEnum.VU)
@@ -47,7 +45,12 @@ public class ResourceFollowUpServiceImpl implements ResourceFollowUpService{
         List<List<ResourceFollowUp>> result = new ArrayList<>(new ArrayList<>());
         result.add(listOfSeenMovies);
         result.add(listOfUnseenMovies);
-        return result;
+
+        Map<StatusEnum,List<ResourceFollowUp>> mapResult = new HashMap<>();
+        mapResult.put(StatusEnum.VU,listOfSeenMovies);
+        mapResult.put(StatusEnum.AVOIR,listOfUnseenMovies);
+
+        return mapResult;
     }
 
     /**
@@ -64,12 +67,12 @@ public class ResourceFollowUpServiceImpl implements ResourceFollowUpService{
                 Collections.sort(resourceFollowUpList, Comparator.comparing(ResourceFollowUp::getStatus));
                 break;
             case RATING:
-                Collections.sort(resourceFollowUpList, Comparator.comparing(ResourceFollowUp::getNote));
+                Collections.sort(resourceFollowUpList, Comparator.comparing(ResourceFollowUp::getNote).reversed());
                 break;
-            case DATE:
-                Collections.sort(resourceFollowUpList, Comparator.comparing(ResourceFollowUp::getLastModificationDate));
-                break;
+
             default:
+                // tri par date de dernière mise à jour par défaut
+                Collections.sort(resourceFollowUpList, Comparator.comparing(ResourceFollowUp::getLastModificationDate).reversed());
                 break;
         }
         List<Resource> result = resourceFollowUpList.stream()

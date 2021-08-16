@@ -1,3 +1,4 @@
+
 package fr.epita.kesKonAVu.exposition.resource.rest;
 
 import fr.epita.kesKonAVu.domain.resource.CatalogReferenceEnum;
@@ -23,6 +24,7 @@ public class ResourceMapper extends AbstractMapper<Resource, ResourceDTO> {
         dto.setCategory(entity.getCategory());
         dto.setDuration(entity.getDuration());
         dto.setActors(entity.getActors());
+        dto.setIdResource(entity.getIdResource());
         dto.setExternalKey(entity.getExternalKey().getResourceId());
         return dto;
     }
@@ -45,6 +47,7 @@ public class ResourceMapper extends AbstractMapper<Resource, ResourceDTO> {
         catalogOmdb.setCatalogName(CatalogReferenceEnum.OMDBAPI);
         catalogOmdb.setResourceId(dto.getExternalKey());
         entity.setExternalKey(catalogOmdb);
+        entity.setIdResource(dto.getIdResource());
         return entity;
     }
 }

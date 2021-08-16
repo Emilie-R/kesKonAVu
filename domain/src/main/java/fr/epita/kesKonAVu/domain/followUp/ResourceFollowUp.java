@@ -75,4 +75,12 @@ public class ResourceFollowUp {
     public void setStatus(StatusEnum status) {
         this.status = status;
     }
+
+    public Member getMember ( ) {
+        return member;
+    }
+
+    public void setMember (Member member) {
+        this.member = member;
+    }
 }
