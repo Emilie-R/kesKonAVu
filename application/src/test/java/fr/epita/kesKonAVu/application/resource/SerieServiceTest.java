@@ -28,7 +28,7 @@ public class SerieServiceTest {
         when(serieRepositoryMock.findByTitle("Hello")).thenReturn(serie1);
 
         // WHEN
-        final Resource createdSerie = serieService.findByExternalKey("Hello");
+        final Resource createdSerie = serieService.findByTitle("Hello");
 
         //Then
         Assertions.assertNotNull(createdSerie);

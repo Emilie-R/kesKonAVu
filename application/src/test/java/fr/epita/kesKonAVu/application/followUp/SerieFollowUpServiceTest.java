@@ -104,7 +104,9 @@ public class SerieFollowUpServiceTest {
         liste.add(resourceFollowUp2);
         liste.add(resourceFollowUp3);
         //test
-        List<Serie> resources = serieFollowUpService.SortByCriteria(liste,SortCriteriaEnum.RATING);
+        List<Serie> resources = serieFollowUpService.SortByCriteria(liste,SortCriteriaEnum.STATUS);//vérif. technique uniquement
+        resources = null;//remise à vide
+        resources = serieFollowUpService.SortByCriteria(liste,SortCriteriaEnum.RATING);
         Assertions.assertEquals(resource3.getTitle(),resources.get(2).getTitle()); // Friends à la + faible note
         Assertions.assertEquals(resource2.getTitle(),resources.get(0).getTitle());//1er = Godzilla Origin
 

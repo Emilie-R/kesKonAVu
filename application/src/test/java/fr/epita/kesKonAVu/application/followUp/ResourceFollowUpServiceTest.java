@@ -150,7 +150,9 @@ public class ResourceFollowUpServiceTest {
         liste.add(resourceFollowUp2);
         liste.add(resourceFollowUp3);
         //test
-        List<Resource> resources = resourceFollowUpService.SortByCriteria(liste,SortCriteriaEnum.DATE);
+        List<Resource> resources = resourceFollowUpService.SortByCriteria(liste,SortCriteriaEnum.STATUS);//vérif. technique uniquement
+        resources = null;//remise à vide
+        resources = resourceFollowUpService.SortByCriteria(liste,SortCriteriaEnum.DATE);
         Assertions.assertEquals(resource1.getTitle(),resources.get(2).getTitle()); // Godzilla en dernier
         Assertions.assertEquals(resource3.getTitle(),resources.get(0).getTitle());//1er = Friends
 
