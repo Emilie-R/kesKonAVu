@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.infrastructure.followUp;
 
+import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
 import fr.epita.kesKonAVu.domain.resource.Resource;
@@ -19,6 +20,14 @@ public class ResourceFollowUpRepositoryImpl implements ResourceFollowUpRepositor
     @Override
     public ResourceFollowUp save(ResourceFollowUp resourceFollowUp) {
         return resourceFollowUpJpaRepository.save(resourceFollowUp);
+    }
+
+    @Override
+    public ResourceFollowUp findById(Long idFollowUp) {
+        if(! resourceFollowUpJpaRepository.findById(idFollowUp).isPresent()) {
+            throw new NotFoundException("ResourceFollowUp with idFollowUp " + idFollowUp + "not found in database. PLease Check parameters.");
+        }
+        return resourceFollowUpJpaRepository.findById(idFollowUp).get();
     }
 
     @Override

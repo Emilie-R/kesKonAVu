@@ -24,15 +24,15 @@ public class MemberRepositoryTest {
 
     @Test
     public void given_idMember_existing_member_findById_should_success() {
-        // Avec un idMember identifié en BDD
+        // Given Avec un idMember identifié en BDD
         final Long idMember = 1L;
 
-        // Récupération de l'objet attendu
+        // When Récupération de l'objet attendu
         final Optional<Member> optionalMember = memberRepository.findById(idMember);
         Assertions.assertTrue(optionalMember.isPresent());
         Assertions.assertTrue(optionalMember.get() instanceof Member);
 
-        // Contrôle du contenu des attributs
+        // Then Contrôle du contenu des attributs
         final Member member = optionalMember.get();
         Assertions.assertEquals(member.getEmail(), "email@gmail.fr");
         Assertions.assertEquals(member.getPassword(), "123456");
@@ -54,13 +54,13 @@ public class MemberRepositoryTest {
 
     @Test
     public void given_pseudo_existing_member_findByPseudo_should_success() {
-        // Avec un pseudo identifié en BDD
+        //Given Avec un pseudo identifié en BDD
         final String pseudo = "emilie";
 
-        //Récupération de l'objet attendu
+        //When Récupération de l'objet attendu
         final Member member = memberRepository.findByPseudo(pseudo);
 
-        // Contrôle du contenu des attributs
+        //Then Contrôle du contenu des attributs
         Assertions.assertEquals(member.getEmail(), "email@gmail.fr");
         Assertions.assertEquals(member.getPassword(), "123456");
         Assertions.assertEquals(member.getPseudo(), "emilie");
@@ -69,16 +69,17 @@ public class MemberRepositoryTest {
 
     @Test
     public void given_unknown_pseudo_for_member_findByPseudo_expected_null() {
-        // Avec un pseudo inconnu en BDD
+        // Given Avec un pseudo inconnu en BDD
         final String pseudo = "Unknown";
 
-        //Contrôle de l'objet attendu
+        //When Contrôle de l'objet attendu
+        //Then
         Assertions.assertNull(memberRepository.findByPseudo(pseudo));
     }
 
     @Test
-    public void given_member_save_should_be_success() {
-        // Création du member à sauvegarder
+    public void given_member_save_should_success() {
+        // Given Création du member à sauvegarder
         final Member member = new Member();
         final LocalDate dateCreation = LocalDate.now();
 
@@ -89,10 +90,10 @@ public class MemberRepositoryTest {
         member.addRole(TypeRoleEnum.ADMIN);
         member.addRole(TypeRoleEnum.USER);
 
-        // Appel de la méthode à tester
+        // When Appel de la méthode à tester
         final Member memberCreated = memberRepository.save(member);
 
-        // Contrôles
+        //Then Contrôles
         Assertions.assertNotNull(memberCreated.getIdMember());
         Assertions.assertEquals(memberCreated.getRoles().size(),2);
         Assertions.assertTrue(memberRepository.findById(memberCreated.getIdMember()).isPresent());

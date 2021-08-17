@@ -46,6 +46,7 @@ public class ResourceRepositoryTest {
     public void given_idResource_unknown_member_findById_should_throw_NotFoundException () {
         //Given
         Long id = 0L;
+
         //When
         //Then
         Assertions.assertThrows(NotFoundException.class, () -> resourceRepository.findById(id));
@@ -105,5 +106,6 @@ public class ResourceRepositoryTest {
         Mockito.verify(omdbCatalogueApiAccess, Mockito.times(1)).findResourceByImdbId(imdbId);
 
     }
+
 
 }

@@ -1,6 +1,7 @@
 package fr.epita.kesKonAVu.infrastructure.resource;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import fr.epita.kesKonAVu.domain.resource.ExternalKey;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
@@ -21,7 +22,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     OmdbCatalogueApiAccess omdbCatalogueApiAccess;
 
     @Override
-    public Resource findByTitle (String title) {
+    public Resource findMovieByTitle(String title) {
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByTitleAndResourceType(title, ResourceTypeEnum.MOVIE);
         if (result != null){
@@ -34,7 +35,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findByIdResource (String idResource) {
+    public Resource findMovieByIdResource(String idResource) {
 
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByIdResourceAndResourceType(idResource,ResourceTypeEnum.MOVIE);
@@ -48,7 +49,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findByExternalKey (String externalKey) {
+    public Resource findMovieByExternalKey(String externalKey) {
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByExternalKeyAndResourceType(externalKey,ResourceTypeEnum.MOVIE);
         if (result != null){
@@ -76,6 +77,11 @@ public class ResourceRepositoryImpl implements ResourceRepository {
             throw new NotFoundException("Resource with the catalog id n° " + idResource + " Not found");
         }
         return resourceJpaRepository.findById(idResource).get();
+    }
+
+    @Override
+    public Resource findByExternalKey(ExternalKey externalKey) {
+        return resourceJpaRepository.findByExternalKey(externalKey);
     }
 
 

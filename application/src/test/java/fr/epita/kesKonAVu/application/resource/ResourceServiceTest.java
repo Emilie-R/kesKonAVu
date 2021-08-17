@@ -25,7 +25,7 @@ public class ResourceServiceTest {
         final Resource movie = new Resource();
         movie.setTitle("Friends 1");
         movie.setExternalKey(new ExternalKey());
-        when(resourceRepositoryMock.findByTitle("Friends 1")).thenReturn(movie);
+        when(resourceRepositoryMock.findMovieByTitle("Friends 1")).thenReturn(movie);
 
         // WHEN
         final Resource createdMovie = resourceService.findByTitle("Friends 1");

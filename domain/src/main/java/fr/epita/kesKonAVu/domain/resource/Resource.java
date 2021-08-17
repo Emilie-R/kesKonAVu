@@ -19,13 +19,14 @@ public class Resource {
     private String category;
     private String director;
     private LocalDate creationDate;
-    private int duration;
+    private Integer duration;
 
     @Enumerated(EnumType.STRING)
     private ResourceTypeEnum resourceType;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private ExternalKey externalKey;
+
 
     public Resource ( ) {
     }
@@ -102,11 +103,11 @@ public class Resource {
         this.creationDate = creationDate;
     }
 
-    public int getDuration ( ) {
+    public Integer getDuration ( ) {
         return duration;
     }
 
-    public void setDuration (int duration) {
+    public void setDuration (Integer duration) {
         this.duration = duration;
     }
 
@@ -124,5 +125,15 @@ public class Resource {
 
     public void setExternalKey(ExternalKey externalKey) {
         this.externalKey = externalKey;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder resource = new StringBuilder();
+        resource.append(" Resource : ");
+        resource.append("+ idResource " + this.idResource + " ");
+        resource.append("+ title " + this.getTitle() + " ");
+        resource.append("+ External ID " + this.getExternalKey().getResourceId());
+        return resource.toString();
     }
 }

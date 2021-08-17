@@ -9,6 +9,8 @@ public interface ResourceFollowUpRepository {
 
     ResourceFollowUp save(ResourceFollowUp resourceFollowUp);
 
+    ResourceFollowUp findById(Long idFollowUp);
+
     List<ResourceFollowUp> findByMember(Member member);
 
     List<ResourceFollowUp> findByResource(Resource resource);

@@ -38,7 +38,6 @@ public class OmdbDataAccessIntegrationTest {
         String id = "12345678";
 
         //When
-
         //Then
         Assertions.assertThrows(NotFoundException.class, () -> omdbCatalogueApiAccess.findResourceByImdbId(id));
     }
