@@ -38,7 +38,7 @@ public class CatalogueApiAccessOmdbImpl implements CatalogueApiAccess {
 
     @Override
     public Resource findMovieByImdbId(String imdbId) {
-        Resource movie = omdbObjectMapper.resourceOmdbToMovie(findItemByImdbId(imdbId));
+        Resource movie = omdbObjectMapper.itemOmdbToMovie(findItemByImdbId(imdbId));
         return movie;
     }
 

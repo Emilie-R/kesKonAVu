@@ -17,7 +17,8 @@ public class Episode {
 
     private String externalKey;
 
-    private String externalCatalogName;
+    @Enumerated(EnumType.STRING)
+    private CatalogReferenceEnum externalCatalogName;
 
     public Episode(){
 
@@ -63,11 +64,11 @@ public class Episode {
         this.externalKey = externalKey;
     }
 
-    public String getExternalCatalogName ( ) {
+    public CatalogReferenceEnum getExternalCatalogName ( ) {
         return externalCatalogName;
     }
 
-    public void setExternalCatalogName (String externalCatalogName) {
+    public void setExternalCatalogName (CatalogReferenceEnum externalCatalogName) {
         this.externalCatalogName = externalCatalogName;
     }
 }

@@ -15,7 +15,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 public class CatalogueOmdbIntegrationTest {
 
     @Autowired
-    CatalogueApiAccessOmdbImpl omdbCatalogueApiAccess;
+    CatalogueApiAccess omdbCatalogueApiAccess;
 
     @Test
     public void findResourceByImdbId_with_existing_ImdbId_should_success() {
@@ -27,7 +27,7 @@ public class CatalogueOmdbIntegrationTest {
 
         //Then
         Assertions.assertNotNull(resourceResult);
-        Assertions.assertEquals(id, resourceResult.getExternalKey().getResourceId());
+        Assertions.assertEquals(id, resourceResult.getExternalKey());
         Assertions.assertEquals("OSS 117: Le Caire, nid d'espions", resourceResult.getTitle());
         Assertions.assertEquals(ResourceTypeEnum.MOVIE, resourceResult.getResourceType());
     }
@@ -52,7 +52,7 @@ public class CatalogueOmdbIntegrationTest {
 
         //Then
         Assertions.assertNotNull(resourceResult);
-        Assertions.assertEquals(id, resourceResult.getExternalKey().getResourceId());
+        Assertions.assertEquals(id, resourceResult.getExternalKey());
         Assertions.assertEquals("OSS 117: Le Caire, nid d'espions", resourceResult.getTitle());
         Assertions.assertEquals(ResourceTypeEnum.MOVIE, resourceResult.getResourceType());
     }
@@ -67,7 +67,7 @@ public class CatalogueOmdbIntegrationTest {
 
         //Then
         Assertions.assertNotNull(resourceResult);
-        Assertions.assertEquals(id, resourceResult.getExternalKey().getResourceId());
+        Assertions.assertEquals(id, resourceResult.getExternalKey());
         Assertions.assertEquals("Maguy", resourceResult.getTitle());
         Assertions.assertEquals(ResourceTypeEnum.SERIE, resourceResult.getResourceType());
         Assertions.assertEquals(7, resourceResult.getNumberOfSeasons());

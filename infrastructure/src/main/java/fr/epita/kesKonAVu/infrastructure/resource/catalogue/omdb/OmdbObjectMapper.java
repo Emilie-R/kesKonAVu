@@ -5,7 +5,6 @@ import fr.epita.kesKonAVu.domain.resource.*;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Component
@@ -21,6 +20,8 @@ public class OmdbObjectMapper {
         resource.setActors(itemFromOmdb.getActors());
         resource.setCategory(itemFromOmdb.getGenre());
         resource.setDirector(itemFromOmdb.getDirector());
+        resource.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+        resource.setExternalKey(itemFromOmdb.getImdbId());
 
         switch (itemFromOmdb.getType()) {
             case "movie" :
@@ -30,32 +31,27 @@ public class OmdbObjectMapper {
                 resource.setResourceType(ResourceTypeEnum.SERIE);
         }
 
-        ExternalKey imdbKey = new ExternalKey();
-        imdbKey.setCatalogName(CatalogReferenceEnum.OMDBAPI);
-        imdbKey.setResourceId(itemFromOmdb.getImdbId());
-        resource.setExternalKey(imdbKey);
+
 
         return resource;
     }
 
     public Resource itemOmdbToMovie(final ItemFromOmdb itemFromOmdb){
 
-        Resource resource = new Resource();
-        resource.setTitle(itemFromOmdb.getTitle());
-        resource.setYear(itemFromOmdb.getYear());
-        resource.setPictureUrl(itemFromOmdb.getPoster());
-        resource.setSynopsis(itemFromOmdb.getPlot());
-        resource.setActors(itemFromOmdb.getActors());
-        resource.setCategory(itemFromOmdb.getGenre());
-        resource.setDirector(itemFromOmdb.getDirector());
-        resource.setResourceType(ResourceTypeEnum.MOVIE);
+        Resource movie = new Resource();
+        movie.setTitle(itemFromOmdb.getTitle());
+        movie.setYear(itemFromOmdb.getYear());
+        movie.setPictureUrl(itemFromOmdb.getPoster());
+        movie.setSynopsis(itemFromOmdb.getPlot());
+        movie.setActors(itemFromOmdb.getActors());
+        movie.setCategory(itemFromOmdb.getGenre());
+        movie.setDirector(itemFromOmdb.getDirector());
+        movie.setResourceType(ResourceTypeEnum.MOVIE);
 
-        ExternalKey imdbKey = new ExternalKey();
-        imdbKey.setCatalogName(CatalogReferenceEnum.OMDBAPI);
-        imdbKey.setResourceId(itemFromOmdb.getImdbId());
-        resource.setExternalKey(imdbKey);
+        movie.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+        movie.setExternalKey(itemFromOmdb.getImdbId());
 
-        return resource;
+        return movie;
     }
 
     public Serie itemOmdbToSerie(ItemFromOmdb itemFromOmdb){
@@ -73,16 +69,15 @@ public class OmdbObjectMapper {
             serie.setNumberOfSeasons(Integer.parseInt(itemFromOmdb.getTotalSeasons()));
         }
 
-        ExternalKey imdbKey = new ExternalKey();
-        imdbKey.setCatalogName(CatalogReferenceEnum.OMDBAPI);
-        imdbKey.setResourceId(itemFromOmdb.getImdbId());
-        serie.setExternalKey(imdbKey);
+        serie.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+        serie.setExternalKey(itemFromOmdb.getImdbId());
 
         return serie;
     }
 
     public Episode episodeLightOmdbToEpisode (EpisodeLightFromOMDB episodeLightFromOMDB) {
        Episode episode = new Episode();
+       episode.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
        return episode;
     }
 

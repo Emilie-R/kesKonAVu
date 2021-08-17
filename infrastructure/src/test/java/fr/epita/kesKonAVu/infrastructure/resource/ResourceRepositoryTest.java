@@ -24,7 +24,6 @@ public class ResourceRepositoryTest {
     @Autowired
     ResourceRepository resourceRepository;
 
-    ExternalKey externalKey = new ExternalKey();
     Resource resourceToSave = new Resource();
 
     @Test
@@ -39,7 +38,7 @@ public class ResourceRepositoryTest {
         Assertions.assertNotNull(result);
         Assertions.assertEquals("Le Grand Bleu", result.getTitle());
         Assertions.assertEquals(ResourceTypeEnum.MOVIE, result.getResourceType());
-        Assertions.assertEquals("tt0095250", result.getExternalKey().getResourceId());
+        Assertions.assertEquals("tt0095250", result.getExternalKey());
     }
 
     @Test
@@ -55,24 +54,20 @@ public class ResourceRepositoryTest {
     @Test
     public void given_new_resource_save_should_success() {
         //Given
-        externalKey.setResourceId("12345678");
-        externalKey.setCatalogName(CatalogReferenceEnum.OMDBAPI);
-
         resourceToSave.setTitle("Le dernier métro");
         resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
-        resourceToSave.setExternalKey(externalKey);
+        resourceToSave.setExternalKey("12345678");
+        resourceToSave.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
 
         //When
         Resource result = resourceRepository.save(resourceToSave);
 
         //Then
         Assertions.assertNotNull(resourceRepository.findById(result.getIdResource()));
-        Assertions.assertNotNull(resourceRepository.findById(result.getIdResource())
-                .getExternalKey().getId());
         Assertions.assertEquals( resourceToSave.getTitle(),
                 resourceRepository.findById(result.getIdResource()).getTitle());
-        Assertions.assertEquals( resourceToSave.getExternalKey().getResourceId(),
-                resourceRepository.findById(result.getIdResource()).getExternalKey().getResourceId());
+        Assertions.assertEquals( resourceToSave.getExternalKey(),
+                resourceRepository.findById(result.getIdResource()).getExternalKey());
     }
 
     @Test
@@ -80,17 +75,17 @@ public class ResourceRepositoryTest {
         //Given
         Resource resourceToSave = resourceRepository.findById(1L);
         resourceToSave.setTitle("Tarzan");
-        resourceToSave.getExternalKey().setResourceId("12345678");
+        resourceToSave.setExternalKey("12345678");
 
         //When
         Resource result = resourceRepository.save(resourceToSave);
 
         //Then
         Assertions.assertEquals(resourceToSave.getTitle(), resourceRepository.findById(1L).getTitle());
-        Assertions.assertEquals(resourceToSave.getExternalKey().getResourceId(),
-                resourceRepository.findById(1L).getExternalKey().getResourceId());
+        Assertions.assertEquals(resourceToSave.getExternalKey(),
+                resourceRepository.findById(1L).getExternalKey());
         Assertions.assertEquals(resourceToSave.getIdResource(), result.getIdResource());
-        Assertions.assertEquals(resourceToSave.getExternalKey().getId(), result.getExternalKey().getId());
+        Assertions.assertEquals(resourceToSave.getExternalKey(), result.getExternalKey());
     }
 
     @Test

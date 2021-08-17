@@ -5,11 +5,8 @@ INSERT INTO UTILISATEUR_ROLE (member_id_member, roles) VALUES (1, 'USER');
 INSERT INTO UTILISATEUR_ROLE (member_id_member, roles) VALUES (1, 'ADMIN');
 INSERT INTO UTILISATEUR_ROLE (member_id_member, roles) VALUES (2, 'USER');
 
-INSERT INTO CATALOGUE_REFERENCE_EXTERNE (catalog_name, resource_id) VALUES ('OMDBAPI', 'tt0095250');
-INSERT INTO CATALOGUE_RESOURCE (title, resource_type, category, external_key_id, dtype, duration) VALUES ('Le Grand Bleu','MOVIE', 'Drame', 1, 'Resource', 240);
-
-INSERT INTO CATALOGUE_REFERENCE_EXTERNE (catalog_name, resource_id) VALUES ('OMDBAPI', 'tt0944947');
-INSERT INTO CATALOGUE_RESOURCE (title, resource_type, category, external_key_id, dtype, duration) VALUES ('Game of Thrones','SERIE', 'Action, Adventure', 2, 'Serie', 50);
+INSERT INTO CATALOGUE_RESOURCE (title, resource_type, category, dtype, duration, external_catalog_name, external_key) VALUES ('Le Grand Bleu','MOVIE', 'Drame', 'Resource', 240, 'OMDBAPI', 'tt0095250');
+INSERT INTO CATALOGUE_RESOURCE (title, resource_type, category, dtype, duration, external_catalog_name, external_key) VALUES ('Game of Thrones','SERIE', 'Action, Adventure', 'Serie', 50, 'OMDBAPI', 'tt0944947');
 
 INSERT INTO SUIVI_RESOURCE (dtype, creation_date, last_modification_date, member_id_member, resource_id_resource, status, note) VALUES ('ResourceFollowUp', current_date, current_date, 1, 1, 'VU', 10);
 INSERT INTO SUIVI_RESOURCE (dtype, creation_date, last_modification_date, member_id_member, resource_id_resource, status) VALUES ('ResourceFollowUp', current_date, current_date, 2, 1, 'AVOIR');

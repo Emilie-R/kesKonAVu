@@ -27,7 +27,7 @@ public class CatalogueApiAccessTest {
     @MockBean
     RestTemplate restTemplate;
     @Autowired
-    CatalogueApiAccessOmdbImpl omdbCatalogueApiAccess;
+    CatalogueApiAccess omdbCatalogueApiAccess;
 
     @Test
     public void findResourceByImdbId_with_Response_True_should_success() {

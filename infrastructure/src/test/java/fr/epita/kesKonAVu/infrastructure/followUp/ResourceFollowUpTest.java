@@ -41,7 +41,7 @@ public class ResourceFollowUpTest {
         Assertions.assertNotNull(result.getMember().getPassword());
         Assertions.assertEquals(1L, result.getResource().getIdResource());
         Assertions.assertEquals("Le Grand Bleu", result.getResource().getTitle());
-        Assertions.assertEquals("tt0095250", result.getResource().getExternalKey().getResourceId());
+        Assertions.assertEquals("tt0095250", result.getResource().getExternalKey());
     }
 
     @Test
@@ -79,6 +79,6 @@ public class ResourceFollowUpTest {
         Assertions.assertEquals(resourceFollowUpToSave.getStatus(), result.getStatus());
         Assertions.assertEquals(1L, result.getMember().getIdMember());
         Assertions.assertEquals(1L, result.getResource().getIdResource());
-        Assertions.assertEquals(1L, result.getResource().getExternalKey().getId());
+        Assertions.assertEquals("tt0095250", result.getResource().getExternalKey());
     }
 }
