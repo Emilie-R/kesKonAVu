@@ -104,16 +104,14 @@ public class SerieFollowUpServiceTest {
         liste.add(resourceFollowUp2);
         liste.add(resourceFollowUp3);
         //test
-        List<Serie> resources = serieFollowUpService.SortByCriteria(liste,SortCriteriaEnum.STATUS);//vérif. technique uniquement
-        resources = null;//remise à vide
-        resources = serieFollowUpService.SortByCriteria(liste,SortCriteriaEnum.RATING);
+        List<Serie> resources = serieFollowUpService.SortByCriteria(liste,SortCriteriaEnum.RATING);
         Assertions.assertEquals(resource3.getTitle(),resources.get(2).getTitle()); // Friends à la + faible note
         Assertions.assertEquals(resource2.getTitle(),resources.get(0).getTitle());//1er = Godzilla Origin
 
 
     }
     @Test
-    public void SortByDateWhenResourceFollowUpsIsGiven(){
+    public void SortByDateOrByStatusWhenResourceFollowUpsIsGiven(){
         // les inputs
         //1
         SerieFollowUp resourceFollowUp1 = new SerieFollowUp();
@@ -128,7 +126,7 @@ public class SerieFollowUpServiceTest {
         //2
         Serie resource2 = new Serie();
         resource2.setIdResource(resource1.getIdResource()+1);
-        resource2.setTitle("GodZilla Origin");
+        resource2.setTitle("GodZilla Ultimate");
         resource2.setResourceType(ResourceTypeEnum.SERIE);
         SerieFollowUp resourceFollowUp2 = new SerieFollowUp();
         resourceFollowUp2.setStatus(StatusEnum.AVOIR);
@@ -154,6 +152,9 @@ public class SerieFollowUpServiceTest {
         List<Serie> resources = serieFollowUpService.SortByCriteria(liste,SortCriteriaEnum.DATE);
         Assertions.assertEquals(resource1.getTitle(),resources.get(2).getTitle()); // Godzilla en dernier
         Assertions.assertEquals(resource3.getTitle(),resources.get(0).getTitle());//1er = Friends
+        // tri par status
+        List<Serie> resources2 = serieFollowUpService.SortByCriteria(liste,SortCriteriaEnum.STATUS);
+        Assertions.assertEquals(resource2.getTitle(),resources2.get(0).getTitle()); // Godzilla Ultimate en dernier
 
 
     }

@@ -112,7 +112,7 @@ public class ResourceFollowUpServiceTest {
 
     }
     @Test
-    public void SortByDateWhenResourceFollowUpsIsGiven(){
+    public void SortByDateOrStatusWhenAResourceFollowUpsListIsGiven(){
         // les inputs
         //1
         ResourceFollowUp resourceFollowUp1 = new ResourceFollowUp();
@@ -150,13 +150,11 @@ public class ResourceFollowUpServiceTest {
         liste.add(resourceFollowUp2);
         liste.add(resourceFollowUp3);
         //test
-        List<Resource> resources = resourceFollowUpService.SortByCriteria(liste,SortCriteriaEnum.STATUS);//vérif. technique uniquement
-        resources = null;//remise à vide
-        resources = resourceFollowUpService.SortByCriteria(liste,SortCriteriaEnum.DATE);
+        List<Resource> resources = resourceFollowUpService.SortByCriteria(liste,SortCriteriaEnum.DATE);
         Assertions.assertEquals(resource1.getTitle(),resources.get(2).getTitle()); // Godzilla en dernier
         Assertions.assertEquals(resource3.getTitle(),resources.get(0).getTitle());//1er = Friends
-
-
+        List<Resource> resourcesStatus = resourceFollowUpService.SortByCriteria(liste,SortCriteriaEnum.STATUS);
+        Assertions.assertEquals(resource2.getTitle(),resourcesStatus.get(0).getTitle()); // Godzilla Origin en premier
     }
 
 }
