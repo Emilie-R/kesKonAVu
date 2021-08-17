@@ -11,6 +11,7 @@ public class ExternalKey {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     private CatalogReferenceEnum catalogName;
     private String resourceId;
 

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootConfiguration
 @EnableAutoConfiguration
-@ComponentScan(basePackages = { "fr.epita.kesKonAVu.exposition" }, lazyInit = true)
+@ComponentScan(basePackages = { "fr.epita.kesKonAVu" }, lazyInit = true)
 @EntityScan(basePackages = {"fr.epita.kesKonAVu.domain"})
 @EnableJpaRepositories
 public class SpringBootAppTest {

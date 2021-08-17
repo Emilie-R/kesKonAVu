@@ -9,7 +9,7 @@ public class ResourceDTO {
     private String actors;
     private String category;
     private String director;
-    private int duration;
+    private Integer duration;
     private String externalKey;
 
     public ResourceDTO (){
@@ -75,11 +75,11 @@ public class ResourceDTO {
         this.director = director;
     }
 
-    public int getDuration ( ) {
+    public Integer getDuration() {
         return duration;
     }
 
-    public void setDuration (int duration) {
+    public void setDuration(Integer duration) {
         this.duration = duration;
     }
 

@@ -1,12 +1,16 @@
 package fr.epita.kesKonAVu.infrastructure.resource;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import fr.epita.kesKonAVu.domain.resource.ExternalKey;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
-import fr.epita.kesKonAVu.infrastructure.resource.omdbApi.ResourceOmdbApiRepository;
+import fr.epita.kesKonAVu.infrastructure.resource.omdbDataAccess.OmdbCatalogueApiAccess;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class ResourceRepositoryImpl implements ResourceRepository {
@@ -15,10 +19,10 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     ResourceJpaRepository resourceJpaRepository;
 
     @Autowired
-    ResourceOmdbApiRepository resourceOmdbApiRepository;
+    OmdbCatalogueApiAccess omdbCatalogueApiAccess;
 
     @Override
-    public Resource findMovieByTitle (String title) {
+    public Resource findMovieByTitle(String title) {
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByTitleAndResourceType(title, ResourceTypeEnum.MOVIE);
         if (result != null){
@@ -31,7 +35,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findMovieByIdResource (Long idResource) {
+    public Resource findMovieByIdResource(String idResource) {
 
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByIdResourceAndResourceType(idResource,ResourceTypeEnum.MOVIE);
@@ -45,7 +49,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findMovieByExternalKey (String externalKey) {
+    public Resource findMovieByExternalKey(String externalKey) {
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByExternalKeyAndResourceType(externalKey,ResourceTypeEnum.MOVIE);
         if (result != null){
@@ -63,8 +67,21 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findResourceWithOmdbApi(String externalKey) {
-        return resourceOmdbApiRepository.findResourceByImdbId(externalKey);
+    public Resource getResourceFromOmdbCatalogueByImdbId(String imdbId) {
+        return omdbCatalogueApiAccess.findResourceByImdbId(imdbId);
+    }
+
+    @Override
+    public Resource findById(Long idResource) {
+        if (! resourceJpaRepository.findById(idResource).isPresent()) {
+            throw new NotFoundException("Resource with the catalog id n° " + idResource + " Not found");
+        }
+        return resourceJpaRepository.findById(idResource).get();
+    }
+
+    @Override
+    public Resource findByExternalKey(ExternalKey externalKey) {
+        return resourceJpaRepository.findByExternalKey(externalKey);
     }
 
 

@@ -13,16 +13,22 @@ public class ResourceFollowUp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFollowUp;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Resource resource;
 
+    @ManyToOne (fetch = FetchType.LAZY)
+    private Member member;
+
+    @Enumerated(EnumType.STRING)
     private StatusEnum status;
+
+    private Integer note;
+
     private LocalDate creationDate;
     private LocalDate lastModificationDate;
-    private int note;
 
-    @ManyToOne
-    private Member member;
+
+
 
     public ResourceFollowUp (){
 
@@ -60,11 +66,11 @@ public class ResourceFollowUp {
         this.lastModificationDate = lastModificationDate;
     }
 
-    public int getNote() {
+    public Integer getNote() {
         return note;
     }
 
-    public void setNote(int note) {
+    public void setNote(Integer note) {
         this.note = note;
     }
 
