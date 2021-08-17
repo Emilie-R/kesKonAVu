@@ -17,7 +17,7 @@ public class ResourceController {
     ResourceService resourceService;
 
     @GetMapping("/id/{id}")
-    public ResourceDTO getResourceById(@PathVariable("id") String resourceId) {
+    public ResourceDTO getResourceById(@PathVariable("id") Long resourceId) {
 
         ResourceMapper resourceMapper = new ResourceMapper();
         return resourceMapper.mapToDto(resourceService.findByIdResource(resourceId));

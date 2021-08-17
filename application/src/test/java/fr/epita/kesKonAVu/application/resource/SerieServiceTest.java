@@ -18,23 +18,55 @@ public class SerieServiceTest {
     SerieService serieService;
     @MockBean
     SerieRepository serieRepositoryMock;
-
     @Test
-    public void find_another_serie_When_SendedSerie_Does_Not_Exists(){
+    public void find_another_serie_When_Title_Is_Given(){
         // GIVEN
         final Serie serie1 = new Serie();
         serie1.setTitle("Friends 2");
-        ExternalKey externalKey = new ExternalKey();
-        externalKey.setResourceId("1234");
-        serie1.setExternalKey(externalKey);
-        when(serieRepositoryMock.findByExternalKey("1234")).thenReturn(serie1);
+        serie1.setExternalKey("1234ABC");
+        serie1.setIdResource(2L);
+        when(serieRepositoryMock.findByTitle("Hello")).thenReturn(serie1);
 
         // WHEN
-        final Resource createdSerie = serieService.findByExternalKey("1234");
+        final Resource createdSerie = serieService.findByTitle("Hello");
 
         //Then
         Assertions.assertNotNull(createdSerie);
         Assertions.assertEquals("Friends 2", createdSerie.getTitle());
+    }
+
+    @Test
+    public void find_another_serie_When_ExternalKey_Is_Given(){
+        // GIVEN
+        final Serie serie1 = new Serie();
+        serie1.setTitle("Friends 2");
+        serie1.setExternalKey("1234ABC");
+        serie1.setIdResource(2L);
+        when(serieRepositoryMock.findByExternalKey("1234ABC")).thenReturn(serie1);
+
+        // WHEN
+        final Resource createdSerie = serieService.findByExternalKey("1234ABC");
+
+        //Then
+        Assertions.assertNotNull(createdSerie);
+        Assertions.assertEquals("Friends 2", createdSerie.getTitle());
+    }
+
+    @Test
+    public void find_Serie_When_Id_Is_Given(){
+        // GIVEN
+        final Serie serie1 = new Serie();
+        serie1.setTitle("Friends 2");
+        serie1.setExternalKey("1234ABC");
+        serie1.setIdResource(2L);
+        when(serieRepositoryMock.findByIdResource(2L)).thenReturn(serie1);
+
+        // WHEN
+        final Resource createdSerie = serieService.findByIdResource(2L);
+
+        //Then
+        Assertions.assertNotNull(createdSerie);
+        Assertions.assertEquals(2, createdSerie.getIdResource());
     }
 
 }

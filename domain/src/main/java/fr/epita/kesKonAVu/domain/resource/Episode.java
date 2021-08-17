@@ -15,8 +15,9 @@ public class Episode {
 
     private String title;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    private ExternalKey externalKey;
+    private String externalKey;
+
+    private String externalCatalogName;
 
     public Episode(){
 
@@ -54,11 +55,19 @@ public class Episode {
         this.title = title;
     }
 
-    public ExternalKey getExternalKey() {
+    public String getExternalKey ( ) {
         return externalKey;
     }
 
-    public void setExternalKey(ExternalKey externalKey) {
+    public void setExternalKey (String externalKey) {
         this.externalKey = externalKey;
+    }
+
+    public String getExternalCatalogName ( ) {
+        return externalCatalogName;
+    }
+
+    public void setExternalCatalogName (String externalCatalogName) {
+        this.externalCatalogName = externalCatalogName;
     }
 }

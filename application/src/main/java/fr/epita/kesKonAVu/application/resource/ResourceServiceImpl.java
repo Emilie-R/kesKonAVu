@@ -17,7 +17,7 @@ public class ResourceServiceImpl implements ResourceService{
     }
 
     @Override
-    public Resource findByIdResource (String idResource) {
+    public Resource findByIdResource (Long idResource) {
         return resourceRepository.findMovieByIdResource(idResource);
     }
 

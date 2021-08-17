@@ -4,7 +4,7 @@ public interface SerieRepository {
 
     Serie findByTitle(String title);
 
-    Serie findByIdResource(String idResource);
+    Serie findByIdResource(Long idResource);
 
     Serie findByExternalKey(String externalKey);
 }

@@ -11,6 +11,7 @@ public class ResourceDTO {
     private String director;
     private Integer duration;
     private String externalKey;
+    private String externalCatalogName;
 
     public ResourceDTO (){
     }
@@ -97,5 +98,13 @@ public class ResourceDTO {
 
     public void setIdResource (Long idResource) {
         this.idResource = idResource;
+    }
+
+    public String getExternalCatalogName ( ) {
+        return externalCatalogName;
+    }
+
+    public void setExternalCatalogName (String externalCatalogName) {
+        this.externalCatalogName = externalCatalogName;
     }
 }
