@@ -4,7 +4,7 @@ public interface ResourceRepository {
 
     Resource findMovieByTitle(String title);
 
-    Resource findMovieByIdResource(String idResource);
+    Resource findMovieByIdResource(Long idResource);
 
     Resource findMovieByExternalKey(String externalKey);
 
@@ -13,7 +13,5 @@ public interface ResourceRepository {
     Resource getResourceFromOmdbCatalogueByImdbId(String externalKey);
 
     Resource findById(Long idResource);
-
-    Resource findByExternalKey(ExternalKey externalKey);
 
 }

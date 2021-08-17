@@ -29,9 +29,9 @@ public class ItemFromOmdbMapper {
                 resource.setResourceType(ResourceTypeEnum.SERIE);
         }
 
-        ExternalKey imdbKey = new ExternalKey();
-        imdbKey.setCatalogName(CatalogReferenceEnum.OMDBAPI);
-        imdbKey.setResourceId(itemFromOmdb.getImdbId());
+        String imdbKey = "A RENSEIGNER";
+//        imdbKey.setCatalogName(CatalogReferenceEnum.OMDBAPI);
+//        imdbKey.setResourceId(itemFromOmdb.getImdbId());
         resource.setExternalKey(imdbKey);
 
         return resource;

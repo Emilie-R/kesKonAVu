@@ -20,15 +20,14 @@ public class ResourceServiceTest {
     ResourceRepository resourceRepositoryMock;
 
     @Test
-    public void find_another_movie_When_SendedMovie_Does_Not_Exists(){
+    public void find_another_movie_When_Title_Does_Not_Exists(){
         // GIVEN
         final Resource movie = new Resource();
         movie.setTitle("Friends 1");
-        movie.setExternalKey(new ExternalKey());
-        when(resourceRepositoryMock.findMovieByTitle("Friends 1")).thenReturn(movie);
+        when(resourceRepositoryMock.findMovieByTitle("Hello")).thenReturn(movie);
 
         // WHEN
-        final Resource createdMovie = resourceService.findByTitle("Friends 1");
+        final Resource createdMovie = resourceService.findByTitle("Hello");
 
         //Then
         assertThat(createdMovie).isNotNull();
@@ -41,16 +40,29 @@ public class ResourceServiceTest {
         final Resource movie = new Resource();
         movie.setTitle("Friends 1");
         movie.setIdResource(1L);
-        movie.setExternalKey(new ExternalKey());
-        when(resourceRepositoryMock.findMovieByIdResource(1L)).thenReturn(movie);
+        when(resourceRepositoryMock.findMovieByIdResource(3L)).thenReturn(movie);
 
         // WHEN
-        final Resource createdMovie = resourceService.findByIdResource(1L);
+        final Resource createdMovie = resourceService.findByIdResource(3L);
 
         //Then
         assertThat(createdMovie).isNotNull();
-        assertThat(createdMovie.getTitle() == "Friends 1");
+        assertThat(1L == createdMovie.getIdResource());
     }
 
+    @Test
+    public void find_another_movie_When_ExternalKey_Is_Given(){
+        // GIVEN
+        final Resource movie = new Resource();
+        movie.setTitle("Friends 1");
+        movie.setExternalKey("123arc");
+        when(resourceRepositoryMock.findMovieByExternalKey("Hello")).thenReturn(movie);
 
+        // WHEN
+        final Resource createdMovie = resourceService.findByExternalKey("Hello");
+
+        //Then
+        assertThat(createdMovie).isNotNull();
+        assertThat(createdMovie.getExternalKey() == movie.getExternalKey());
+    }
 }

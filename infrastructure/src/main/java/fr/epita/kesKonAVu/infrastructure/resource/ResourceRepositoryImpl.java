@@ -35,7 +35,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findMovieByIdResource(String idResource) {
+    public Resource findMovieByIdResource(Long idResource) {
 
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByIdResourceAndResourceType(idResource,ResourceTypeEnum.MOVIE);
@@ -78,11 +78,4 @@ public class ResourceRepositoryImpl implements ResourceRepository {
         }
         return resourceJpaRepository.findById(idResource).get();
     }
-
-    @Override
-    public Resource findByExternalKey(ExternalKey externalKey) {
-        return resourceJpaRepository.findByExternalKey(externalKey);
-    }
-
-
 }

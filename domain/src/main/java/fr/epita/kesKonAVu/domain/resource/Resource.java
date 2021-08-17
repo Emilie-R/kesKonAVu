@@ -24,8 +24,9 @@ public class Resource {
     @Enumerated(EnumType.STRING)
     private ResourceTypeEnum resourceType;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private ExternalKey externalKey;
+    private String externalKey;
+
+    private String externalCatalogName;
 
 
     public Resource ( ) {
@@ -119,12 +120,20 @@ public class Resource {
         this.resourceType = resourceType;
     }
 
-    public ExternalKey getExternalKey() {
+    public String getExternalKey ( ) {
         return externalKey;
     }
 
-    public void setExternalKey(ExternalKey externalKey) {
+    public void setExternalKey (String externalKey) {
         this.externalKey = externalKey;
+    }
+
+    public String getExternalCatalogName ( ) {
+        return externalCatalogName;
+    }
+
+    public void setExternalCatalogName (String externalCatalogName) {
+        this.externalCatalogName = externalCatalogName;
     }
 
     @Override
@@ -133,7 +142,8 @@ public class Resource {
         resource.append(" Resource : ");
         resource.append("+ idResource " + this.idResource + " ");
         resource.append("+ title " + this.getTitle() + " ");
-        resource.append("+ External ID " + this.getExternalKey().getResourceId());
+        resource.append("+ External ID " + this.getExternalKey());
+        resource.append("+ from catalog " + this.getExternalCatalogName());
         return resource.toString();
     }
 }
