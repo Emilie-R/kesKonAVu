@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.infrastructure.resource.omdbDataAccess;
+package fr.epita.kesKonAVu.infrastructure.resource.catalogue.omdb;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

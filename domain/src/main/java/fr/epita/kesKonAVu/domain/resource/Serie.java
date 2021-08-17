@@ -3,13 +3,12 @@ package fr.epita.kesKonAVu.domain.resource;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import java.util.Set;
 
 @Entity
 public class Serie extends Resource {
 
-    private int numberOfSeasons;
+    private Integer numberOfSeasons;
     private int numberOfEpisodes;
 
     @OneToMany
@@ -22,11 +21,11 @@ public class Serie extends Resource {
 
     // getters et setters
 
-    public int getNumberOfSeasons ( ) {
+    public Integer getNumberOfSeasons ( ) {
         return numberOfSeasons;
     }
 
-    public void setNumberOfSeasons (int numberOfSeasons) {
+    public void setNumberOfSeasons (Integer numberOfSeasons) {
         this.numberOfSeasons = numberOfSeasons;
     }
 

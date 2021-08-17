@@ -2,7 +2,7 @@ package fr.epita.kesKonAVu.infrastructure.resource;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.*;
-import fr.epita.kesKonAVu.infrastructure.resource.omdbDataAccess.OmdbCatalogueApiAccess;
+import fr.epita.kesKonAVu.infrastructure.resource.catalogue.omdb.CatalogueApiAccessOmdbImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -19,7 +19,7 @@ public class ResourceRepositoryTest {
      */
 
     @MockBean
-    OmdbCatalogueApiAccess omdbCatalogueApiAccess;
+    CatalogueApiAccessOmdbImpl omdbCatalogueApiAccess;
 
     @Autowired
     ResourceRepository resourceRepository;

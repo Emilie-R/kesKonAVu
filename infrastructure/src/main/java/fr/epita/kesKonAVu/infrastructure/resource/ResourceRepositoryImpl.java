@@ -5,12 +5,9 @@ import fr.epita.kesKonAVu.domain.resource.ExternalKey;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
-import fr.epita.kesKonAVu.infrastructure.resource.omdbDataAccess.OmdbCatalogueApiAccess;
+import fr.epita.kesKonAVu.infrastructure.resource.catalogue.CatalogueApiAccess;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 public class ResourceRepositoryImpl implements ResourceRepository {
@@ -19,7 +16,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     ResourceJpaRepository resourceJpaRepository;
 
     @Autowired
-    OmdbCatalogueApiAccess omdbCatalogueApiAccess;
+    CatalogueApiAccess catalogueApiAccess;
 
     @Override
     public Resource findMovieByTitle(String title) {
@@ -68,7 +65,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
 
     @Override
     public Resource getResourceFromOmdbCatalogueByImdbId(String imdbId) {
-        return omdbCatalogueApiAccess.findResourceByImdbId(imdbId);
+        return catalogueApiAccess.findResourceByImdbId(imdbId);
     }
 
     @Override
