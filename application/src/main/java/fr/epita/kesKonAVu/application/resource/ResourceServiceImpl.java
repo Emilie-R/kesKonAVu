@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.application.resource;
 
+import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +26,5 @@ public class ResourceServiceImpl implements ResourceService{
     public Resource findByExternalKey (String externalKey) {
         return resourceRepository.findMovieByExternalKey(externalKey);
     }
+
 }

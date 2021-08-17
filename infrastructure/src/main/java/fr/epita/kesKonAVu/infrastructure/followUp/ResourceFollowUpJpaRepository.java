@@ -15,4 +15,6 @@ public interface ResourceFollowUpJpaRepository extends JpaRepository<ResourceFol
 
     List<ResourceFollowUp> findByResource(Resource resource);
 
+    ResourceFollowUp findByResourceAndMember(Resource resource, Member member);
+
 }

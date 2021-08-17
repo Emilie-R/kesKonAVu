@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
+import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.application.followUp.ResourceFollowUpService;
 import fr.epita.kesKonAVu.application.followUp.SortCriteriaEnum;
 import fr.epita.kesKonAVu.application.user.MemberService;
@@ -22,6 +23,9 @@ public class ResourceFollowUpController {
 
     @Autowired
     ResourceFollowUpService resourceFollowUpService;
+
+    @Autowired
+    FollowUpService followUpService;
 
     @Autowired
     MemberService memberService;
@@ -78,5 +82,11 @@ public class ResourceFollowUpController {
                         .collect(Collectors.toList());
 
         return sortedResourceDTOList;
+    }
+
+    @PostMapping(value = "followUp/create", consumes = {"application/json"})
+    public void createNewFollowUp(@RequestBody ResourceFollowupDTO resourceFollowupDTO) {
+        ResourceFollowUp resourceFollowUp = resourceFollowUpMapper.mapToEntity(resourceFollowupDTO);
+        followUpService.createNewFollowUp(resourceFollowUp);
     }
 }

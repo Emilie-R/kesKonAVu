@@ -1,14 +1,16 @@
 package fr.epita.kesKonAVu.infrastructure.resource.catalogue;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import fr.epita.kesKonAVu.domain.resource.Episode;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.resource.Serie;
-import fr.epita.kesKonAVu.infrastructure.resource.catalogue.omdb.CatalogueApiAccessOmdbImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+
+import java.util.Set;
 
 @DataJpaTest(properties =
         "param.url.omdbapi=http://www.omdbapi.com/?apikey=d974f110")
@@ -71,6 +73,34 @@ public class CatalogueOmdbIntegrationTest {
         Assertions.assertEquals("Maguy", resourceResult.getTitle());
         Assertions.assertEquals(ResourceTypeEnum.SERIE, resourceResult.getResourceType());
         Assertions.assertEquals(7, resourceResult.getNumberOfSeasons());
+    }
+
+    @Test
+    public void findAllEpisodes_all_seasons_completed_should_success() {
+        // Given
+        String id = "tt0944947";
+        Serie serie = omdbCatalogueApiAccess.findSerieByImdbId(id);
+
+        //When
+        Set<Episode> episodes = omdbCatalogueApiAccess.findAllEpisodes(serie);
+
+        //Then
+        Assertions.assertNotNull(episodes);
+        Assertions.assertEquals(73, episodes.size());
+    }
+
+    @Test
+    public void findAllEpisodes_missing_seasons_should_success(){
+        // Given
+        String id = "tt0167643";
+        Serie serie = omdbCatalogueApiAccess.findSerieByImdbId(id);
+
+        //When
+        Set<Episode> episodes = omdbCatalogueApiAccess.findAllEpisodes(serie);
+
+        //Then
+        Assertions.assertNotNull(episodes);
+        Assertions.assertEquals(45, episodes.size());
     }
 
 }

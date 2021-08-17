@@ -15,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.sql.SQLOutput;
+import java.util.HashSet;
 import java.util.Set;
 
 @Component
@@ -50,7 +52,17 @@ public class CatalogueApiAccessOmdbImpl implements CatalogueApiAccess {
 
     @Override
     public Set<Episode> findAllEpisodes(Serie serie) {
-        return null;
+        Set<Episode> allEpisodes = new HashSet<>();
+        for (int season = 1; season <= serie.getNumberOfSeasons()  ; season++) {
+            try {
+                allEpisodes.addAll(omdbObjectMapper.listOfEpisodeOmdbToSetOfEpisodes(
+                        findAllEpisodesOfSeason(serie.getExternalKey(), season)));
+            } catch (NotFoundException e) {
+                /* No Episodes for the season : Case can happen with the oldest series */
+                continue;
+            }
+        }
+        return allEpisodes;
     }
 
     /**

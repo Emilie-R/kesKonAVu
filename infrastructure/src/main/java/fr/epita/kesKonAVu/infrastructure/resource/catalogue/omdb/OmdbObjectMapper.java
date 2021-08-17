@@ -78,11 +78,19 @@ public class OmdbObjectMapper {
     public Episode episodeLightOmdbToEpisode (EpisodeLightFromOMDB episodeLightFromOMDB) {
        Episode episode = new Episode();
        episode.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+       episode.setExternalKey(episodeLightFromOMDB.getImdbId());
+       episode.setTitle(episodeLightFromOMDB.getTitle());
+       episode.setNumber(Integer.parseInt(episodeLightFromOMDB.getEpisodeNumber()));
        return episode;
     }
 
     public Set<Episode> listOfEpisodeOmdbToSetOfEpisodes (ListOfEpisodeFromOmdb listOfEpisodeFromOmdb) {
         Set<Episode> episodes = new HashSet<>();
+        for (EpisodeLightFromOMDB episodeLightFromOMDB : listOfEpisodeFromOmdb.getEpisodes()) {
+            Episode episode = episodeLightOmdbToEpisode(episodeLightFromOMDB);
+            episode.setSeasonNumber(Integer.parseInt(listOfEpisodeFromOmdb.getSeason()));
+            episodes.add(episode);
+        }
         return episodes;
     }
 }

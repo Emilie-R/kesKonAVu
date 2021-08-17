@@ -1,7 +1,6 @@
 package fr.epita.kesKonAVu.infrastructure.resource;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.resource.ExternalKey;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
@@ -64,8 +63,13 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource getResourceFromOmdbCatalogueByImdbId(String imdbId) {
+    public Resource getResourceFromCatalogueByImdbId(String imdbId) {
         return catalogueApiAccess.findResourceByImdbId(imdbId);
+    }
+
+    @Override
+    public Resource getMovieFromCatalogueByImdbId(String imdbId) {
+        return catalogueApiAccess.findMovieByImdbId(imdbId);
     }
 
     @Override

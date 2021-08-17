@@ -48,4 +48,9 @@ public class ResourceFollowUpRepositoryImpl implements ResourceFollowUpRepositor
         }
         return resourceFollowUpJpaRepository.findByResource(resource);
     }
+
+    @Override
+    public ResourceFollowUp findByResourceAndMember(Resource resource, Member member) {
+        return resourceFollowUpJpaRepository.findByResourceAndMember(resource, member);
+    }
 }

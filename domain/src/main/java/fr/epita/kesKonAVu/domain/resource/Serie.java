@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.domain.resource;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -11,7 +12,7 @@ public class Serie extends Resource {
     private Integer numberOfSeasons;
     private int numberOfEpisodes;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinTable(name = "catalogueSerieEpisode")
     private Set<Episode> episodes;
 

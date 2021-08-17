@@ -6,6 +6,7 @@ import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.domain.resource.*;
 import fr.epita.kesKonAVu.domain.user.Member;
+import fr.epita.kesKonAVu.domain.user.MemberRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ public class ResourceFollowUpTest {
 
     @Autowired
     ResourceRepository resourceRepository;
+
+    @Autowired
+    MemberRepository memberRepository;
 
     @Test
     public void given_existing_idFollowUp_findById_should_success() {
@@ -80,5 +84,36 @@ public class ResourceFollowUpTest {
         Assertions.assertEquals(1L, result.getMember().getIdMember());
         Assertions.assertEquals(1L, result.getResource().getIdResource());
         Assertions.assertEquals("tt0095250", result.getResource().getExternalKey());
+    }
+
+    @Test
+    public void given_existing_member_and_resource_findByResourceAndResource_should_succes() {
+        //Given
+        Member member = memberRepository.findById(1L).get();
+        Resource resource =resourceRepository.findById(1L);
+
+        //When
+        ResourceFollowUp result = resourceFollowUpRepository.findByResourceAndMember(resource, member);
+
+        //Then
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(result, resourceFollowUpRepository.findById(result.getIdFollowUp()));
+
+    }
+
+    @Test
+    public void given_no_matching_followUp_member_and_resource_findByResourceAndResource_should_return_null() {
+        //Given
+        Member member = new Member();
+        member.setIdMember(0L);
+        member.setPseudo("Fake Member");
+        Resource resource =resourceRepository.findById(1L);
+
+        //When
+        ResourceFollowUp result = resourceFollowUpRepository.findByResourceAndMember(resource, member);
+
+        //Then
+        Assertions.assertNull(result);
+
     }
 }

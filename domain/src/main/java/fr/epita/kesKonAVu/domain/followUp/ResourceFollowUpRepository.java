@@ -15,5 +15,7 @@ public interface ResourceFollowUpRepository {
 
     List<ResourceFollowUp> findByResource(Resource resource);
 
+    ResourceFollowUp findByResourceAndMember(Resource resource, Member member);
+
 
 }

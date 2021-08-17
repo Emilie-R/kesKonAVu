@@ -16,4 +16,5 @@ public interface ResourceFollowUpService {
     Map<StatusEnum,List<ResourceFollowUp>> SeparateByStatus(List<ResourceFollowUp> resourceFollowUpList);
 
     List<Resource> SortByCriteria(List<ResourceFollowUp> resourceFollowUpList, SortCriteriaEnum criteria);
+
 }

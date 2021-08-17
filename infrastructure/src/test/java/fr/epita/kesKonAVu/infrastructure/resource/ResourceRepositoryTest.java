@@ -95,7 +95,7 @@ public class ResourceRepositoryTest {
         Mockito.when(omdbCatalogueApiAccess.findResourceByImdbId(imdbId)).thenReturn(new Resource());
 
         // When
-        Resource result = resourceRepository.getResourceFromOmdbCatalogueByImdbId(imdbId);
+        Resource result = resourceRepository.getResourceFromCatalogueByImdbId(imdbId);
 
         //Then
         Mockito.verify(omdbCatalogueApiAccess, Mockito.times(1)).findResourceByImdbId(imdbId);
