@@ -2,11 +2,11 @@ package fr.epita.kesKonAVu.domain.resource;
 
 public interface ResourceRepository {
 
-    Resource findByTitle(String title);
+    Resource findMovieByTitle (String title);
 
-    Resource findByIdResource(String idResource);
+    Resource findMovieByIdResource (Long idResource);
 
-    Resource findByExternalKey(String externalKey);
+    Resource findMovieByExternalKey (String externalKey);
 
     Resource save(Resource resource);
 

@@ -16,7 +16,7 @@ public class SerieServiceImpl implements SerieService{
     }
 
     @Override
-    public Serie findByIdResource (String idResource) {
+    public Serie findByIdResource (Long idResource) {
         return serieRepository.findByIdResource(idResource);
     }
 

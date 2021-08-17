@@ -37,4 +37,22 @@ public class SerieServiceTest {
         Assertions.assertEquals("Friends 2", createdSerie.getTitle());
     }
 
+    @Test
+    public void find_Serie_When_Id_Is_Given(){
+        // GIVEN
+        final Serie serie1 = new Serie();
+        serie1.setTitle("Friends 2");
+        ExternalKey externalKey = new ExternalKey();
+        externalKey.setResourceId("1234");
+        serie1.setIdResource(2L);
+        when(serieRepositoryMock.findByIdResource(2L)).thenReturn(serie1);
+
+        // WHEN
+        final Resource createdSerie = serieService.findByIdResource(2L);
+
+        //Then
+        Assertions.assertNotNull(createdSerie);
+        Assertions.assertEquals("Friends 2", createdSerie.getTitle());
+    }
+
 }

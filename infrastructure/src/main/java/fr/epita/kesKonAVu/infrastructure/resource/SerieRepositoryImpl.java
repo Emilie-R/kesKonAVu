@@ -27,7 +27,7 @@ public class SerieRepositoryImpl implements SerieRepository {
     }
 
     @Override
-    public Serie findByIdResource (String idResource) {
+    public Serie findByIdResource (Long idResource) {
 
         Serie serieOut = new Serie();
         Serie result = serieJpaRepository.findByIdResourceAndResourceType(idResource,ResourceTypeEnum.SERIE);

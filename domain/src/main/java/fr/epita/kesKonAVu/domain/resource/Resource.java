@@ -20,6 +20,7 @@ public class Resource {
     private String director;
     private LocalDate creationDate;
     private int duration;
+    @Enumerated(EnumType.STRING)
     private ResourceTypeEnum resourceType;
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)

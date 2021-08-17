@@ -25,7 +25,7 @@ public class ResourceServiceTest {
         final Resource movie = new Resource();
         movie.setTitle("Friends 1");
         movie.setExternalKey(new ExternalKey());
-        when(resourceRepositoryMock.findByTitle("Friends 1")).thenReturn(movie);
+        when(resourceRepositoryMock.findMovieByTitle("Friends 1")).thenReturn(movie);
 
         // WHEN
         final Resource createdMovie = resourceService.findByTitle("Friends 1");
@@ -34,5 +34,23 @@ public class ResourceServiceTest {
         assertThat(createdMovie).isNotNull();
         assertThat(createdMovie.getTitle() == "Friends 1");
     }
+
+    @Test
+    public void find_movie_When_IdIsGiven(){
+        // GIVEN
+        final Resource movie = new Resource();
+        movie.setTitle("Friends 1");
+        movie.setIdResource(1L);
+        movie.setExternalKey(new ExternalKey());
+        when(resourceRepositoryMock.findMovieByIdResource(1L)).thenReturn(movie);
+
+        // WHEN
+        final Resource createdMovie = resourceService.findByIdResource(1L);
+
+        //Then
+        assertThat(createdMovie).isNotNull();
+        assertThat(createdMovie.getTitle() == "Friends 1");
+    }
+
 
 }

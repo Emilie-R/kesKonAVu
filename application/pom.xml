@@ -33,7 +33,7 @@
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
     </dependencies>
-
+    <!-- Création rapport couverture du code par les tests, avec le plugin Jacoco-->
     <build>
         <plugins>
             <plugin>

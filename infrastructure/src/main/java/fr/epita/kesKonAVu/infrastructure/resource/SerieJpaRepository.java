@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 public interface SerieJpaRepository extends JpaRepository<Serie,Long> {
     Serie findByTitleAndResourceType(String title, ResourceTypeEnum resourceTypeEnum);
 
-    Serie findByIdResourceAndResourceType(String idResource,ResourceTypeEnum resourceTypeEnum);
+    Serie findByIdResourceAndResourceType(Long idResource,ResourceTypeEnum resourceTypeEnum);
 
     Serie findByExternalKeyAndResourceType(String externalKey,ResourceTypeEnum resourceTypeEnum);
 }

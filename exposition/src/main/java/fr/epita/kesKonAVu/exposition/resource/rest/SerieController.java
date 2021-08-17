@@ -17,7 +17,7 @@ public class SerieController {
     SerieService serieService;
 
     @GetMapping("/id/{id}")
-    public SerieDTO getResourceById(@PathVariable("id") String resourceId) {
+    public SerieDTO getResourceById(@PathVariable("id") Long resourceId) {
 
         SerieMapper serieMapper = new SerieMapper();
         return serieMapper.mapToDto(serieService.findByIdResource(resourceId));

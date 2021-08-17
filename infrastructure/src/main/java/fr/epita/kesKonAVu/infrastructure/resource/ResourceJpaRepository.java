@@ -10,7 +10,8 @@ public interface ResourceJpaRepository extends JpaRepository<Resource, Long>{
 
     Resource findByTitleAndResourceType(String title, ResourceTypeEnum resourceTypeEnum);
 
-    Resource findByIdResourceAndResourceType(String idResource,ResourceTypeEnum resourceTypeEnum);
+    Resource findByIdResourceAndResourceType(Long idResource,ResourceTypeEnum resourceTypeEnum);
 
     Resource findByExternalKeyAndResourceType(String externalKey,ResourceTypeEnum resourceTypeEnum);
+
 }

@@ -18,7 +18,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     ResourceOmdbApiRepository resourceOmdbApiRepository;
 
     @Override
-    public Resource findByTitle (String title) {
+    public Resource findMovieByTitle (String title) {
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByTitleAndResourceType(title, ResourceTypeEnum.MOVIE);
         if (result != null){
@@ -31,7 +31,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findByIdResource (String idResource) {
+    public Resource findMovieByIdResource (Long idResource) {
 
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByIdResourceAndResourceType(idResource,ResourceTypeEnum.MOVIE);
@@ -45,7 +45,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findByExternalKey (String externalKey) {
+    public Resource findMovieByExternalKey (String externalKey) {
         Resource resourceOut = new Resource();
         Resource result = resourceJpaRepository.findByExternalKeyAndResourceType(externalKey,ResourceTypeEnum.MOVIE);
         if (result != null){
