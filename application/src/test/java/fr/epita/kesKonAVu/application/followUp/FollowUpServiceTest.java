@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.application.followUp;
 
+import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
 import fr.epita.kesKonAVu.domain.resource.Resource;
@@ -7,6 +8,7 @@ import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.resource.SerieRepository;
 import fr.epita.kesKonAVu.domain.user.Member;
+import org.aspectj.weaver.ast.Not;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +40,7 @@ public class FollowUpServiceTest {
         followUpToCreate.setMember(member);
         followUpToCreate.setResource(resourceToCreate);
 
-        Mockito.when(resourceRepository.findMovieByExternalKey("123456")).thenReturn(null);
+        Mockito.when(resourceRepository.findMovieByExternalKey("123456")).thenThrow(NotFoundException.class);
         Mockito.when(resourceRepository.getMovieFromCatalogueByImdbId("123456")).thenReturn(resourceToCreate);
         Mockito.when(resourceRepository.save(Mockito.any(Resource.class))).thenReturn(resourceToCreate);
         Mockito.when(resourceFollowUpRepository.save(Mockito.any(ResourceFollowUp.class))).thenReturn(followUpToCreate);

@@ -1,9 +1,22 @@
 package fr.epita.kesKonAVu.exposition.member.rest;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import org.springframework.validation.annotation.Validated;
+
+import javax.validation.constraints.NotBlank;
+
+@Validated
 public class MemberDTOLight {
 
+    @JsonProperty("pseudo")
+    @NotBlank
     private String pseudo;
+
+    @JsonProperty("email")
     private String email;
+
+    @JsonProperty("password")
+    @NotBlank
     private String password;
 
     public MemberDTOLight() {

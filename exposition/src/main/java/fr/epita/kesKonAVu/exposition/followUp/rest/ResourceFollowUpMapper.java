@@ -1,6 +1,8 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
+import fr.epita.kesKonAVu.domain.resource.Resource;
+import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.exposition.common.AbstractMapper;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberMapper;
 import fr.epita.kesKonAVu.exposition.resource.rest.ResourceMapper;
@@ -39,5 +41,26 @@ public class ResourceFollowUpMapper extends AbstractMapper<ResourceFollowUp, Res
         result.setStatus(dto.getStatus());
         result.setLastModificationDate(dto.getLastModificationDate());
         return result;
+    }
+
+    public ResourceFollowUp mapToEntity (ResourceFollowUpDTOLight dtoLight) {
+        if (dtoLight == null) {
+            return null;
+        }
+
+        ResourceFollowUp followUp = new ResourceFollowUp();
+
+        Member member = new Member();
+        member.setIdMember(dtoLight.getIdMember());
+
+        Resource resource = new Resource();
+        resource.setResourceType(dtoLight.getResourceDTOLight().getTypeResource());
+        resource.setExternalKey(dtoLight.getResourceDTOLight().getImdbId());
+
+        followUp.setResource(resource);
+        followUp.setMember(member);
+        followUp.setStatus(dtoLight.getStatus());
+
+        return followUp;
     }
 }

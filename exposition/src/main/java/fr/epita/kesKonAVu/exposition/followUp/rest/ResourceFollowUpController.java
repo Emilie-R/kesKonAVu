@@ -12,6 +12,7 @@ import fr.epita.kesKonAVu.exposition.resource.rest.ResourceMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,9 +85,9 @@ public class ResourceFollowUpController {
         return sortedResourceDTOList;
     }
 
-    @PostMapping(value = "followUp/create", consumes = {"application/json"})
-    public void createNewFollowUp(@RequestBody ResourceFollowupDTO resourceFollowupDTO) {
-        ResourceFollowUp resourceFollowUp = resourceFollowUpMapper.mapToEntity(resourceFollowupDTO);
+    @PostMapping(value = "/create", consumes = {"application/json"})
+    public void createNewFollowUp(@Valid @RequestBody ResourceFollowUpDTOLight resourceFollowUpDTOLight) {
+        ResourceFollowUp resourceFollowUp = resourceFollowUpMapper.mapToEntity(resourceFollowUpDTOLight);
         followUpService.createNewFollowUp(resourceFollowUp);
     }
 }

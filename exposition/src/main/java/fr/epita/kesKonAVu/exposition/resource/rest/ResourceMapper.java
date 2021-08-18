@@ -25,7 +25,8 @@ public class ResourceMapper extends AbstractMapper<Resource, ResourceDTO> {
         dto.setDuration(entity.getDuration());
         dto.setActors(entity.getActors());
         dto.setIdResource(entity.getIdResource());
-        dto.setExternalKey(entity.getExternalKey().getResourceId());
+        dto.setExternalKey(entity.getExternalKey());
+        dto.setExternalCatalogName(dto.getExternalCatalogName());
         return dto;
     }
 
@@ -43,11 +44,8 @@ public class ResourceMapper extends AbstractMapper<Resource, ResourceDTO> {
         entity.setCategory(dto.getCategory());
         entity.setDuration(dto.getDuration());
         entity.setActors(dto.getActors());
-        ExternalKey catalogOmdb = new ExternalKey();
-        catalogOmdb.setCatalogName(CatalogReferenceEnum.OMDBAPI);
-        catalogOmdb.setResourceId(dto.getExternalKey());
-        entity.setExternalKey(catalogOmdb);
-        entity.setIdResource(dto.getIdResource());
+        entity.setExternalKey(dto.getExternalKey());
+        entity.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
         return entity;
     }
 }

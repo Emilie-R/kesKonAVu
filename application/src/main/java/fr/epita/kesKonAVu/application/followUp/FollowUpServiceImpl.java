@@ -1,13 +1,16 @@
 package fr.epita.kesKonAVu.application.followUp;
 
+import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
 import fr.epita.kesKonAVu.domain.followUp.SerieFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.domain.resource.*;
 import fr.epita.kesKonAVu.domain.user.Member;
+import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.Set;
@@ -23,6 +26,7 @@ public class FollowUpServiceImpl implements FollowUpService {
     SerieRepository serieRepository;
 
     @Override
+    @Transactional
     public void createNewFollowUp(final ResourceFollowUp resourceFollowUp) {
         final String imdbId = resourceFollowUp.getResource().getExternalKey();
         final Member member = resourceFollowUp.getMember();
@@ -41,41 +45,51 @@ public class FollowUpServiceImpl implements FollowUpService {
                 Resource movie = new Resource();
                 ResourceFollowUp resourceFollowUpToSave = new ResourceFollowUp();
 
-                if (resourceRepository.findMovieByExternalKey(imdbId) == null) {
-                    movie = resourceRepository.getMovieFromCatalogueByImdbId(imdbId);
-                    movie = resourceRepository.save(movie);
-                } else {
+                try {
                     movie = resourceRepository.findMovieByExternalKey(imdbId);
                     if (resourceFollowUpRepository.findByResourceAndMember(movie,member) != null) {
                         /* ResourceFollowUp already created => skip */
                         return;
                     }
-                };
+                } catch (NotFoundException e) {
+                    movie = resourceRepository.getMovieFromCatalogueByImdbId(imdbId);
+                    movie.setCreationDate(LocalDate.now());
+                    movie = resourceRepository.save(movie);
+                }
+
                 resourceFollowUpToSave.setResource(movie);
                 resourceFollowUpToSave.setMember(member);
                 resourceFollowUpToSave.setStatus(statusToCreate);
                 resourceFollowUpToSave.setCreationDate(LocalDate.now());
                 resourceFollowUpToSave.setLastModificationDate(LocalDate.now());
 
-                resourceFollowUpRepository.save(resourceFollowUp);
+                resourceFollowUpRepository.save(resourceFollowUpToSave);
 
             } else if (resourceFollowUp.getResource().getResourceType() == ResourceTypeEnum.SERIE) {
                 /* FOR a Serie (Resource of ResourceType SERIE) */
                 Serie serie = new Serie();
                 SerieFollowUp serieFollowUpToSave = new SerieFollowUp();
 
-                if (serieRepository.findByExternalKey(imdbId) == null) {
-                    serie = serieRepository.getSerieFromCatalogueByImdbId(imdbId);
-                    final Set<Episode> allEpisodes = serieRepository.getAllEpisodesFromCatalogue(serie);
-                    serie.setEpisodes(allEpisodes);
-                    serie = serieRepository.save(serie);
-                } else {
+                try {
                     serie = serieRepository.findByExternalKey(imdbId);
                     if (resourceFollowUpRepository.findByResourceAndMember(serie,member) != null) {
                         /* ResourceFollowUp already created => skip */
                         return;
                     }
-                };
+                } catch (NotFoundException e) {
+                    serie = serieRepository.getSerieFromCatalogueByImdbId(imdbId);
+                    serie.setCreationDate(LocalDate.now());
+                    final Set<Episode> allEpisodes = serieRepository.getAllEpisodesFromCatalogue(serie);
+                    serie.setEpisodes(allEpisodes);
+
+                    if (allEpisodes != null ) {
+                        serie.setNumberOfEpisodes(allEpisodes.size());
+                    } else {
+                        serie.setNumberOfEpisodes(0);
+                    }
+                    serie = serieRepository.save(serie);
+                }
+
                 serieFollowUpToSave.setResource(serie);
                 serieFollowUpToSave.setMember(member);
                 serieFollowUpToSave.setStatus(statusToCreate);
