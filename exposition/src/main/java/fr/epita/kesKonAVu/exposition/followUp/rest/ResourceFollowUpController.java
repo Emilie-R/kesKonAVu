@@ -29,11 +29,7 @@ public class ResourceFollowUpController {
     FollowUpService followUpService;
 
     @Autowired
-    MemberService memberService;
-
-    ResourceMapper resourceMapper = new ResourceMapper();
-
-    ResourceFollowUpMapper resourceFollowUpMapper = new ResourceFollowUpMapper();
+    ResourceFollowUpMapper resourceFollowUpMapper;
 
     @GetMapping(value="/{id}", produces={"application/json"})
     public ResourceFollowupDTO getResourceFollowUp(@PathVariable("id") Long id){

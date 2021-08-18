@@ -6,7 +6,9 @@ import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.exposition.common.AbstractMapper;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberMapper;
 import fr.epita.kesKonAVu.exposition.resource.rest.ResourceMapper;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ResourceFollowUpMapper extends AbstractMapper<ResourceFollowUp, ResourceFollowupDTO> {
 
     ResourceMapper resourceMapper = new ResourceMapper();
@@ -22,7 +24,7 @@ public class ResourceFollowUpMapper extends AbstractMapper<ResourceFollowUp, Res
         result.setIdFollowUp(entity.getIdFollowUp());
         result.setResourceDTO(resourceMapper.mapToDto(entity.getResource()));
         result.setMemberDTO(memberMapper.mapToDto(entity.getMember()));
-        result.setNote(entity.getNote());
+        if (entity.getNote() != null ) { result.setNote(entity.getNote()); }
         result.setStatus(entity.getStatus());
         result.setLastModificationDate(entity.getLastModificationDate());
         return result;

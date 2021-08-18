@@ -63,7 +63,7 @@ public class ResourceFollowUpControllerTest {
                 ResourceFollowupDTO.class);
 
         //Then
-        Assertions.assertTrue(response.getIdFollowUp() == res2.getIdFollowUp());
+        Assertions.assertTrue(response.getIdFollowUp().equals(res2.getIdFollowUp()));
     }
 
     @Test
