@@ -46,6 +46,7 @@ public class ResourceControllerTest {
         final Resource movie = new Resource();
         //this.base = new URL("http://localhost:" + port + "/api/V1/movie/title/Godzilla"); //=> permet d'instancier les paramètre de connexion
         movie.setTitle("Friends 1");
+        movie.setExternalKey("OMDB api");
         when(resourceService.findByTitle("Godzilla")).thenReturn(movie);
 
         // WHEN
@@ -55,9 +56,9 @@ public class ResourceControllerTest {
 
         //Then
         //Verify request succeed
-        //Assertions.assertEquals(200, response.getStatusCodeValue());
-        //String result = response.getBody().getTitle();
-        //Assertions.assertTrue(result.equals(movie.getTitle()));
+        Assertions.assertEquals(200, response.getStatusCodeValue());
+        String result = response.getBody().getTitle();
+        Assertions.assertTrue(result.equals(movie.getTitle()));
 
     }
 }

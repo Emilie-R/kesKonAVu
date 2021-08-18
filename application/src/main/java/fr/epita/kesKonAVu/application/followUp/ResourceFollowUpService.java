@@ -1,20 +1,14 @@
 package fr.epita.kesKonAVu.application.followUp;
 
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.domain.resource.Resource;
-import fr.epita.kesKonAVu.domain.user.Member;
-
-import java.util.List;
-import java.util.Map;
 
 public interface ResourceFollowUpService {
-    List<ResourceFollowUp> findByMember(Member member);
 
-    List<ResourceFollowUp> findByResource(Resource resource);
+    ResourceFollowUp createResourceFollowUp(ResourceFollowUp resourceFollowUp);
 
-    Map<StatusEnum,List<ResourceFollowUp>> SeparateByStatus(List<ResourceFollowUp> resourceFollowUpList);
+    ResourceFollowUp updateResourceFollowUp(ResourceFollowUp resourceFollowUp);
 
-    List<Resource> SortByCriteria(List<ResourceFollowUp> resourceFollowUpList, SortCriteriaEnum criteria);
+    ResourceFollowUp findOne(Long id);
 
 }

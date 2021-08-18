@@ -36,7 +36,7 @@ public class ResourceFollowUpTest {
         Long idFollowUp = 1L;
 
         //Then
-        ResourceFollowUp result = resourceFollowUpRepository.findById(1L);
+        ResourceFollowUp result = resourceFollowUpRepository.findById(1L).get();
 
         //When
         Assertions.assertEquals(StatusEnum.VU, result.getStatus());

@@ -44,9 +44,8 @@ public class SerieControllerTest {
 
         // GIVEN
         final Serie createdSerie = new Serie();
-        //this.base = new URL("http://localhost:" + port + "/api/V1/movie/title/Godzilla"); //=> permet d'instancier les paramètre de connexion
         createdSerie.setTitle("Friends 4");
-        createdSerie.setExternalKey("12356-azerty");
+        createdSerie.setExternalKey("OMDB api");
         when(serieService.findByExternalKey("Jumanji")).thenReturn(createdSerie);
 
         // WHEN
@@ -56,9 +55,10 @@ public class SerieControllerTest {
 
         //Then
         //Verify request succeed
-        //Assertions.assertEquals(200, response.getStatusCodeValue());
-        //String result = response.getBody().getExternalKey();
-        //Assertions.assertTrue(result.equals(createdSerie.getExternalKey()));
+        Assertions.assertEquals(200, response.getStatusCodeValue());
+        String result = response.getBody().getExternalKey();
+        System.out.println(result);
+        Assertions.assertTrue(result.equals(createdSerie.getExternalKey()));
 
     }
 }
