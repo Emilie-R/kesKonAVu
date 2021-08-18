@@ -1,6 +1,5 @@
 package fr.epita.kesKonAVu.exposition.member.rest;
 
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
 
 import java.time.LocalDate;

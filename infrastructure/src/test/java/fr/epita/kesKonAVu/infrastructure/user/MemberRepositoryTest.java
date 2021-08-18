@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.infrastructure.user;
 
+import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
@@ -10,7 +11,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @DataJpaTest
 public class MemberRepositoryTest {
@@ -97,6 +102,39 @@ public class MemberRepositoryTest {
         Assertions.assertNotNull(memberCreated.getIdMember());
         Assertions.assertEquals(memberCreated.getRoles().size(),2);
         Assertions.assertTrue(memberRepository.findById(memberCreated.getIdMember()).isPresent());
+    }
+
+    @Test
+    public void given_member_findByIdWithAllItsResourceFollowUps_Successfull() {
+        // Given Création du member à sauvegarder Puis à récupérer
+        final Member member = new Member();
+        final LocalDate dateCreation = LocalDate.now();
+
+        member.setCreationDate(dateCreation);
+        member.setEmail("toto@gmail.com");
+        member.setPseudo("Petit Poisson Rouge");
+        member.addRole(TypeRoleEnum.USER);
+        member.addRole(TypeRoleEnum.ADMIN);
+        ResourceFollowUp fw1 = new ResourceFollowUp();
+        fw1.setIdFollowUp(15L);
+        fw1.setMember(member);
+        ResourceFollowUp fw2 = new ResourceFollowUp();
+        fw2.setIdFollowUp(20L);
+        fw2.setMember(member);
+        Set<ResourceFollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
+        member.setResourceFollowUps(set1);
+
+        // When Appel de la méthode à tester
+        final Member memberCreated = memberRepository.save(member);
+        //récupérer member avec ses ResourceFollowUp
+        Member memberRetrieved = memberRepository.findByIdWithAllResourceFollowUps(memberCreated.getIdMember());
+
+        //Then Contrôles
+        Assertions.assertNotNull(memberRetrieved);
+        Set<ResourceFollowUp> set2 = memberRetrieved.getResourceFollowUps();
+        Assertions.assertEquals(2,set2.size());
+        set2.stream().forEach(e -> System.out.println(e.getIdFollowUp()));
+
     }
 
 }

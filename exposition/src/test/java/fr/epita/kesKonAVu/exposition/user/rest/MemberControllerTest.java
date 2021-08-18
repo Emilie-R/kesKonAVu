@@ -7,7 +7,10 @@ import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
 import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -108,4 +111,40 @@ public class MemberControllerTest {
         Mockito.verify(memberService, Mockito.times(1)).findOne(any());
         Assertions.assertNotEquals(result.getStatusCode(),HttpStatus.OK);
     }
+//    @Test
+//    public void given_member_findByIdWithAllItsResourceFollowUps_Successfull() throws URISyntaxException {
+//        // Given Création du member à sauvegarder Puis à récupérer
+//        final Member member = new Member();
+//        final LocalDate dateCreation = LocalDate.now();
+//
+//        member.setIdMember(30L);
+//        member.setCreationDate(dateCreation);
+//        member.setEmail("toto@gmail.com");
+//        member.setPseudo("Petit Poisson Rouge");
+//        member.addRole(TypeRoleEnum.USER);
+//        member.addRole(TypeRoleEnum.ADMIN);
+//        ResourceFollowUp fw1 = new ResourceFollowUp();
+//        fw1.setIdFollowUp(15L);
+//        fw1.setMember(member);
+//        ResourceFollowUp fw2 = new ResourceFollowUp();
+//        fw2.setIdFollowUp(20L);
+//        fw2.setMember(member);
+//        Set<ResourceFollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
+//        member.setResourceFollowUps(set1);
+//
+//        // When Appel de la méthode à tester
+//        final Member memberCreated = memberService2.createMember(member);
+//        //récupérer member avec ses ResourceFollowUp
+//        URI uri = new URI(baseURL + "followup/" + member.getIdMember());
+//        //Mockito.when(memberService.findOne(any())).thenThrow(NotFoundException.class);
+//
+//        //When
+//        ResponseEntity<MemberWithResourceFollowupsDTO> response = this.template.getForEntity(uri, MemberWithResourceFollowupsDTO.class);
+//
+//        //Then
+//        Assertions.assertNotEquals(response.getStatusCode(),HttpStatus.OK);
+//        MemberWithResourceFollowupsDTO result = response.getBody();
+//        Assertions.assertEquals(2,result.getResourceFollowUpS().size());
+//
+//    }
 }
