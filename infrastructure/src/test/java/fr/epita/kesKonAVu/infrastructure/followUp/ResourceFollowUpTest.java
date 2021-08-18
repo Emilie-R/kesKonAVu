@@ -34,9 +34,10 @@ public class ResourceFollowUpTest {
     public void given_existing_idFollowUp_findById_should_success() {
         //Given
         Long idFollowUp = 1L;
-
+        ResourceFollowUp result = new ResourceFollowUp();
         //Then
-        ResourceFollowUp result = resourceFollowUpRepository.findById(1L).get();
+        if (resourceFollowUpRepository.findById(1L).isPresent()) {
+         result = resourceFollowUpRepository.findById(1L).get() }
 
         //When
         Assertions.assertEquals(StatusEnum.VU, result.getStatus());
@@ -87,7 +88,7 @@ public class ResourceFollowUpTest {
     }
 
     @Test
-    public void given_existing_member_and_resource_findByResourceAndResource_should_succes() {
+    public void given_existing_member_and_resource_findByResourceAndMember_should_succes() {
         //Given
         Member member = memberRepository.findById(1L).get();
         Resource resource =resourceRepository.findById(1L);
@@ -97,12 +98,12 @@ public class ResourceFollowUpTest {
 
         //Then
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(result, resourceFollowUpRepository.findById(result.getIdFollowUp()));
+        Assertions.assertEquals(result, resourceFollowUpRepository.findById(result.getIdFollowUp()).get());
 
     }
 
     @Test
-    public void given_no_matching_followUp_member_and_resource_findByResourceAndResource_should_return_null() {
+    public void given_no_matching_followUp_member_and_resource_findByResourceAndMember_should_return_null() {
         //Given
         Member member = new Member();
         member.setIdMember(0L);

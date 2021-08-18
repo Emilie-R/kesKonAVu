@@ -6,9 +6,8 @@ import fr.epita.kesKonAVu.domain.user.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface ResourceFollowUpJpaRepository extends JpaRepository<ResourceFollowUp, Long> {
 
+    ResourceFollowUp findByResourceAndMember(Resource resource, Member member);
 }

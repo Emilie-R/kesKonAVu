@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.application.followUp;
 
+import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
@@ -27,7 +28,7 @@ public class FollowUpServiceImpl implements FollowUpService {
 
     @Override
     @Transactional
-    public void createNewFollowUp(final ResourceFollowUp resourceFollowUp) {
+    public ResourceFollowUp createNewFollowUp(final ResourceFollowUp resourceFollowUp) {
         final String imdbId = resourceFollowUp.getResource().getExternalKey();
         final Member member = resourceFollowUp.getMember();
 
@@ -42,14 +43,14 @@ public class FollowUpServiceImpl implements FollowUpService {
 
             if(resourceFollowUp.getResource().getResourceType() == ResourceTypeEnum.MOVIE) {
                 /* FOR a Movie (Resource of ResourceType MOVIE) */
-                Resource movie = new Resource();
+                Resource movie;
                 ResourceFollowUp resourceFollowUpToSave = new ResourceFollowUp();
 
                 try {
                     movie = resourceRepository.findMovieByExternalKey(imdbId);
                     if (resourceFollowUpRepository.findByResourceAndMember(movie,member) != null) {
                         /* ResourceFollowUp already created => skip */
-                        return;
+                        throw new AlreadyExistingException("ressourceFollowUp already exists");
                     }
                 } catch (NotFoundException e) {
                     movie = resourceRepository.getMovieFromCatalogueByImdbId(imdbId);
@@ -63,18 +64,18 @@ public class FollowUpServiceImpl implements FollowUpService {
                 resourceFollowUpToSave.setCreationDate(LocalDate.now());
                 resourceFollowUpToSave.setLastModificationDate(LocalDate.now());
 
-                resourceFollowUpRepository.save(resourceFollowUpToSave);
+                return resourceFollowUpRepository.save(resourceFollowUpToSave);
 
             } else if (resourceFollowUp.getResource().getResourceType() == ResourceTypeEnum.SERIE) {
                 /* FOR a Serie (Resource of ResourceType SERIE) */
-                Serie serie = new Serie();
+                Serie serie;
                 SerieFollowUp serieFollowUpToSave = new SerieFollowUp();
 
                 try {
                     serie = serieRepository.findByExternalKey(imdbId);
                     if (resourceFollowUpRepository.findByResourceAndMember(serie,member) != null) {
                         /* ResourceFollowUp already created => skip */
-                        return;
+                        throw new AlreadyExistingException("ressourceFollowUp already exists");
                     }
                 } catch (NotFoundException e) {
                     serie = serieRepository.getSerieFromCatalogueByImdbId(imdbId);
@@ -96,9 +97,9 @@ public class FollowUpServiceImpl implements FollowUpService {
                 serieFollowUpToSave.setCreationDate(LocalDate.now());
                 serieFollowUpToSave.setLastModificationDate(LocalDate.now());
 
-                resourceFollowUpRepository.save(serieFollowUpToSave);
+                return resourceFollowUpRepository.save(serieFollowUpToSave);
             }
         }
-
+        return null;
     }
 }

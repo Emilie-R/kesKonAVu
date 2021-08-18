@@ -36,8 +36,9 @@ public class ResourceFollowUpController {
     ResourceFollowUpMapper resourceFollowUpMapper = new ResourceFollowUpMapper();
 
     @PostMapping(value = "/create", consumes = {"application/json"})
-    public void createNewFollowUp(@Valid @RequestBody ResourceFollowUpDTOLight resourceFollowUpDTOLight) {
+    public ResourceFollowupDTO createNewFollowUp(@Valid @RequestBody ResourceFollowUpDTOLight resourceFollowUpDTOLight) {
         ResourceFollowUp resourceFollowUp = resourceFollowUpMapper.mapToEntity(resourceFollowUpDTOLight);
-        followUpService.createNewFollowUp(resourceFollowUp);
+        ResourceFollowUp resourceFollowUpSaved = followUpService.createNewFollowUp(resourceFollowUp);
+        return resourceFollowUpMapper.mapToDto(resourceFollowUpSaved);
     }
 }

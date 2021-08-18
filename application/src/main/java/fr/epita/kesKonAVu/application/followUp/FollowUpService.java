@@ -4,5 +4,5 @@ import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 
 public interface FollowUpService {
 
-    void createNewFollowUp(ResourceFollowUp resourceFollowUp);
+    ResourceFollowUp createNewFollowUp(ResourceFollowUp resourceFollowUp);
 }
