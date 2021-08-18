@@ -3,8 +3,10 @@ package fr.epita.kesKonAVu.application.user;
 import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.DataFormatException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
+import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,7 +15,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @SpringBootTest
@@ -108,6 +114,34 @@ public class MemberServiceTest {
         //Then
         Assertions.assertNotNull(memberReturned);
         Mockito.verify(memberRepositoryMock, Mockito.times(2)).findById(id);
+
+    }
+
+    @Test
+    public void Given_MemberWithResourceFollowUps_RetrieveSuccessfull() {
+
+        // Given Création du member à sauvegarder Puis à récupérer
+        final Member member = new Member();
+        final LocalDate dateCreation = LocalDate.now();
+        member.setCreationDate(dateCreation);
+        member.setEmail("toto@gmail.com");
+        member.setPseudo("Petit Poisson Rouge");
+        member.addRole(TypeRoleEnum.USER);
+        member.addRole(TypeRoleEnum.ADMIN);
+        ResourceFollowUp fw1 = new ResourceFollowUp();
+        fw1.setIdFollowUp(15L);
+        fw1.setMember(member);
+        ResourceFollowUp fw2 = new ResourceFollowUp();
+        fw2.setIdFollowUp(20L);
+        fw2.setMember(member);
+        Set<ResourceFollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
+        member.setResourceFollowUps(set1);
+
+        //When
+        Mockito.when(memberRepositoryMock.findByIdWithAllResourceFollowUps(member.getIdMember()))
+                .thenReturn(member); // accès aux données testées OK dans infra/src/test
+        final Member memberReturned = memberService.findByIdWithAllResourceFollowUps(member.getIdMember());
+        Assertions.assertEquals(2,memberReturned.getResourceFollowUps().size());
 
     }
 

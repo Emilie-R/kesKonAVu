@@ -25,4 +25,11 @@ public interface MemberService {
      * @return the retrieved member or NotFoundException if no member found
      */
     Member findOne(Long id);
+
+    /**
+     *
+     * @param id id de l'utilisateur
+     * @return renvoie l'utilisateur avec ses ResourceFollowUps
+     */
+    Member findByIdWithAllResourceFollowUps(Long id);
 }

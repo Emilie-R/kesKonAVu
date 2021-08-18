@@ -75,6 +75,11 @@ public class MemberServiceImpl implements MemberService {
         }
     }
 
+    @Override
+    public Member findByIdWithAllResourceFollowUps (Long id) {
+        return memberRepository.findByIdWithAllResourceFollowUps(id);
+    }
+
     /**
      * In order to control the format of a member data
      * @param dataToControl data to check
