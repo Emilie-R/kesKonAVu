@@ -1,8 +1,10 @@
 package fr.epita.kesKonAVu.infrastructure.resource;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.resource.*;
-import fr.epita.kesKonAVu.infrastructure.resource.catalogue.omdb.CatalogueApiAccessOmdbImpl;
+import fr.epita.kesKonAVu.domain.resource.CatalogReferenceEnum;
+import fr.epita.kesKonAVu.domain.resource.Resource;
+import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -18,8 +20,6 @@ public class ResourceRepositoryTest {
      *  Tous les jeux d'essais de la BDD sont injectés dans la base H2 avec le fichier import.sql
      */
 
-    @MockBean
-    CatalogueApiAccessOmdbImpl omdbCatalogueApiAccess;
 
     @Autowired
     ResourceRepository resourceRepository;
@@ -86,20 +86,6 @@ public class ResourceRepositoryTest {
                 resourceRepository.findById(1L).getExternalKey());
         Assertions.assertEquals(resourceToSave.getIdResource(), result.getIdResource());
         Assertions.assertEquals(resourceToSave.getExternalKey(), result.getExternalKey());
-    }
-
-    @Test
-    public void getResourceFromOmdbCatalogueByImdbId_should_call_findResourceByImdbId_Once() {
-        //Given
-        String imdbId = "123456";
-        Mockito.when(omdbCatalogueApiAccess.findResourceByImdbId(imdbId)).thenReturn(new Resource());
-
-        // When
-        Resource result = resourceRepository.getResourceFromCatalogueByImdbId(imdbId);
-
-        //Then
-        Mockito.verify(omdbCatalogueApiAccess, Mockito.times(1)).findResourceByImdbId(imdbId);
-
     }
 
     @Test

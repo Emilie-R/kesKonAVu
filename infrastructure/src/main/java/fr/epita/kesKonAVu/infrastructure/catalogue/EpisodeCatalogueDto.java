@@ -1,8 +1,8 @@
-package fr.epita.kesKonAVu.infrastructure.resource.catalogue.omdb;
+package fr.epita.kesKonAVu.infrastructure.catalogue;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class EpisodeLightFromOMDB {
+public class EpisodeCatalogueDto {
 
     @JsonProperty("Title")
     private String title;

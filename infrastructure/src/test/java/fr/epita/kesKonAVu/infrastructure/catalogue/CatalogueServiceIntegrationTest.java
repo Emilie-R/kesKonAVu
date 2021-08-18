@@ -1,5 +1,6 @@
-package fr.epita.kesKonAVu.infrastructure.resource.catalogue;
+package fr.epita.kesKonAVu.infrastructure.catalogue;
 
+import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Episode;
 import fr.epita.kesKonAVu.domain.resource.Resource;
@@ -14,10 +15,10 @@ import java.util.Set;
 
 @DataJpaTest(properties =
         "param.url.omdbapi=http://www.omdbapi.com/?apikey=d974f110")
-public class CatalogueOmdbIntegrationTest {
+public class CatalogueServiceIntegrationTest {
 
     @Autowired
-    CatalogueApiAccess omdbCatalogueApiAccess;
+    CatalogueService catalogueService;
 
     @Test
     public void findResourceByImdbId_with_existing_ImdbId_should_success() {
@@ -25,7 +26,7 @@ public class CatalogueOmdbIntegrationTest {
         String id = "tt0464913";
 
         //When
-        Resource resourceResult = omdbCatalogueApiAccess.findResourceByImdbId(id);
+        Resource resourceResult = catalogueService.findResourceByImdbId(id);
 
         //Then
         Assertions.assertNotNull(resourceResult);
@@ -41,7 +42,7 @@ public class CatalogueOmdbIntegrationTest {
 
         //When
         //Then
-        Assertions.assertThrows(NotFoundException.class, () -> omdbCatalogueApiAccess.findResourceByImdbId(id));
+        Assertions.assertThrows(NotFoundException.class, () -> catalogueService.findResourceByImdbId(id));
     }
 
     @Test
@@ -50,7 +51,7 @@ public class CatalogueOmdbIntegrationTest {
         String id = "tt0464913";
 
         //When
-        Resource resourceResult = omdbCatalogueApiAccess.findMovieByImdbId(id);
+        Resource resourceResult = catalogueService.findMovieByImdbId(id);
 
         //Then
         Assertions.assertNotNull(resourceResult);
@@ -65,7 +66,7 @@ public class CatalogueOmdbIntegrationTest {
         String id = "tt0167643";
 
         //When
-        Serie resourceResult = omdbCatalogueApiAccess.findSerieByImdbId(id);
+        Serie resourceResult = catalogueService.findSerieByImdbId(id);
 
         //Then
         Assertions.assertNotNull(resourceResult);
@@ -79,10 +80,10 @@ public class CatalogueOmdbIntegrationTest {
     public void findAllEpisodes_all_seasons_completed_should_success() {
         // Given
         String id = "tt0944947";
-        Serie serie = omdbCatalogueApiAccess.findSerieByImdbId(id);
+        Serie serie = catalogueService.findSerieByImdbId(id);
 
         //When
-        Set<Episode> episodes = omdbCatalogueApiAccess.findAllEpisodes(serie);
+        Set<Episode> episodes = catalogueService.findAllEpisodes(serie);
 
         //Then
         Assertions.assertNotNull(episodes);
@@ -93,10 +94,10 @@ public class CatalogueOmdbIntegrationTest {
     public void findAllEpisodes_missing_seasons_should_success(){
         // Given
         String id = "tt0167643";
-        Serie serie = omdbCatalogueApiAccess.findSerieByImdbId(id);
+        Serie serie = catalogueService.findSerieByImdbId(id);
 
         //When
-        Set<Episode> episodes = omdbCatalogueApiAccess.findAllEpisodes(serie);
+        Set<Episode> episodes = catalogueService.findAllEpisodes(serie);
 
         //Then
         Assertions.assertNotNull(episodes);

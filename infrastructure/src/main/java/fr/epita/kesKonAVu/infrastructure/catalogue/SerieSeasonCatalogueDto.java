@@ -1,10 +1,10 @@
-package fr.epita.kesKonAVu.infrastructure.resource.catalogue.omdb;
+package fr.epita.kesKonAVu.infrastructure.catalogue;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class ListOfEpisodeFromOmdb {
+public class SerieSeasonCatalogueDto {
 
     @JsonProperty("Response")
     private String response;
@@ -20,7 +20,7 @@ public class ListOfEpisodeFromOmdb {
     private String totalSeasons;
 
     @JsonProperty("Episodes")
-    List<EpisodeLightFromOMDB> episodes;
+    List<EpisodeCatalogueDto> episodes;
 
     public String getResponse() {
         return response;
@@ -54,11 +54,11 @@ public class ListOfEpisodeFromOmdb {
         this.totalSeasons = totalSeasons;
     }
 
-    public List<EpisodeLightFromOMDB> getEpisodes() {
+    public List<EpisodeCatalogueDto> getEpisodes() {
         return episodes;
     }
 
-    public void setEpisodes(List<EpisodeLightFromOMDB> episodes) {
+    public void setEpisodes(List<EpisodeCatalogueDto> episodes) {
         this.episodes = episodes;
     }
 }

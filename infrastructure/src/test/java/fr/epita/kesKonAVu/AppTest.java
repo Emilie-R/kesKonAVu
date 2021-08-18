@@ -1,5 +1,7 @@
 package fr.epita.kesKonAVu;
 
+import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
+import fr.epita.kesKonAVu.domain.catalogue.CatalogueServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -16,6 +18,11 @@ public class AppTest {
 
     public static void main(String[] args) {
         SpringApplication.run(AppTest.class,args);
+    }
+
+    @Bean
+    CatalogueService catalogueService() {
+        return new CatalogueServiceImpl();
     }
 
     @Bean

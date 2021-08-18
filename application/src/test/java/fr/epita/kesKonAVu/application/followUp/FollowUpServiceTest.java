@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.application.followUp;
 
+import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
@@ -25,6 +26,8 @@ public class FollowUpServiceTest {
     ResourceRepository resourceRepository;
     @MockBean
     SerieRepository serieRepository;
+    @MockBean
+    CatalogueService catalogueService;
 
     @Autowired
     FollowUpService followUpService;
@@ -42,7 +45,7 @@ public class FollowUpServiceTest {
         followUpToCreate.setResource(resourceToCreate);
 
         Mockito.when(resourceRepository.findMovieByExternalKey("123456")).thenThrow(NotFoundException.class);
-        Mockito.when(resourceRepository.getMovieFromCatalogueByImdbId("123456")).thenReturn(resourceToCreate);
+        Mockito.when(catalogueService.findMovieByImdbId("123456")).thenReturn(resourceToCreate);
         Mockito.when(resourceRepository.save(Mockito.any(Resource.class))).thenReturn(resourceToCreate);
         Mockito.when(resourceFollowUpRepository.save(Mockito.any(ResourceFollowUp.class))).thenReturn(followUpToCreate);
 
@@ -53,7 +56,7 @@ public class FollowUpServiceTest {
         Assertions.assertNotNull(followUpCreated);
         Mockito.verify(resourceRepository, Mockito.times(1)).save(Mockito.any());
         Mockito.verify(resourceRepository, Mockito.times(1)).findMovieByExternalKey("123456");
-        Mockito.verify(resourceRepository, Mockito.times(1)).getMovieFromCatalogueByImdbId("123456");
+        Mockito.verify(catalogueService, Mockito.times(1)).findMovieByImdbId("123456");
         Mockito.verify(resourceFollowUpRepository, Mockito.times(1)).save(Mockito.any());
     }
 
@@ -112,8 +115,8 @@ public class FollowUpServiceTest {
         followUpToCreate.setResource(resourceToCreate);
 
         Mockito.when(serieRepository.findByExternalKey("123456")).thenThrow(NotFoundException.class);
-        Mockito.when(serieRepository.getSerieFromCatalogueByImdbId("123456")).thenReturn(resourceToCreate);
-        Mockito.when(serieRepository.getAllEpisodesFromCatalogue(Mockito.any(Serie.class))).thenReturn(episodes);
+        Mockito.when(catalogueService.findSerieByImdbId("123456")).thenReturn(resourceToCreate);
+        Mockito.when(catalogueService.findAllEpisodes(Mockito.any(Serie.class))).thenReturn(episodes);
         Mockito.when(resourceRepository.save(Mockito.any(Serie.class))).thenReturn(resourceToCreate);
         Mockito.when(resourceFollowUpRepository.save(Mockito.any(SerieFollowUp.class))).thenReturn(followUpToCreate);
 
@@ -124,9 +127,9 @@ public class FollowUpServiceTest {
         Assertions.assertNotNull(followUpCreated);
         Assertions.assertTrue(followUpCreated instanceof SerieFollowUp);
         Mockito.verify(serieRepository, Mockito.times(1)).save(Mockito.any(Serie.class));
-        Mockito.verify(serieRepository, Mockito.times(1)).getAllEpisodesFromCatalogue(Mockito.any(Serie.class));
+        Mockito.verify(catalogueService, Mockito.times(1)).findAllEpisodes(Mockito.any(Serie.class));
         Mockito.verify(serieRepository, Mockito.times(1)).findByExternalKey("123456");
-        Mockito.verify(serieRepository, Mockito.times(1)).getSerieFromCatalogueByImdbId("123456");
+        Mockito.verify(catalogueService, Mockito.times(1)).findSerieByImdbId("123456");
         Mockito.verify(resourceFollowUpRepository, Mockito.times(1)).save(Mockito.any(SerieFollowUp.class));
     }
 }

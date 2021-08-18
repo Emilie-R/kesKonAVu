@@ -1,10 +1,10 @@
-package fr.epita.kesKonAVu.infrastructure.resource.catalogue.omdb;
+package fr.epita.kesKonAVu.infrastructure.catalogue;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 
-public class ItemFromOmdb {
+public class ItemCatalogueDto {
 
         @JsonProperty("Response")
         private String response;
@@ -56,7 +56,7 @@ public class ItemFromOmdb {
         private String poster;
 
         @JsonProperty("Ratings")
-        private List<RatingFromOmdb> ratings;
+        private List<RatingDto> ratings;
 
         @JsonProperty("Metascore")
         private String metascore;
@@ -261,11 +261,11 @@ public class ItemFromOmdb {
             this.poster = poster;
         }
 
-        public List<RatingFromOmdb> getRatings() {
+        public List<RatingDto> getRatings() {
             return ratings;
         }
 
-        public void setRatings(List<RatingFromOmdb> ratings) {
+        public void setRatings(List<RatingDto> ratings) {
             this.ratings = ratings;
         }
 

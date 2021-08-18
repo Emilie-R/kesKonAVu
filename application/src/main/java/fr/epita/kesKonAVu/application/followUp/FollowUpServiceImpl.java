@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.application.followUp;
 
+import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
@@ -21,6 +22,8 @@ public class FollowUpServiceImpl implements FollowUpService {
 
     @Autowired
     ResourceFollowUpRepository resourceFollowUpRepository;
+    @Autowired
+    CatalogueService catalogueService;
     @Autowired
     ResourceRepository resourceRepository;
     @Autowired
@@ -53,7 +56,7 @@ public class FollowUpServiceImpl implements FollowUpService {
                         throw new AlreadyExistingException("ressourceFollowUp already exists");
                     }
                 } catch (NotFoundException e) {
-                    movie = resourceRepository.getMovieFromCatalogueByImdbId(imdbId);
+                    movie = catalogueService.findMovieByImdbId(imdbId);
                     movie.setCreationDate(LocalDate.now());
                     movie = resourceRepository.save(movie);
                 }
@@ -78,9 +81,9 @@ public class FollowUpServiceImpl implements FollowUpService {
                         throw new AlreadyExistingException("ressourceFollowUp already exists");
                     }
                 } catch (NotFoundException e) {
-                    serie = serieRepository.getSerieFromCatalogueByImdbId(imdbId);
+                    serie = catalogueService.findSerieByImdbId(imdbId);
                     serie.setCreationDate(LocalDate.now());
-                    final Set<Episode> allEpisodes = serieRepository.getAllEpisodesFromCatalogue(serie);
+                    final Set<Episode> allEpisodes = catalogueService.findAllEpisodes(serie);
                     serie.setEpisodes(allEpisodes);
 
                     if (allEpisodes != null ) {

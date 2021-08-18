@@ -10,10 +10,6 @@ public interface ResourceRepository {
 
     Resource save(Resource resource);
 
-    Resource getResourceFromCatalogueByImdbId(String externalKey);
-
-    Resource getMovieFromCatalogueByImdbId(String externalKey);
-
     Resource findById(Long idResource);
 
 }

@@ -12,7 +12,4 @@ public interface SerieRepository {
 
     Serie save(Serie serie);
 
-    Serie getSerieFromCatalogueByImdbId(String externalKey);
-
-    Set<Episode> getAllEpisodesFromCatalogue(Serie serie);
 }

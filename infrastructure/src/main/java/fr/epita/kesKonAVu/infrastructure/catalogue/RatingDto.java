@@ -1,8 +1,8 @@
-package fr.epita.kesKonAVu.infrastructure.resource.catalogue.omdb;
+package fr.epita.kesKonAVu.infrastructure.catalogue;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class RatingFromOmdb {
+public class RatingDto {
     @JsonProperty("Source")
     private String source;
 

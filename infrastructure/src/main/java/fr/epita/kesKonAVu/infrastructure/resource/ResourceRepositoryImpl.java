@@ -4,7 +4,7 @@ import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
-import fr.epita.kesKonAVu.infrastructure.resource.catalogue.CatalogueApiAccess;
+import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +15,11 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     ResourceJpaRepository resourceJpaRepository;
 
     @Autowired
-    CatalogueApiAccess catalogueApiAccess;
+    CatalogueService catalogueService;
 
     @Override
     public Resource findMovieByTitle(String title) {
-        Resource resourceOut = new Resource();
+        Resource resourceOut;
         Resource result = resourceJpaRepository.findByTitleAndResourceType(title, ResourceTypeEnum.MOVIE);
         if (result != null){
             resourceOut = result;
@@ -33,7 +33,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     @Override
     public Resource findMovieByIdResource(Long idResource) {
 
-        Resource resourceOut = new Resource();
+        Resource resourceOut;
         Resource result = resourceJpaRepository.findByIdResourceAndResourceType(idResource,ResourceTypeEnum.MOVIE);
         if (result != null){
             resourceOut = result;
@@ -46,7 +46,7 @@ public class ResourceRepositoryImpl implements ResourceRepository {
 
     @Override
     public Resource findMovieByExternalKey(String externalKey) {
-        Resource resourceOut = new Resource();
+        Resource resourceOut;
         Resource result = resourceJpaRepository.findByExternalKeyAndResourceType(externalKey,ResourceTypeEnum.MOVIE);
         if (result != null){
             resourceOut = result;
@@ -60,16 +60,6 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     @Override
     public Resource save(Resource resource) {
         return resourceJpaRepository.save(resource);
-    }
-
-    @Override
-    public Resource getResourceFromCatalogueByImdbId(String imdbId) {
-        return catalogueApiAccess.findResourceByImdbId(imdbId);
-    }
-
-    @Override
-    public Resource getMovieFromCatalogueByImdbId(String imdbId) {
-        return catalogueApiAccess.findMovieByImdbId(imdbId);
     }
 
     @Override
