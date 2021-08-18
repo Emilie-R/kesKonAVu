@@ -16,7 +16,7 @@ public class SerieRepositoryImpl implements SerieRepository {
     @Override
     public Serie findByTitle (String title) {
         Serie serieOut = new Serie();
-        Serie result = serieJpaRepository.findByTitleAndResourceType(title, ResourceTypeEnum.SERIE);
+        Serie result = serieJpaRepository.findByTitle(title);
         if (result != null){
             serieOut = result;
         } else {
@@ -30,7 +30,7 @@ public class SerieRepositoryImpl implements SerieRepository {
     public Serie findByIdResource (Long idResource) {
 
         Serie serieOut = new Serie();
-        Serie result = serieJpaRepository.findByIdResourceAndResourceType(idResource,ResourceTypeEnum.SERIE);
+        Serie result = serieJpaRepository.findByIdResource(idResource);
         if (result != null){
             serieOut = result;
         } else {
@@ -43,7 +43,7 @@ public class SerieRepositoryImpl implements SerieRepository {
     @Override
     public Serie findByExternalKey (String externalKey) {
         Serie serieOut = new Serie();
-        Serie result = serieJpaRepository.findByExternalKeyAndResourceType(externalKey,ResourceTypeEnum.SERIE);
+        Serie result = serieJpaRepository.findByExternalKey(externalKey);
         if (result != null){
             serieOut = result;
         } else {

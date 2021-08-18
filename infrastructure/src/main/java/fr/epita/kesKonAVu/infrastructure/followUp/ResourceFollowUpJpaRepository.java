@@ -11,8 +11,4 @@ import java.util.List;
 @Repository
 public interface ResourceFollowUpJpaRepository extends JpaRepository<ResourceFollowUp, Long> {
 
-    List<ResourceFollowUp> findByMember(Member member);
-
-    List<ResourceFollowUp> findByResource(Resource resource);
-
 }

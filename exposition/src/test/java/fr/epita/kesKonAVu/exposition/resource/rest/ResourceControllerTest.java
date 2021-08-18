@@ -46,7 +46,7 @@ public class ResourceControllerTest {
         final Resource movie = new Resource();
         //this.base = new URL("http://localhost:" + port + "/api/V1/movie/title/Godzilla"); //=> permet d'instancier les paramètre de connexion
         movie.setTitle("Friends 1");
-        movie.setExternalKey(new ExternalKey());
+        movie.setExternalKey("OMDB api");
         when(resourceService.findByTitle("Godzilla")).thenReturn(movie);
 
         // WHEN

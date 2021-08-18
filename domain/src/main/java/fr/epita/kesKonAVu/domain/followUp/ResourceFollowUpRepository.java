@@ -4,16 +4,11 @@ import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.user.Member;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ResourceFollowUpRepository {
 
     ResourceFollowUp save(ResourceFollowUp resourceFollowUp);
 
-    ResourceFollowUp findById(Long idFollowUp);
-
-    List<ResourceFollowUp> findByMember(Member member);
-
-    List<ResourceFollowUp> findByResource(Resource resource);
-
-
+    Optional<ResourceFollowUp> findById(Long idFollowUp);
 }

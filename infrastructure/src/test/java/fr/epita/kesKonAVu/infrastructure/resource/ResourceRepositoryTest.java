@@ -102,5 +102,43 @@ public class ResourceRepositoryTest {
 
     }
 
+    @Test
+    public void ShouldFindByTitleWhenResourceIsGiven() {
+        //Given
+        resourceToSave.setTitle("Le dernier métro");
+        resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
+        resourceToSave.setExternalKey("12345678");
+        resourceToSave.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+
+        //When
+        Resource result = resourceRepository.save(resourceToSave);
+
+        //Then
+        Resource retrieved = resourceRepository.findMovieByTitle(result.getTitle());
+        Assertions.assertEquals( resourceToSave.getTitle(), retrieved.getTitle());
+    }
+    @Test
+    public void ShouldFindByExternalkeyWhenResourceIsGiven() {
+        //Given
+        resourceToSave.setTitle("Le dernier métro");
+        resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
+        resourceToSave.setExternalKey("12345678");
+        resourceToSave.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+
+        Resource resourceWitness = new Resource();
+        resourceWitness.setTitle("Le premier métro");
+        resourceWitness.setResourceType(ResourceTypeEnum.MOVIE);
+        resourceWitness.setExternalKey("87654321");
+        resourceWitness.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+
+        //When
+        Resource result = resourceRepository.save(resourceToSave);
+
+        //Then
+        Resource retrieved = resourceRepository.findMovieByExternalKey(result.getExternalKey());
+        Assertions.assertEquals( resourceToSave.getExternalKey(), retrieved.getExternalKey());
+        Assertions.assertNotEquals( resourceWitness.getExternalKey(), retrieved.getExternalKey());
+    }
+
 
 }
