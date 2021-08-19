@@ -21,16 +21,22 @@ public class FollowUpController {
     @Autowired
     FollowUpMapper followUpMapper;
 
-    @GetMapping(value="/{id}", produces={"application/json"})
-    public FollowupDTO getResourceFollowUp(@PathVariable("id") Long id){
-        FollowUp in = resourceFollowUpService.findOne(id);
+    @GetMapping(value="/{idMember}", produces={"application/json"})
+    public FollowupDTO getResourceFollowUp(@PathVariable("idMember") Long idMember){
+        FollowUp in = resourceFollowUpService.findOne(idMember);
         return followUpMapper.mapToDto(in);
     }
 
     @PostMapping(value = "/create", consumes = {"application/json"})
-    public FollowupDTO createNewFollowUp(@Valid @RequestBody ResourceFollowUpDTOLight resourceFollowUpDTOLight) {
-        FollowUp resourceFollowUp = followUpMapper.mapToEntity(resourceFollowUpDTOLight);
-        FollowUp resourceFollowUpSaved = followUpService.createNewFollowUp(resourceFollowUp);
-        return followUpMapper.mapToDto(resourceFollowUpSaved);
+    public FollowupDTO createNewFollowUp(@Valid @RequestBody FollowUpDTOLight followUpDTOLight) {
+        FollowUp FollowUp = followUpMapper.mapToEntity(followUpDTOLight);
+        FollowUp followUpSaved = followUpService.createNewFollowUp(FollowUp);
+        return followUpMapper.mapToDto(followUpSaved);
     }
+
+    @DeleteMapping(value="/{id}")
+    public Long deleteFollowUp(@PathVariable("id") Long idFollowUp){
+        return followUpService.deleteFollowUp(idFollowUp);
+    }
+
 }

@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
+import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.application.followUp.ResourceFollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
@@ -7,7 +8,9 @@ import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +18,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -73,7 +77,7 @@ public class FollowUpControllerTest {
                 FollowupDTO.class);
 
         //Then
-        Assertions.assertTrue(response.getIdFollowUp().equals(res2.getIdFollowUp()));
+        Assertions.assertEquals(response.getIdFollowUp(), res2.getIdFollowUp());
     }
 
     @Test

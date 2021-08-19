@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class FollowUpRepositoryImpl implements FollowUpRepository {
+
     @Autowired
     ResourceFollowUpJpaRepository resourceFollowUpJpaRepository;
 

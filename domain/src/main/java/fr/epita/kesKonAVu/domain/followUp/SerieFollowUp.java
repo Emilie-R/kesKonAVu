@@ -11,8 +11,6 @@ import java.util.Set;
 //@Entity
 public class SerieFollowUp extends FollowUp {
 
-    private Float progression;
-
     @OneToMany (cascade = CascadeType.ALL)
     @JoinTable(name="suiviSerieProgression")
     private Set<EpisodeFollowUp> episodeFollowUps;
@@ -22,40 +20,12 @@ public class SerieFollowUp extends FollowUp {
 
     //getters et setters
 
-    public Float getProgression() {
-        return progression;
-    }
-
-    public void setProgression(Float progression) {
-        this.progression = progression;
-    }
-
     public Set<EpisodeFollowUp> getEpisodeFollowUps() {
         return episodeFollowUps;
     }
 
     public void setEpisodeFollowUps(Set<EpisodeFollowUp> episodeFollowUps) {
         this.episodeFollowUps = episodeFollowUps;
-    }
-
-
-    /**
-     *
-     */
-     public void CalculateProgression(){
-         long episodesViewed = 0;
-
-         if (this.getResource() instanceof Serie) {
-             episodesViewed = episodeFollowUps.stream()
-                     .filter(e -> e.getStatus() == EpisodeStatusEnum.VU)
-                     .count();
-             if (((Serie) this.getResource()).getNumberOfEpisodes() > 0 ) {
-                 this.progression = Float.valueOf(100 * episodesViewed / ((Serie) this.getResource()).getNumberOfEpisodes());
-             } else {this.progression = 0F;}
-
-         } else {
-             throw new ResourceTypeException();
-         }
     }
 
 

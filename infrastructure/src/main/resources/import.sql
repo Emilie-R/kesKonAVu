@@ -24,14 +24,14 @@ INSERT INTO SUIVI_RESOURCE (creation_date, last_modification_date, member_id_mem
 INSERT INTO SUIVI_RESOURCE (creation_date, last_modification_date, member_id_member, resource_id_resource, status,note,progression) VALUES (current_date, current_date, 2, 1, 'AVOIR',20,0);
 
 -- Create SERIE FollowUp
-INSERT INTO SUIVI_RESOURCE (creation_date, last_modification_date, member_id_member, resource_id_resource, status, note,progression) VALUES (current_date, current_date, 1, 1, 'VU', 10,50);;
+INSERT INTO SUIVI_RESOURCE (creation_date, last_modification_date, member_id_member, resource_id_resource, status, note,progression) VALUES (current_date, current_date, 1, 2, 'VU', 10,50);;
 INSERT INTO SUIVI_EPISODE(last_modification_date, status, episode_id_episode) VALUES (current_date, 'VU',1);
 INSERT INTO SUIVI_EPISODE(last_modification_date, status, episode_id_episode) VALUES (current_date, 'VU',2);
 INSERT INTO SUIVI_EPISODE(last_modification_date, status, episode_id_episode) VALUES (current_date, 'VU',3);
 INSERT INTO SUIVI_EPISODE(last_modification_date, status, episode_id_episode) VALUES (current_date, 'AVOIR',4);
 INSERT INTO SUIVI_EPISODE(last_modification_date, status, episode_id_episode) VALUES (current_date, 'AVOIR',5);
-INSERT INTO SUIVI_SERIE_PROGRESSION (serie_follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,1);
-INSERT INTO SUIVI_SERIE_PROGRESSION (serie_follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,2);
-INSERT INTO SUIVI_SERIE_PROGRESSION (serie_follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,3);
-INSERT INTO SUIVI_SERIE_PROGRESSION (serie_follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,4);
-INSERT INTO SUIVI_SERIE_PROGRESSION (serie_follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,5);
+INSERT INTO SUIVI_PROGRESSION (follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,1);
+INSERT INTO SUIVI_PROGRESSION (follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,2);
+INSERT INTO SUIVI_PROGRESSION (follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,3);
+INSERT INTO SUIVI_PROGRESSION (follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,4);
+INSERT INTO SUIVI_PROGRESSION (follow_up_id_follow_up, episode_follow_ups_id) VALUES (3,5);

@@ -28,25 +28,31 @@ public class FollowUpServiceImpl implements FollowUpService {
     @Autowired
     SerieRepository serieRepository;
 
+
+    /**
+     * allow to Create a new FollowUp for the user (CU : Ajouter une ressource à ma sélection)
+     * If the resource selected isn't present in the database, the resource is created with data retrieved from the catalogue.
+     * @param followUp followUp with id of the Member, id
+     * @return followUp followUp created
+     */
     @Override
     @Transactional
-    public FollowUp createNewFollowUp(final FollowUp resourceFollowUp) {
-        final String imdbId = resourceFollowUp.getResource().getExternalKey();
-        final Member member = resourceFollowUp.getMember();
+    public FollowUp createNewFollowUp(final FollowUp followUp) {
+        final String imdbId = followUp.getResource().getExternalKey();
+        final Member member = followUp.getMember();
+        FollowUp followUpToSave = new FollowUp();
 
         /* Status to set for the creation of the FollowUp */
         StatusEnum statusToCreate = StatusEnum.VU;
-        if (resourceFollowUp.getStatus() == StatusEnum.AVOIR) {
+        if (followUp.getStatus() == StatusEnum.AVOIR) {
             statusToCreate = StatusEnum.AVOIR;
         }
 
-        if (resourceFollowUp.getResource().getResourceType() != null) {
+        if (followUp.getResource().getResourceType() != null) {
 
-
-            if(resourceFollowUp.getResource().getResourceType() == ResourceTypeEnum.MOVIE) {
+            if(followUp.getResource().getResourceType() == ResourceTypeEnum.MOVIE) {
                 /* FOR a Movie (Resource of ResourceType MOVIE) */
                 Resource movie;
-                FollowUp resourceFollowUpToSave = new FollowUp();
 
                 try {
                     movie = resourceRepository.findMovieByExternalKey(imdbId);
@@ -60,18 +66,11 @@ public class FollowUpServiceImpl implements FollowUpService {
                     movie = resourceRepository.save(movie);
                 }
 
-                resourceFollowUpToSave.setResource(movie);
-                resourceFollowUpToSave.setMember(member);
-                resourceFollowUpToSave.setStatus(statusToCreate);
-                resourceFollowUpToSave.setCreationDate(LocalDate.now());
-                resourceFollowUpToSave.setLastModificationDate(LocalDate.now());
+                followUpToSave.setResource(movie);
 
-                return followUpRepository.save(resourceFollowUpToSave);
-
-            } else if (resourceFollowUp.getResource().getResourceType() == ResourceTypeEnum.SERIE) {
+            } else if (followUp.getResource().getResourceType() == ResourceTypeEnum.SERIE) {
                 /* FOR a Serie (Resource of ResourceType SERIE) */
                 Serie serie;
-                SerieFollowUp serieFollowUpToSave = new SerieFollowUp();
 
                 try {
                     serie = serieRepository.findByExternalKey(imdbId);
@@ -93,16 +92,15 @@ public class FollowUpServiceImpl implements FollowUpService {
                     serie = serieRepository.save(serie);
                 }
 
-                serieFollowUpToSave.setResource(serie);
-                serieFollowUpToSave.setMember(member);
-                serieFollowUpToSave.setStatus(statusToCreate);
-                serieFollowUpToSave.setCreationDate(LocalDate.now());
-                serieFollowUpToSave.setLastModificationDate(LocalDate.now());
-
-                return followUpRepository.save(serieFollowUpToSave);
+                followUpToSave.setResource(serie);
             }
         }
-        return null;
+
+        followUpToSave.setMember(member);
+        followUpToSave.setStatus(statusToCreate);
+        followUpToSave.setCreationDate(LocalDate.now());
+        followUpToSave.setLastModificationDate(LocalDate.now());
+        return followUpRepository.save(followUpToSave);
     }
     @Override
     public FollowUp findOne (Long id) {
@@ -116,7 +114,7 @@ public class FollowUpServiceImpl implements FollowUpService {
 
     @Override
     public Long deleteFollowUp(final Long idFollowUp) {
-        resourceFollowUpRepository.deleteById(idFollowUp);
+        followUpRepository.deleteById(idFollowUp);
         return idFollowUp;
     }
 }
