@@ -1,6 +1,7 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
+
+import fr.epita.kesKonAVu.domain.followUp.statusEnum;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.resource.rest.ResourceDTO;
 
@@ -10,7 +11,7 @@ public class ResourceFollowupDTO {
     private Long idFollowUp;
     private ResourceDTO resourceDTO;
 
-    private StatusEnum status;
+    private statusEnum status;
     private LocalDate lastModificationDate;
     private int note;
     private MemberDTO memberDTO;
@@ -34,11 +35,11 @@ public class ResourceFollowupDTO {
         this.resourceDTO = resourceDTO;
     }
 
-    public StatusEnum getStatus ( ) {
+    public statusEnum getStatus ( ) {
         return status;
     }
 
-    public void setStatus (StatusEnum status) {
+    public void setStatus (statusEnum status) {
         this.status = status;
     }
 

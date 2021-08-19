@@ -3,7 +3,7 @@ package fr.epita.kesKonAVu.infrastructure.followUp;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
+import fr.epita.kesKonAVu.domain.followUp.statusEnum;
 import fr.epita.kesKonAVu.domain.resource.*;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
@@ -40,7 +40,7 @@ public class ResourceFollowUpTest {
          result = resourceFollowUpRepository.findById(idFollowUp).get(); }
 
         //When
-        Assertions.assertEquals(StatusEnum.VU, result.getStatus());
+        Assertions.assertEquals(statusEnum.VU, result.getStatus());
         Assertions.assertEquals(LocalDate.now(), result.getLastModificationDate());
         Assertions.assertEquals(1L, result.getMember().getIdMember());
         Assertions.assertNotNull(result.getMember().getPassword());
@@ -70,7 +70,7 @@ public class ResourceFollowUpTest {
         ResourceFollowUp resourceFollowUpToSave = new ResourceFollowUp();
         resourceFollowUpToSave.setCreationDate(LocalDate.now());
         resourceFollowUpToSave.setLastModificationDate(LocalDate.now());
-        resourceFollowUpToSave.setStatus(StatusEnum.AVOIR);
+        resourceFollowUpToSave.setStatus(statusEnum.AVOIR);
         resourceFollowUpToSave.setResource(resource);
         resourceFollowUpToSave.setMember(member);
 
@@ -115,6 +115,17 @@ public class ResourceFollowUpTest {
 
         //Then
         Assertions.assertNull(result);
+    }
 
+    @Test
+    public void given_existing_idFollowUp_deleteById_should_success() {
+        //Given
+        Long idFollowUp = 3L;
+
+        //When
+        resourceFollowUpRepository.deleteById(idFollowUp);
+
+        //Then
+        Assertions.assertThrows(NotFoundException.class, ()-> resourceFollowUpRepository.findById(idFollowUp));
     }
 }

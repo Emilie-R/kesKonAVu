@@ -1,9 +1,9 @@
 package fr.epita.kesKonAVu.application.followUp;
 
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.followUp.SerieFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.SerieFollowUpRepository;
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
+import fr.epita.kesKonAVu.domain.followUp.statusEnum;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import fr.epita.kesKonAVu.domain.user.Member;
@@ -29,20 +29,20 @@ public class SerieFollowUpServiceImpl implements SerieFollowUpService{
     }
 
     @Override
-    public Map<StatusEnum, List<SerieFollowUp>> SeparateByStatus (List<SerieFollowUp> serieFollowUpList) {
+    public Map<statusEnum, List<SerieFollowUp>> SeparateByStatus (List<SerieFollowUp> serieFollowUpList) {
         List<SerieFollowUp> listOfSeenSeries = serieFollowUpList.stream()
-                .filter(r -> r.getStatus() == StatusEnum.VU)
+                .filter(r -> r.getStatus() == statusEnum.VU)
                 .collect(Collectors.toList());
         List<SerieFollowUp> listOfUnseenSeries = serieFollowUpList.stream()
-                .filter(r -> r.getStatus() == StatusEnum.AVOIR)
+                .filter(r -> r.getStatus() == statusEnum.AVOIR)
                 .collect(Collectors.toList());
         List<List<SerieFollowUp>> result = new ArrayList<>(new ArrayList<>());
         result.add(listOfSeenSeries);
         result.add(listOfUnseenSeries);
 
-        Map<StatusEnum,List<SerieFollowUp>> mapResult = new HashMap<>();
-        mapResult.put(StatusEnum.VU,listOfSeenSeries);
-        mapResult.put(StatusEnum.AVOIR,listOfUnseenSeries);
+        Map<statusEnum, List<SerieFollowUp>> mapResult = new HashMap<>();
+        mapResult.put(statusEnum.VU,listOfSeenSeries);
+        mapResult.put(statusEnum.AVOIR,listOfUnseenSeries);
 
         return mapResult;
     }

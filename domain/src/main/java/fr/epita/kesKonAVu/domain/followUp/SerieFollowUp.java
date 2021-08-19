@@ -2,6 +2,7 @@ package fr.epita.kesKonAVu.domain.followUp;
 
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.common.ResourceTypeException;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 
 import javax.persistence.*;
@@ -12,7 +13,7 @@ public class SerieFollowUp extends ResourceFollowUp {
 
     private Float progression;
 
-    @OneToMany
+    @OneToMany (cascade = CascadeType.ALL)
     @JoinTable(name="suiviSerieProgression")
     private Set<EpisodeFollowUp> episodeFollowUps;
 
@@ -46,7 +47,7 @@ public class SerieFollowUp extends ResourceFollowUp {
 
          if (this.getResource() instanceof Serie) {
              episodesViewed = episodeFollowUps.stream()
-                     .filter(e -> e.getStatus() == StatusEnum.VU)
+                     .filter(e -> e.getStatus() == EpisodeStatusEnum.VU)
                      .count();
              if (((Serie) this.getResource()).getNumberOfEpisodes() > 0 ) {
                  this.progression = Float.valueOf(100 * episodesViewed / ((Serie) this.getResource()).getNumberOfEpisodes());

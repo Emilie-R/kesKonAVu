@@ -32,4 +32,9 @@ public class ResourceFollowUpRepositoryImpl implements ResourceFollowUpRepositor
     public ResourceFollowUp findByResourceAndMember(Resource resource, Member member) {
         return resourceFollowUpJpaRepository.findByResourceAndMember(resource, member);
     }
+
+    @Override
+    public void deleteById(Long idFollowUp) {
+        resourceFollowUpJpaRepository.deleteById(idFollowUp);
+    }
 }

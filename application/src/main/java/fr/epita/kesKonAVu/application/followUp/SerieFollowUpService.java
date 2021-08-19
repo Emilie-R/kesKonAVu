@@ -1,8 +1,8 @@
 package fr.epita.kesKonAVu.application.followUp;
 
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.followUp.SerieFollowUp;
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
+import fr.epita.kesKonAVu.domain.followUp.statusEnum;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import fr.epita.kesKonAVu.domain.user.Member;
@@ -15,7 +15,7 @@ public interface SerieFollowUpService {
 
     List<SerieFollowUp> findByResource(Resource resource);
 
-    Map<StatusEnum,List<SerieFollowUp>> SeparateByStatus(List<SerieFollowUp> serieFollowUpList);
+    Map<statusEnum, List<SerieFollowUp>> SeparateByStatus(List<SerieFollowUp> serieFollowUpList);
 
     List<Serie> SortByCriteria(List<SerieFollowUp> serieFollowUpList, SortCriteriaEnum criteria);
 }

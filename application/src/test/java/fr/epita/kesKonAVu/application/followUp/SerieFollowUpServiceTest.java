@@ -3,7 +3,7 @@ package fr.epita.kesKonAVu.application.followUp;
 import fr.epita.kesKonAVu.application.SpringBootAppTest;
 import fr.epita.kesKonAVu.domain.followUp.SerieFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.SerieFollowUpRepository;
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
+import fr.epita.kesKonAVu.domain.followUp.statusEnum;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import org.junit.jupiter.api.Assertions;
@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 
 @SpringBootTest(classes = { SpringBootAppTest.class })
 public class SerieFollowUpServiceTest {
@@ -31,7 +32,7 @@ public class SerieFollowUpServiceTest {
         // les inputs
         //1
         SerieFollowUp resourceFollowUp1 = new SerieFollowUp();
-        resourceFollowUp1.setStatus(StatusEnum.VU);
+        resourceFollowUp1.setStatus(statusEnum.VU);
         resourceFollowUp1.setIdFollowUp(1L);
         Serie resource1 = new Serie();
         resource1.setIdResource(1L);
@@ -44,7 +45,7 @@ public class SerieFollowUpServiceTest {
         resource2.setTitle("GodZilla Origin");
         resource2.setResourceType(ResourceTypeEnum.MOVIE);
         SerieFollowUp resourceFollowUp2 = new SerieFollowUp();
-        resourceFollowUp2.setStatus(StatusEnum.AVOIR);
+        resourceFollowUp2.setStatus(statusEnum.AVOIR);
         resourceFollowUp2.setIdFollowUp(resourceFollowUp1.getIdFollowUp()+1);
         resourceFollowUp2.setResource(resource2);
         //3
@@ -53,7 +54,7 @@ public class SerieFollowUpServiceTest {
         resource3.setTitle("Friends");
         resource3.setResourceType(ResourceTypeEnum.SERIE);
         SerieFollowUp resourceFollowUp3 = new SerieFollowUp();
-        resourceFollowUp3.setStatus(StatusEnum.VU);
+        resourceFollowUp3.setStatus(statusEnum.VU);
         resourceFollowUp3.setIdFollowUp(resourceFollowUp1.getIdFollowUp()+1);
         resourceFollowUp3.setResource(resource3);
         // liste de followUps
@@ -62,9 +63,9 @@ public class SerieFollowUpServiceTest {
         liste.add(resourceFollowUp2);
         liste.add(resourceFollowUp3);
         //test
-        Map<StatusEnum,List<SerieFollowUp>> map = serieFollowUpService.SeparateByStatus(liste);
-        Assertions.assertEquals(2,map.get(StatusEnum.VU).size()); // 2 car mock du ResourceFollowUpRepository
-        Assertions.assertEquals(1,map.get(StatusEnum.AVOIR).size());
+        Map<statusEnum, List<SerieFollowUp>> map = serieFollowUpService.SeparateByStatus(liste);
+        Assertions.assertEquals(2,map.get(statusEnum.VU).size()); // 2 car mock du ResourceFollowUpRepository
+        Assertions.assertEquals(1,map.get(statusEnum.AVOIR).size());
 
 
     }
@@ -73,7 +74,7 @@ public class SerieFollowUpServiceTest {
         // les inputs
         //1
         SerieFollowUp resourceFollowUp1 = new SerieFollowUp();
-        resourceFollowUp1.setStatus(StatusEnum.VU);
+        resourceFollowUp1.setStatus(statusEnum.VU);
         resourceFollowUp1.setNote(10);
         Serie resource1 = new Serie();
         resource1.setIdResource(1L);
@@ -86,7 +87,7 @@ public class SerieFollowUpServiceTest {
         resource2.setTitle("GodZilla Origin");
         resource2.setResourceType(ResourceTypeEnum.MOVIE);
         SerieFollowUp resourceFollowUp2 = new SerieFollowUp();
-        resourceFollowUp2.setStatus(StatusEnum.AVOIR);
+        resourceFollowUp2.setStatus(statusEnum.AVOIR);
         resourceFollowUp2.setNote(20);
         resourceFollowUp2.setResource(resource2);
         //3
@@ -95,7 +96,7 @@ public class SerieFollowUpServiceTest {
         resource3.setTitle("Friends");
         resource3.setResourceType(ResourceTypeEnum.SERIE);
         SerieFollowUp resourceFollowUp3 = new SerieFollowUp();
-        resourceFollowUp3.setStatus(StatusEnum.VU);
+        resourceFollowUp3.setStatus(statusEnum.VU);
         resourceFollowUp3.setNote(5);
         resourceFollowUp3.setResource(resource3);
         // liste de followUps
@@ -115,7 +116,7 @@ public class SerieFollowUpServiceTest {
         // les inputs
         //1
         SerieFollowUp resourceFollowUp1 = new SerieFollowUp();
-        resourceFollowUp1.setStatus(StatusEnum.VU);
+        resourceFollowUp1.setStatus(statusEnum.VU);
         resourceFollowUp1.setNote(10);
         Serie resource1 = new Serie();
         resource1.setIdResource(1L);
@@ -129,7 +130,7 @@ public class SerieFollowUpServiceTest {
         resource2.setTitle("GodZilla Ultimate");
         resource2.setResourceType(ResourceTypeEnum.SERIE);
         SerieFollowUp resourceFollowUp2 = new SerieFollowUp();
-        resourceFollowUp2.setStatus(StatusEnum.AVOIR);
+        resourceFollowUp2.setStatus(statusEnum.AVOIR);
         resourceFollowUp2.setNote(20);
         resourceFollowUp2.setResource(resource2);
         resourceFollowUp2.setLastModificationDate(resourceFollowUp1.getLastModificationDate().plusDays(1));
@@ -139,7 +140,7 @@ public class SerieFollowUpServiceTest {
         resource3.setTitle("Friends");
         resource3.setResourceType(ResourceTypeEnum.SERIE);
         SerieFollowUp resourceFollowUp3 = new SerieFollowUp();
-        resourceFollowUp3.setStatus(StatusEnum.VU);
+        resourceFollowUp3.setStatus(statusEnum.VU);
         resourceFollowUp3.setNote(5);
         resourceFollowUp3.setResource(resource3);
         resourceFollowUp3.setLastModificationDate(resourceFollowUp2.getLastModificationDate().plusDays(1));

@@ -9,4 +9,5 @@ public interface SerieFollowUpRepository {
     List<SerieFollowUp> findByMember(Member member);
 
     List<SerieFollowUp> findByResource(Resource resource);
+
 }

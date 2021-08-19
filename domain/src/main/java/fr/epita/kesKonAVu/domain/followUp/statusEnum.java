@@ -1,11 +1,11 @@
 package fr.epita.kesKonAVu.domain.followUp;
 
-public enum StatusEnum {
+public enum statusEnum {
 
     AVOIR("à voir"), VU("visionné");
     private String valeur;
 
-    StatusEnum(String valeur)
+    statusEnum(String valeur)
     {
         this.valeur = valeur;
     }

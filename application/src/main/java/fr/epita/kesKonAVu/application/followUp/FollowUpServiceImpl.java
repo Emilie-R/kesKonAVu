@@ -3,13 +3,13 @@ package fr.epita.kesKonAVu.application.followUp;
 import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
 import fr.epita.kesKonAVu.domain.followUp.SerieFollowUp;
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
+import fr.epita.kesKonAVu.domain.followUp.statusEnum;
 import fr.epita.kesKonAVu.domain.resource.*;
 import fr.epita.kesKonAVu.domain.user.Member;
-import org.aspectj.weaver.ast.Not;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,9 +36,9 @@ public class FollowUpServiceImpl implements FollowUpService {
         final Member member = resourceFollowUp.getMember();
 
         /* Status to set for the creation of the ResourceFollowUp */
-        StatusEnum statusToCreate = StatusEnum.VU;
-        if (resourceFollowUp.getStatus() == StatusEnum.AVOIR) {
-            statusToCreate = StatusEnum.AVOIR;
+        statusEnum statusToCreate = statusEnum.VU;
+        if (resourceFollowUp.getStatus() == statusEnum.AVOIR) {
+            statusToCreate = statusEnum.AVOIR;
         }
 
         if (resourceFollowUp.getResource().getResourceType() != null) {
@@ -104,5 +104,11 @@ public class FollowUpServiceImpl implements FollowUpService {
             }
         }
         return null;
+    }
+
+    @Override
+    public Long deleteFollowUp(final Long idFollowUp) {
+        resourceFollowUpRepository.deleteById(idFollowUp);
+        return idFollowUp;
     }
 }
