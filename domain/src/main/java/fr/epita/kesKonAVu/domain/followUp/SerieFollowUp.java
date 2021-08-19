@@ -8,8 +8,8 @@ import fr.epita.kesKonAVu.domain.resource.Serie;
 import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-public class SerieFollowUp extends ResourceFollowUp {
+//@Entity
+public class SerieFollowUp extends FollowUp {
 
     private Float progression;
 

@@ -1,15 +1,15 @@
 package fr.epita.kesKonAVu.domain.followUp;
 
-import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.user.Member;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Set;
 
 @Entity
 @Table(name="suiviResource")
-public class ResourceFollowUp {
+public class FollowUp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idFollowUp;
@@ -21,17 +21,22 @@ public class ResourceFollowUp {
     private Member member;
 
     @Enumerated(EnumType.STRING)
-    private statusEnum status;
+    private StatusEnum status;
 
     private Integer note;
 
     private LocalDate creationDate;
     private LocalDate lastModificationDate;
 
+    private Float progression;
+    private Integer numberOfUnseenEpisodes;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="suiviProgression")
+    private Set<EpisodeFollowUp> episodeFollowUps;
 
 
-
-    public ResourceFollowUp (){
+    public FollowUp (){
 
     }
 
@@ -75,6 +80,14 @@ public class ResourceFollowUp {
         this.note = note;
     }
 
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
     public Member getMember ( ) {
         return member;
     }
@@ -83,11 +96,27 @@ public class ResourceFollowUp {
         this.member = member;
     }
 
-    public statusEnum getStatus() {
-        return status;
+    public Float getProgression ( ) {
+        return progression;
     }
 
-    public void setStatus(statusEnum status) {
-        this.status = status;
+    public void setProgression (Float progression) {
+        this.progression = progression;
+    }
+
+    public Integer getNumberOfUnseenEpisodes ( ) {
+        return numberOfUnseenEpisodes;
+    }
+
+    public void setNumberOfUnseenEpisodes (Integer numberOfUnseenEpisodes) {
+        this.numberOfUnseenEpisodes = numberOfUnseenEpisodes;
+    }
+
+    public Set<EpisodeFollowUp> getEpisodeFollowUps ( ) {
+        return episodeFollowUps;
+    }
+
+    public void setEpisodeFollowUps (Set<EpisodeFollowUp> episodeFollowUps) {
+        this.episodeFollowUps = episodeFollowUps;
     }
 }

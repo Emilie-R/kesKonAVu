@@ -1,7 +1,7 @@
 package fr.epita.kesKonAVu.application.followUp;
 
 import fr.epita.kesKonAVu.application.SpringBootAppTest;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
+import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -13,7 +13,7 @@ public class ResourceFollowUpServiceTest {
     ResourceFollowUpService resourceFollowUpService;
 
     @MockBean
-    ResourceFollowUpRepository resourceFollowUpRepository;
+    FollowUpRepository followUpRepository;
 
 
 

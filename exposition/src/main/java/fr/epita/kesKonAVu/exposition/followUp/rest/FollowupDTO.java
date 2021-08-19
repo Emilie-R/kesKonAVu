@@ -1,22 +1,21 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
-
-import fr.epita.kesKonAVu.domain.followUp.statusEnum;
-import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
+import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.exposition.resource.rest.ResourceDTO;
 
 import java.time.LocalDate;
 
-public class ResourceFollowupDTO {
+public class FollowupDTO {
     private Long idFollowUp;
     private ResourceDTO resourceDTO;
 
-    private statusEnum status;
+    private StatusEnum status;
     private LocalDate lastModificationDate;
     private int note;
-    private MemberDTO memberDTO;
+    private Float progression;// Ce DTO gère (donc) les suivis de Films ET de séries
+    private Integer numberOfUnseenEpisodes;
 
-    public ResourceFollowupDTO(){
+    public FollowupDTO (){
     }
 
     public Long getIdFollowUp ( ) {
@@ -35,11 +34,11 @@ public class ResourceFollowupDTO {
         this.resourceDTO = resourceDTO;
     }
 
-    public statusEnum getStatus ( ) {
+    public StatusEnum getStatus ( ) {
         return status;
     }
 
-    public void setStatus (statusEnum status) {
+    public void setStatus (StatusEnum status) {
         this.status = status;
     }
 
@@ -59,11 +58,19 @@ public class ResourceFollowupDTO {
         this.note = note;
     }
 
-    public MemberDTO getMemberDTO ( ) {
-        return memberDTO;
+    public Float getProgression ( ) {
+        return progression;
     }
 
-    public void setMemberDTO (MemberDTO memberDTO) {
-        this.memberDTO = memberDTO;
+    public void setProgression (Float progression) {
+        this.progression = progression;
+    }
+
+    public Integer getNumberOfUnseenEpisodes ( ) {
+        return numberOfUnseenEpisodes;
+    }
+
+    public void setNumberOfUnseenEpisodes (Integer numberOfUnseenEpisodes) {
+        this.numberOfUnseenEpisodes = numberOfUnseenEpisodes;
     }
 }

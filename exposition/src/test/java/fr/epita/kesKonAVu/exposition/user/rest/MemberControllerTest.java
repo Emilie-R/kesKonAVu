@@ -123,18 +123,18 @@ public class MemberControllerTest {
 //        member.setPseudo("Petit Poisson Rouge");
 //        member.addRole(TypeRoleEnum.USER);
 //        member.addRole(TypeRoleEnum.ADMIN);
-//        ResourceFollowUp fw1 = new ResourceFollowUp();
+//        FollowUp fw1 = new FollowUp();
 //        fw1.setIdFollowUp(15L);
 //        fw1.setMember(member);
-//        ResourceFollowUp fw2 = new ResourceFollowUp();
+//        FollowUp fw2 = new FollowUp();
 //        fw2.setIdFollowUp(20L);
 //        fw2.setMember(member);
-//        Set<ResourceFollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
+//        Set<FollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
 //        member.setResourceFollowUps(set1);
 //
 //        // When Appel de la méthode à tester
 //        final Member memberCreated = memberService2.createMember(member);
-//        //récupérer member avec ses ResourceFollowUp
+//        //récupérer member avec ses FollowUp
 //        URI uri = new URI(baseURL + "followup/" + member.getIdMember());
 //        //Mockito.when(memberService.findOne(any())).thenThrow(NotFoundException.class);
 //

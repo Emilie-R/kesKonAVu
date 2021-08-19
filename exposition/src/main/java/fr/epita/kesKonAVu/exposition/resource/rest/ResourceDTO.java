@@ -1,5 +1,10 @@
 package fr.epita.kesKonAVu.exposition.resource.rest;
 
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 public class ResourceDTO {
     private Long idResource;
     private String title;
@@ -12,6 +17,7 @@ public class ResourceDTO {
     private Integer duration;
     private String externalKey;
     private String externalCatalogName;
+    private ResourceTypeEnum resourceType;
 
     public ResourceDTO (){
     }
@@ -106,5 +112,13 @@ public class ResourceDTO {
 
     public void setExternalCatalogName (String externalCatalogName) {
         this.externalCatalogName = externalCatalogName;
+    }
+
+    public ResourceTypeEnum getResourceType ( ) {
+        return resourceType;
+    }
+
+    public void setResourceType (ResourceTypeEnum resourceType) {
+        this.resourceType = resourceType;
     }
 }

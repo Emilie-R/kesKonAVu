@@ -3,11 +3,10 @@ package fr.epita.kesKonAVu.application.followUp;
 import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
+import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import fr.epita.kesKonAVu.domain.followUp.SerieFollowUp;
-import fr.epita.kesKonAVu.domain.followUp.statusEnum;
+import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.domain.resource.*;
 import fr.epita.kesKonAVu.domain.user.Member;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,7 @@ import java.util.Set;
 public class FollowUpServiceImpl implements FollowUpService {
 
     @Autowired
-    ResourceFollowUpRepository resourceFollowUpRepository;
+    FollowUpRepository followUpRepository;
     @Autowired
     CatalogueService catalogueService;
     @Autowired
@@ -31,14 +30,14 @@ public class FollowUpServiceImpl implements FollowUpService {
 
     @Override
     @Transactional
-    public ResourceFollowUp createNewFollowUp(final ResourceFollowUp resourceFollowUp) {
+    public FollowUp createNewFollowUp(final FollowUp resourceFollowUp) {
         final String imdbId = resourceFollowUp.getResource().getExternalKey();
         final Member member = resourceFollowUp.getMember();
 
-        /* Status to set for the creation of the ResourceFollowUp */
-        statusEnum statusToCreate = statusEnum.VU;
-        if (resourceFollowUp.getStatus() == statusEnum.AVOIR) {
-            statusToCreate = statusEnum.AVOIR;
+        /* Status to set for the creation of the FollowUp */
+        StatusEnum statusToCreate = StatusEnum.VU;
+        if (resourceFollowUp.getStatus() == StatusEnum.AVOIR) {
+            statusToCreate = StatusEnum.AVOIR;
         }
 
         if (resourceFollowUp.getResource().getResourceType() != null) {
@@ -47,12 +46,12 @@ public class FollowUpServiceImpl implements FollowUpService {
             if(resourceFollowUp.getResource().getResourceType() == ResourceTypeEnum.MOVIE) {
                 /* FOR a Movie (Resource of ResourceType MOVIE) */
                 Resource movie;
-                ResourceFollowUp resourceFollowUpToSave = new ResourceFollowUp();
+                FollowUp resourceFollowUpToSave = new FollowUp();
 
                 try {
                     movie = resourceRepository.findMovieByExternalKey(imdbId);
-                    if (resourceFollowUpRepository.findByResourceAndMember(movie,member) != null) {
-                        /* ResourceFollowUp already created => skip */
+                    if (followUpRepository.findByResourceAndMember(movie,member) != null) {
+                        /* FollowUp already created => skip */
                         throw new AlreadyExistingException("ressourceFollowUp already exists");
                     }
                 } catch (NotFoundException e) {
@@ -67,7 +66,7 @@ public class FollowUpServiceImpl implements FollowUpService {
                 resourceFollowUpToSave.setCreationDate(LocalDate.now());
                 resourceFollowUpToSave.setLastModificationDate(LocalDate.now());
 
-                return resourceFollowUpRepository.save(resourceFollowUpToSave);
+                return followUpRepository.save(resourceFollowUpToSave);
 
             } else if (resourceFollowUp.getResource().getResourceType() == ResourceTypeEnum.SERIE) {
                 /* FOR a Serie (Resource of ResourceType SERIE) */
@@ -76,8 +75,8 @@ public class FollowUpServiceImpl implements FollowUpService {
 
                 try {
                     serie = serieRepository.findByExternalKey(imdbId);
-                    if (resourceFollowUpRepository.findByResourceAndMember(serie,member) != null) {
-                        /* ResourceFollowUp already created => skip */
+                    if (followUpRepository.findByResourceAndMember(serie,member) != null) {
+                        /* FollowUp already created => skip */
                         throw new AlreadyExistingException("ressourceFollowUp already exists");
                     }
                 } catch (NotFoundException e) {
@@ -100,10 +99,19 @@ public class FollowUpServiceImpl implements FollowUpService {
                 serieFollowUpToSave.setCreationDate(LocalDate.now());
                 serieFollowUpToSave.setLastModificationDate(LocalDate.now());
 
-                return resourceFollowUpRepository.save(serieFollowUpToSave);
+                return followUpRepository.save(serieFollowUpToSave);
             }
         }
         return null;
+    }
+    @Override
+    public FollowUp findOne (Long id) {
+        if (followUpRepository.findById(id).isPresent())
+        {
+            return followUpRepository.findById(id).get();
+        } else {
+            throw new NotFoundException("resourceFollowUp non trouvé en BDD");
+        }
     }
 
     @Override

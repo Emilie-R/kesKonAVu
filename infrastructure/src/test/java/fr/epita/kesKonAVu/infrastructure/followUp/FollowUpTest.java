@@ -1,9 +1,9 @@
 package fr.epita.kesKonAVu.infrastructure.followUp;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
-import fr.epita.kesKonAVu.domain.followUp.statusEnum;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
+import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
+import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.domain.resource.*;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
@@ -15,14 +15,14 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDate;
 
 @DataJpaTest
-public class ResourceFollowUpTest {
+public class FollowUpTest {
 
     /*
      *  Tous les jeux d'essais de la BDD sont injectés dans la base H2 avec le fichier import.sql
      */
 
     @Autowired
-    ResourceFollowUpRepository resourceFollowUpRepository;
+    FollowUpRepository followUpRepository;
 
     @Autowired
     ResourceRepository resourceRepository;
@@ -34,13 +34,13 @@ public class ResourceFollowUpTest {
     public void given_existing_idFollowUp_findById_should_success() {
         //Given
         Long idFollowUp = 1L;
-        ResourceFollowUp result = new ResourceFollowUp();
+        FollowUp result = new FollowUp();
         //Then
-        if (resourceFollowUpRepository.findById(idFollowUp).isPresent()) {
-         result = resourceFollowUpRepository.findById(idFollowUp).get(); }
+        if (followUpRepository.findById(idFollowUp).isPresent()) {
+         result = followUpRepository.findById(idFollowUp).get(); }
 
         //When
-        Assertions.assertEquals(statusEnum.VU, result.getStatus());
+        Assertions.assertEquals(StatusEnum.VU, result.getStatus());
         Assertions.assertEquals(LocalDate.now(), result.getLastModificationDate());
         Assertions.assertEquals(1L, result.getMember().getIdMember());
         Assertions.assertNotNull(result.getMember().getPassword());
@@ -56,7 +56,7 @@ public class ResourceFollowUpTest {
 
         //Then
         //When
-        Assertions.assertThrows(NotFoundException.class, ()->resourceFollowUpRepository.findById(idFollowUp));
+        Assertions.assertThrows(NotFoundException.class, ()-> followUpRepository.findById(idFollowUp));
     }
 
     @Test
@@ -67,15 +67,15 @@ public class ResourceFollowUpTest {
         member.setIdMember(1L);
         member.setPseudo("emilie");
 
-        ResourceFollowUp resourceFollowUpToSave = new ResourceFollowUp();
+        FollowUp resourceFollowUpToSave = new FollowUp();
         resourceFollowUpToSave.setCreationDate(LocalDate.now());
         resourceFollowUpToSave.setLastModificationDate(LocalDate.now());
-        resourceFollowUpToSave.setStatus(statusEnum.AVOIR);
+        resourceFollowUpToSave.setStatus(StatusEnum.AVOIR);
         resourceFollowUpToSave.setResource(resource);
         resourceFollowUpToSave.setMember(member);
 
         //Then
-        ResourceFollowUp result = resourceFollowUpRepository.save(resourceFollowUpToSave);
+        FollowUp result = followUpRepository.save(resourceFollowUpToSave);
 
         //When
         Assertions.assertNotNull(result);
@@ -94,11 +94,11 @@ public class ResourceFollowUpTest {
         Resource resource =resourceRepository.findById(1L);
 
         //When
-        ResourceFollowUp result = resourceFollowUpRepository.findByResourceAndMember(resource, member);
+        FollowUp result = followUpRepository.findByResourceAndMember(resource, member);
 
         //Then
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(result, resourceFollowUpRepository.findById(result.getIdFollowUp()).get());
+        Assertions.assertEquals(result, followUpRepository.findById(result.getIdFollowUp()).get());
 
     }
 
@@ -111,7 +111,7 @@ public class ResourceFollowUpTest {
         Resource resource =resourceRepository.findById(1L);
 
         //When
-        ResourceFollowUp result = resourceFollowUpRepository.findByResourceAndMember(resource, member);
+        FollowUp result = followUpRepository.findByResourceAndMember(resource, member);
 
         //Then
         Assertions.assertNull(result);

@@ -1,6 +1,6 @@
 package fr.epita.kesKonAVu.domain.user;
 
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -21,7 +21,7 @@ public class Member {
     private LocalDate creationDate;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
-    private Set<ResourceFollowUp> resourceFollowUps;
+    private Set<FollowUp> followUps;
 
     @ElementCollection(fetch = FetchType.EAGER)
     @Enumerated(EnumType.STRING)
@@ -80,12 +80,12 @@ public class Member {
         this.creationDate = creationDate;
     }
 
-    public Set<ResourceFollowUp> getResourceFollowUps() {
-        return resourceFollowUps;
+    public Set<FollowUp> getFollowUps () {
+        return followUps;
     }
 
-    public void setResourceFollowUps(Set<ResourceFollowUp> resourceFollowUps) {
-        this.resourceFollowUps = resourceFollowUps;
+    public void setFollowUps (Set<FollowUp> followUps) {
+        this.followUps = followUps;
     }
 
     public Set<TypeRoleEnum> getRoles() {
@@ -99,12 +99,12 @@ public class Member {
 
     //Specific methods
 
-    public void addResourceFollowUp(ResourceFollowUp resourceFollowUp) {
-        this.resourceFollowUps.add(resourceFollowUp);
+    public void addResourceFollowUp(FollowUp resourceFollowUp) {
+        this.followUps.add(resourceFollowUp);
     }
 
-    public void removeResourceFollowUp(ResourceFollowUp resourceFollowUp) {
-        this.resourceFollowUps.remove(resourceFollowUp);
+    public void removeResourceFollowUp(FollowUp resourceFollowUp) {
+        this.followUps.remove(resourceFollowUp);
     }
 
     public void addRole (final TypeRoleEnum role) {

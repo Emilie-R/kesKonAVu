@@ -1,6 +1,6 @@
 package fr.epita.kesKonAVu.infrastructure.user;
 
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
@@ -11,7 +11,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -115,23 +114,23 @@ public class MemberRepositoryTest {
         member.setPseudo("Petit Poisson Rouge");
         member.addRole(TypeRoleEnum.USER);
         member.addRole(TypeRoleEnum.ADMIN);
-        ResourceFollowUp fw1 = new ResourceFollowUp();
+        FollowUp fw1 = new FollowUp();
         fw1.setIdFollowUp(15L);
         fw1.setMember(member);
-        ResourceFollowUp fw2 = new ResourceFollowUp();
+        FollowUp fw2 = new FollowUp();
         fw2.setIdFollowUp(20L);
         fw2.setMember(member);
-        Set<ResourceFollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
-        member.setResourceFollowUps(set1);
+        Set<FollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
+        member.setFollowUps(set1);
 
         // When Appel de la méthode à tester
         final Member memberCreated = memberRepository.save(member);
-        //récupérer member avec ses ResourceFollowUp
+        //récupérer member avec ses FollowUp
         Member memberRetrieved = memberRepository.findByIdWithAllResourceFollowUps(memberCreated.getIdMember());
 
         //Then Contrôles
         Assertions.assertNotNull(memberRetrieved);
-        Set<ResourceFollowUp> set2 = memberRetrieved.getResourceFollowUps();
+        Set<FollowUp> set2 = memberRetrieved.getFollowUps();
         Assertions.assertEquals(2,set2.size());
         set2.stream().forEach(e -> System.out.println(e.getIdFollowUp()));
 

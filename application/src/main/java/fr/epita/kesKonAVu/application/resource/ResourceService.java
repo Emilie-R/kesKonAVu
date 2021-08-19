@@ -1,6 +1,5 @@
 package fr.epita.kesKonAVu.application.resource;
 
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 
 public interface ResourceService {
