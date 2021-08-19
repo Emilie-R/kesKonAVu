@@ -1,7 +1,6 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
-import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.resource.rest.ResourceDTO;
 
 import java.time.LocalDate;
@@ -13,7 +12,7 @@ public class ResourceFollowupDTO {
     private StatusEnum status;
     private LocalDate lastModificationDate;
     private int note;
-    private MemberDTO memberDTO;
+    private Float progression;// Ce DTO gère (donc) les suivis de Films ET de séries
 
     public ResourceFollowupDTO(){
     }
@@ -58,11 +57,12 @@ public class ResourceFollowupDTO {
         this.note = note;
     }
 
-    public MemberDTO getMemberDTO ( ) {
-        return memberDTO;
+    public Float getProgression ( ) {
+        return progression;
     }
 
-    public void setMemberDTO (MemberDTO memberDTO) {
-        this.memberDTO = memberDTO;
+    public void setProgression (Float progression) {
+        this.progression = progression;
     }
+
 }
