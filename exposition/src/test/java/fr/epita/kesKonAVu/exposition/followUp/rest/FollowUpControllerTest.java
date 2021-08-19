@@ -5,12 +5,11 @@ import fr.epita.kesKonAVu.application.followUp.ResourceFollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
-import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
-import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -119,6 +118,7 @@ public class FollowUpControllerTest {
         HttpEntity<Long> result = template.exchange(uri, HttpMethod.DELETE, request, Long.class);
 
         //Then
+        Assertions.assertEquals(idFollowUpL, result.getBody());
         Mockito.verify(followUpService, Mockito.times(1)).deleteFollowUp(1L);
     }
 
