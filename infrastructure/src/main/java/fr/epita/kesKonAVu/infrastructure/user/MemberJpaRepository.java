@@ -13,7 +13,7 @@ public interface MemberJpaRepository extends JpaRepository<Member, Long> {
 
     Member findByPseudo(String pseudo);
 
-    @Query("select m from Member m left join fetch m.resourceFollowUps where m.id = :id")
+    @Query("select m from Member m left join fetch m.followUps where m.id = :id")
     Member findByIdWithAllResourceFollowUps(@Param("id") Long id);
 
 }

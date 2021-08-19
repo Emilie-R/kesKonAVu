@@ -3,7 +3,7 @@ package fr.epita.kesKonAVu.application.user;
 import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.DataFormatException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
@@ -128,20 +128,20 @@ public class MemberServiceTest {
         member.setPseudo("Petit Poisson Rouge");
         member.addRole(TypeRoleEnum.USER);
         member.addRole(TypeRoleEnum.ADMIN);
-        ResourceFollowUp fw1 = new ResourceFollowUp();
+        FollowUp fw1 = new FollowUp();
         fw1.setIdFollowUp(15L);
         fw1.setMember(member);
-        ResourceFollowUp fw2 = new ResourceFollowUp();
+        FollowUp fw2 = new FollowUp();
         fw2.setIdFollowUp(20L);
         fw2.setMember(member);
-        Set<ResourceFollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
-        member.setResourceFollowUps(set1);
+        Set<FollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
+        member.setFollowUps(set1);
 
         //When
         Mockito.when(memberRepositoryMock.findByIdWithAllResourceFollowUps(member.getIdMember()))
                 .thenReturn(member); // accès aux données testées OK dans infra/src/test
         final Member memberReturned = memberService.findByIdWithAllResourceFollowUps(member.getIdMember());
-        Assertions.assertEquals(2,memberReturned.getResourceFollowUps().size());
+        Assertions.assertEquals(2,memberReturned.getFollowUps().size());
 
     }
 

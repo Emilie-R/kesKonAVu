@@ -1,14 +1,13 @@
 package fr.epita.kesKonAVu.application.followUp;
 
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
-import fr.epita.kesKonAVu.domain.resource.Resource;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 
 public interface ResourceFollowUpService {
 
-    ResourceFollowUp createResourceFollowUp(ResourceFollowUp resourceFollowUp);
+    FollowUp createResourceFollowUp(FollowUp resourceFollowUp);
 
-    ResourceFollowUp updateResourceFollowUp(ResourceFollowUp resourceFollowUp);
+    FollowUp updateResourceFollowUp(FollowUp resourceFollowUp);
 
-    ResourceFollowUp findOne(Long id);
+    FollowUp findOne(Long id);
 
 }

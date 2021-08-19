@@ -1,8 +1,8 @@
 package fr.epita.kesKonAVu.application.followUp;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUpRepository;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
+import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,27 +12,27 @@ import java.time.LocalDate;
 public class ResourceFollowUpServiceImpl implements ResourceFollowUpService{
 
     @Autowired
-    ResourceFollowUpRepository resourceFollowUpRepository;
+    FollowUpRepository followUpRepository;
 
     @Override
-    public ResourceFollowUp createResourceFollowUp (ResourceFollowUp resourceFollowUp) {
+    public FollowUp createResourceFollowUp (FollowUp resourceFollowUp) {
         resourceFollowUp.setCreationDate(LocalDate.now());
         resourceFollowUp.setLastModificationDate(LocalDate.now());
         // Return created resourceFollowUp in DataBase
-        return resourceFollowUpRepository.save(resourceFollowUp);
+        return followUpRepository.save(resourceFollowUp);
     }
 
     @Override
-    public ResourceFollowUp updateResourceFollowUp (ResourceFollowUp resourceFollowUp) {
+    public FollowUp updateResourceFollowUp (FollowUp resourceFollowUp) {
         // TODO - Don't needed actually
         return null;
     }
 
     @Override
-    public ResourceFollowUp findOne (Long id) {
-        if (resourceFollowUpRepository.findById(id).isPresent())
+    public FollowUp findOne (Long id) {
+        if (followUpRepository.findById(id).isPresent())
         {
-            return resourceFollowUpRepository.findById(id).get();
+            return followUpRepository.findById(id).get();
         } else {
             throw new NotFoundException("resourceFollowUp non trouvé en BDD");
         }

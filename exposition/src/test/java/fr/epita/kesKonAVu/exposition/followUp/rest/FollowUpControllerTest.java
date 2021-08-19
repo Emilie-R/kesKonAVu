@@ -1,7 +1,7 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import fr.epita.kesKonAVu.application.followUp.ResourceFollowUpService;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
 import org.junit.jupiter.api.Assertions;
@@ -25,7 +25,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,classes = { SpringBootAppTest.class })
-public class ResourceFollowUpControllerTest {
+public class FollowUpControllerTest {
     @LocalServerPort
     private int port;
 
@@ -47,17 +47,17 @@ public class ResourceFollowUpControllerTest {
         this.base = new URL("http://localhost:" + port + "/api/V1/followup/" + id);
         //GIVEN
         // liste de suivi
-        ResourceFollowUp res1 = new ResourceFollowUp();
+        FollowUp res1 = new FollowUp();
         res1.setStatus(StatusEnum.VU);
         res1.setIdFollowUp(1L);
-        ResourceFollowUp res2 = new ResourceFollowUp();
+        FollowUp res2 = new FollowUp();
         res2.setStatus(StatusEnum.AVOIR);
         res2.setIdFollowUp(2L);
         when(resourceFollowUpService.findOne(res1.getIdFollowUp())).thenReturn(res2);
         // WHEN
-        ResourceFollowupDTO response = template
+        FollowupDTO response = template
                 .getForObject("http://localhost:" + port + "/api/V1/followup/" + id,
-                ResourceFollowupDTO.class);
+                FollowupDTO.class);
 
         //Then
         Assertions.assertTrue(response.getIdFollowUp().equals(res2.getIdFollowUp()));
@@ -67,23 +67,23 @@ public class ResourceFollowUpControllerTest {
     public void createResourceFollowUpShouldSuccess() throws URISyntaxException {
 
         URI uri = new URI("http://localhost:" + port + "/api/V1/followup/create");
-        ResourceFollowupDTO res1 = new ResourceFollowupDTO();
+        FollowupDTO res1 = new FollowupDTO();
         res1.setStatus(StatusEnum.VU);
         res1.setIdFollowUp(1L);
-        ResourceFollowUp res2 = new ResourceFollowUp();
+        FollowUp res2 = new FollowUp();
         res2.setStatus(StatusEnum.AVOIR);
         res2.setIdFollowUp(2L);
-        Mockito.when(resourceFollowUpService.createResourceFollowUp(any(ResourceFollowUp.class)))
+        Mockito.when(resourceFollowUpService.createResourceFollowUp(any(FollowUp.class)))
                 .thenReturn(res2);
 
-        HttpEntity<ResourceFollowupDTO> request = new HttpEntity<>(res1);
+        HttpEntity<FollowupDTO> request = new HttpEntity<>(res1);
 
         // When
-        ResponseEntity<ResourceFollowupDTO> result = this.template.postForEntity(uri,request,ResourceFollowupDTO.class);
+        ResponseEntity<FollowupDTO> result = this.template.postForEntity(uri,request, FollowupDTO.class);
 
         //Then
         Mockito.verify(resourceFollowUpService, Mockito.times(1))
-                .createResourceFollowUp(any(ResourceFollowUp.class));
+                .createResourceFollowUp(any(FollowUp.class));
         Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals(2L, result.getBody().getIdFollowUp());
     }

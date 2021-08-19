@@ -1,14 +1,12 @@
 package fr.epita.kesKonAVu.exposition.member.rest;
 
 import fr.epita.kesKonAVu.application.user.MemberService;
-import fr.epita.kesKonAVu.domain.followUp.ResourceFollowUp;
 import fr.epita.kesKonAVu.domain.user.Member;
-import fr.epita.kesKonAVu.exposition.followUp.rest.ResourceFollowUpMapper;
-import fr.epita.kesKonAVu.exposition.followUp.rest.ResourceFollowupDTO;
+import fr.epita.kesKonAVu.exposition.followUp.rest.FollowUpMapper;
+import fr.epita.kesKonAVu.exposition.followUp.rest.FollowupDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,7 +21,7 @@ public class MemberController {
     MemberMapper memberMapper;
 
     @Autowired
-    ResourceFollowUpMapper resourceFollowUpMapper;
+    FollowUpMapper followUpMapper;
 
     @GetMapping(value="/{id}", produces={"application/json"})
     public MemberDTO getMemberAccountData(@PathVariable("id") Long idMember){
@@ -45,10 +43,10 @@ public class MemberController {
 
         MemberWithResourceFollowupsDTO memberToRetrieved = new MemberWithResourceFollowupsDTO();
         memberToRetrieved.setIdMember(member.getIdMember());
-        Set<ResourceFollowupDTO> setTocreate =
-                member.getResourceFollowUps()
+        Set<FollowupDTO> setTocreate =
+                member.getFollowUps()
                         .stream()
-                                .map(r -> resourceFollowUpMapper.mapToDto(r))
+                                .map(r -> followUpMapper.mapToDto(r))
                                         .collect(Collectors.toSet());
         memberToRetrieved.setResourceFollowUpS(setTocreate);
 
