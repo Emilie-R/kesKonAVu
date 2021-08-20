@@ -1,23 +1,18 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import fr.epita.kesKonAVu.application.followUp.FollowUpService;
-import fr.epita.kesKonAVu.application.followUp.ResourceFollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
-import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
+import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api/v1/followup")
+@RequestMapping("/v1/followup")
 public class FollowUpController {
-
-    @Autowired
-    ResourceFollowUpService resourceFollowUpService;
 
     @Autowired
     FollowUpService followUpService;
@@ -27,7 +22,7 @@ public class FollowUpController {
 
     @GetMapping(value="/{id}", produces={"application/json"})
     public FollowupDTO getResourceFollowUp(@PathVariable("id") Long id){
-        FollowUp in = resourceFollowUpService.findOne(id);
+        FollowUp in = followUpService.findOne(id);
         return followUpMapper.mapToDto(in);
     }
 
@@ -38,14 +33,19 @@ public class FollowUpController {
         return followUpMapper.mapToDto(resourceFollowUpSaved);
     }
 
-    @PatchMapping("/{id}/{note}")
-    public ResponseEntity< FollowUp> updateFollowUpPartially(@PathVariable Long idFollowUp, @PathVariable Integer note) {
-        try {
-            FollowUp  FollowUp =  followUpService.findOne(idFollowUp);
-            FollowUp.setNote(note);
-            return new ResponseEntity< FollowUp>( followUpService.createNewFollowUp(FollowUp), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+//    Mise à jour de la note du followUp
+    @PutMapping("/note/{id}/{note}")
+    public String updateRating(@PathVariable("id") Long idFollowUp, @PathVariable("note") Integer note) {
+
+
+        return followUpService.updateRating(idFollowUp,note);
     }
+
+//    Mise à jour du status du followUp
+    @PutMapping("/status/{id}")
+    public String updateStatus(@PathVariable("id") Long idFollowUp, @RequestBody StatusEnum statusEnum) {
+
+        return followUpService.updateStatus(idFollowUp,statusEnum);
+        }
+
 }

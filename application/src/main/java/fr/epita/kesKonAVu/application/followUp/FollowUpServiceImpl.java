@@ -113,4 +113,20 @@ public class FollowUpServiceImpl implements FollowUpService {
             throw new NotFoundException("resourceFollowUp non trouvé en BDD");
         }
     }
+
+    @Override
+    public String updateStatus (Long id, StatusEnum statusEnum) {
+        FollowUp followUp = followUpRepository.findById(id).get();
+        followUp.setStatus(statusEnum);
+        followUpRepository.save(followUp);
+        return "OK";
+    }
+
+    @Override
+    public String updateRating (Long id, Integer rating) {
+        FollowUp followUp = followUpRepository.findById(id).get();
+        followUp.setNote(rating);
+        followUpRepository.save(followUp);
+        return "OK";
+    }
 }

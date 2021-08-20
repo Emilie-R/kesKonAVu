@@ -1,17 +1,12 @@
 package fr.epita.kesKonAVu.exposition.user.rest;
 
-import com.mashape.unirest.http.HttpResponse;
-import com.mashape.unirest.http.Unirest;
-import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.epita.kesKonAVu.application.user.MemberService;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
-import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
+import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
-import fr.epita.kesKonAVu.exposition.member.rest.MemberWithFollowupsDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -31,9 +26,6 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
 

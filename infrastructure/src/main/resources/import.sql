@@ -19,7 +19,7 @@ INSERT INTO CATALOGUE_EPISODE (external_catalog_name, external_key, number, seas
 INSERT INTO SUIVI_RESOURCE (creation_date, last_modification_date, member_id_member, resource_id_resource, status, note,progression) VALUES (current_date, current_date, 1, 1, 'VU', 10,100);
 INSERT INTO SUIVI_RESOURCE (creation_date, last_modification_date, member_id_member, resource_id_resource, status,note,progression) VALUES (current_date, current_date, 2, 1, 'AVOIR',20,0);
 -- Create SERIE FollowUp
-INSERT INTO SUIVI_RESOURCE (creation_date, last_modification_date, member_id_member, resource_id_resource, status, note,progression) VALUES (current_date, current_date, 1, 2, 'VU', 10,50);;
+INSERT INTO SUIVI_RESOURCE (creation_date, last_modification_date, member_id_member, resource_id_resource, status, note,progression) VALUES (current_date, current_date, 1, 2, 'VU', 10,50);
 INSERT INTO SUIVI_EPISODE(last_modification_date, status, episode_id_episode) VALUES (current_date, 'VU',1);
 INSERT INTO SUIVI_EPISODE(last_modification_date, status, episode_id_episode) VALUES (current_date, 'VU',2);
 INSERT INTO SUIVI_EPISODE(last_modification_date, status, episode_id_episode) VALUES (current_date, 'VU',3);

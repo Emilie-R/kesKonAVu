@@ -1,10 +1,11 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
-import fr.epita.kesKonAVu.application.followUp.ResourceFollowUpService;
+import fr.epita.kesKonAVu.SpringBootAppTest;
+import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
-import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,13 +32,23 @@ public class FollowUpControllerTest {
 
     private URL base;
 
+    private String baseURL;
+
+    private String baseURL2;
+
     private Long id;
 
     @Autowired
     private TestRestTemplate template;
 
     @MockBean
-    ResourceFollowUpService resourceFollowUpService;
+    FollowUpService resourceFollowUpService;
+
+    @BeforeEach
+    public void setUp() {
+
+        baseURL = "http://localhost:" + this.port + "/v1/followup/note/";
+    }
 
     // test du endpoint SortResourcesListByDate
     @Test
@@ -73,7 +84,7 @@ public class FollowUpControllerTest {
         FollowUp res2 = new FollowUp();
         res2.setStatus(StatusEnum.AVOIR);
         res2.setIdFollowUp(2L);
-        Mockito.when(resourceFollowUpService.createResourceFollowUp(any(FollowUp.class)))
+        Mockito.when(resourceFollowUpService.createNewFollowUp(any(FollowUp.class)))
                 .thenReturn(res2);
 
         HttpEntity<FollowupDTO> request = new HttpEntity<>(res1);
@@ -83,8 +94,9 @@ public class FollowUpControllerTest {
 
         //Then
         Mockito.verify(resourceFollowUpService, Mockito.times(1))
-                .createResourceFollowUp(any(FollowUp.class));
+                .createNewFollowUp(any(FollowUp.class));
         Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals(2L, result.getBody().getIdFollowUp());
     }
+
 }

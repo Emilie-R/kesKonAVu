@@ -16,7 +16,7 @@ public class EpisodeFollowUp {
 
     @ManyToOne
     private Episode episode;
-
+    @Enumerated(EnumType.STRING)
     private StatusEnum status;
     private LocalDate lastModificationDate;
 
