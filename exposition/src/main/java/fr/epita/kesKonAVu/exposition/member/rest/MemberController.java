@@ -37,11 +37,11 @@ public class MemberController {
     }
 
     @GetMapping(value="/followup/{id}", produces={"application/json"})
-    public MemberWithResourceFollowupsDTO getResourcesFlollowUps(@PathVariable("id") Long idMember){
+    public MemberWithFollowupsDTO getResourcesFlollowUps(@PathVariable("id") Long idMember){
 
         Member member = memberService.findByIdWithAllResourceFollowUps(idMember);
 
-        MemberWithResourceFollowupsDTO memberToRetrieved = new MemberWithResourceFollowupsDTO();
+        MemberWithFollowupsDTO memberToRetrieved = new MemberWithFollowupsDTO();
         memberToRetrieved.setIdMember(member.getIdMember());
         Set<FollowupDTO> setTocreate =
                 member.getFollowUps()

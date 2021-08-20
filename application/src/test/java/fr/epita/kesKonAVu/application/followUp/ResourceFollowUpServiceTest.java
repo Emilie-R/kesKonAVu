@@ -1,6 +1,6 @@
 package fr.epita.kesKonAVu.application.followUp;
 
-import fr.epita.kesKonAVu.application.SpringBootAppTest;
+import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

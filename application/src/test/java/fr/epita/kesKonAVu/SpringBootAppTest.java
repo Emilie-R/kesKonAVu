@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.application;
+package fr.epita.kesKonAVu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
@@ -15,4 +15,6 @@ public class SpringBootAppTest {
     public static void main(final String[] args) {
         SpringApplication.run(SpringBootAppTest.class, args);
     }
+
+
 }

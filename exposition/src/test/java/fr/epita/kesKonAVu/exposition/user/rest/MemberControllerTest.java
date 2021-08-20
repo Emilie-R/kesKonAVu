@@ -1,12 +1,17 @@
 package fr.epita.kesKonAVu.exposition.user.rest;
 
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+import com.mashape.unirest.http.exceptions.UnirestException;
 import fr.epita.kesKonAVu.application.user.MemberService;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
 import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
+import fr.epita.kesKonAVu.exposition.member.rest.MemberWithFollowupsDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -26,6 +31,9 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -112,12 +120,12 @@ public class MemberControllerTest {
         Assertions.assertNotEquals(result.getStatusCode(),HttpStatus.OK);
     }
 //    @Test
-//    public void given_member_findByIdWithAllItsResourceFollowUps_Successfull() throws URISyntaxException {
+//    public void given_member_findByIdWithAllItsResourceFollowUps_Successfull() throws URISyntaxException, UnirestException {
 //        // Given Création du member à sauvegarder Puis à récupérer
 //        final Member member = new Member();
 //        final LocalDate dateCreation = LocalDate.now();
 //
-//        member.setIdMember(30L);
+//        //member.setIdMember(30L);
 //        member.setCreationDate(dateCreation);
 //        member.setEmail("toto@gmail.com");
 //        member.setPseudo("Petit Poisson Rouge");
@@ -130,20 +138,22 @@ public class MemberControllerTest {
 //        fw2.setIdFollowUp(20L);
 //        fw2.setMember(member);
 //        Set<FollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
-//        member.setResourceFollowUps(set1);
+//        member.setFollowUps(set1);
 //
 //        // When Appel de la méthode à tester
-//        final Member memberCreated = memberService2.createMember(member);
+//        Mockito.when(memberService.createMember(any())).thenReturn(member);
+//        Mockito.when(memberService.findOne(any())).thenReturn(member);
+//        final Member memberCreated = memberService.createMember(member);
 //        //récupérer member avec ses FollowUp
 //        URI uri = new URI(baseURL + "followup/" + member.getIdMember());
-//        //Mockito.when(memberService.findOne(any())).thenThrow(NotFoundException.class);
 //
-//        //When
-//        ResponseEntity<MemberWithResourceFollowupsDTO> response = this.template.getForEntity(uri, MemberWithResourceFollowupsDTO.class);
+//        Unirest.setTimeouts(0, 0);
+//        HttpResponse<MemberWithFollowupsDTO> response = Unirest.get("http://localhost:8080/api/v1/member/followup/"+member.getIdMember())
+//                .asObject(MemberWithFollowupsDTO.class);
 //
 //        //Then
-//        Assertions.assertNotEquals(response.getStatusCode(),HttpStatus.OK);
-//        MemberWithResourceFollowupsDTO result = response.getBody();
+//
+//        MemberWithFollowupsDTO result = response.getBody();
 //        Assertions.assertEquals(2,result.getResourceFollowUpS().size());
 //
 //    }

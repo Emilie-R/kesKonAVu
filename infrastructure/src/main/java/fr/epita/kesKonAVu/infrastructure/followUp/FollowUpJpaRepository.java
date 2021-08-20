@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ResourceFollowUpJpaRepository extends JpaRepository<FollowUp, Long> {
+public interface FollowUpJpaRepository extends JpaRepository<FollowUp, Long> {
 
     FollowUp findByResourceAndMember(Resource resource, Member member);
 }

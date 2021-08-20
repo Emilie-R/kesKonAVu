@@ -1,12 +1,15 @@
 package fr.epita.kesKonAVu.domain.followUp;
 
 import fr.epita.kesKonAVu.domain.SpringBootAppTest;
+import fr.epita.kesKonAVu.domain.common.BusinessException;
 import fr.epita.kesKonAVu.domain.common.ResourceTypeException;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.resource.Resource;
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.HashSet;
@@ -14,15 +17,19 @@ import java.util.Set;
 
 
 @SpringBootTest(classes = { SpringBootAppTest.class })
-public class SerieFollowUpTest {
+public class FollowUpDomainServiceTest {
+
+    @Autowired
+    FollowUpDomainService fds;
 
     @Test
     public void shouldCalculateTheRightProgressionWhenSerieFollowUpIsPassed(){
-        SerieFollowUp serieFollowUp = new SerieFollowUp();
+        FollowUp serieFollowUp = new FollowUp();
 
         Set<EpisodeFollowUp> setEpisodes = new HashSet<>();
 
-        EpisodeFollowUp episodeFollowUp1 = new EpisodeFollowUp();
+        EpisodeFollowUp episodeFollowUp1 = new EpisodeFollowUp
+                ();
         EpisodeFollowUp episodeFollowUp2 = new EpisodeFollowUp();
         episodeFollowUp1.setStatus(StatusEnum.VU);
         episodeFollowUp2.setStatus(StatusEnum.AVOIR);
@@ -32,13 +39,12 @@ public class SerieFollowUpTest {
         Serie serie = new Serie();
         serie.setNumberOfEpisodes(2);
         serieFollowUp.setResource(serie);
-        serieFollowUp.CalculateProgression();
-        Assertions.assertEquals(50F, serieFollowUp.getProgression());
+        Assertions.assertEquals(50F, fds.calculateProgressionForASerie(serieFollowUp));
 
     }
     @Test
     public void shouldNotCalculateAProgressionWhenMovieFollowUpIsPassed(){
-        SerieFollowUp serieFollowUp = new SerieFollowUp();
+        FollowUp serieFollowUp = new FollowUp();
 
         Set<EpisodeFollowUp> setEpisodes = new HashSet<>();
 
@@ -49,28 +55,12 @@ public class SerieFollowUpTest {
         setEpisodes.add(episodeFollowUp1);
         setEpisodes.add(episodeFollowUp2);
         serieFollowUp.setEpisodeFollowUps(setEpisodes);
-        Resource serie = new Resource();// It's a movie follow-up
+        Resource serie = new Resource();
+        serie.setResourceType(ResourceTypeEnum.MOVIE);// It's a Movie follow-up
         serieFollowUp.setResource(serie);
-        Assertions.assertThrows(ResourceTypeException.class, serieFollowUp::CalculateProgression);
+        final FollowUp payload = serieFollowUp;
+        Assertions.assertThrows(BusinessException.class, () -> fds.calculateProgressionForASerie(payload));
 
     }
-    @Test
-    public void shouldSendZeroIfNoEpisodeForTheSerie(){
-        SerieFollowUp serieFollowUp = new SerieFollowUp();
 
-        Set<EpisodeFollowUp> setEpisodes = new HashSet<>();
-
-        EpisodeFollowUp episodeFollowUp1 = new EpisodeFollowUp();
-        EpisodeFollowUp episodeFollowUp2 = new EpisodeFollowUp();
-        episodeFollowUp1.setStatus(StatusEnum.VU);
-        episodeFollowUp2.setStatus(StatusEnum.AVOIR);
-        setEpisodes.add(episodeFollowUp1);
-        setEpisodes.add(episodeFollowUp2);
-        serieFollowUp.setEpisodeFollowUps(setEpisodes);
-        Serie serie = new Serie(); // Number of episodes is not setted
-        serieFollowUp.setResource(serie);
-        serieFollowUp.CalculateProgression();
-        Assertions.assertEquals(0F,serieFollowUp.getProgression());
-
-    }
 }

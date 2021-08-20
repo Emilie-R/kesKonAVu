@@ -13,23 +13,23 @@ import java.util.Optional;
 @Service
 public class FollowUpRepositoryImpl implements FollowUpRepository {
     @Autowired
-    ResourceFollowUpJpaRepository resourceFollowUpJpaRepository;
+    FollowUpJpaRepository followUpJpaRepository;
 
     @Override
     public FollowUp save(FollowUp resourceFollowUp) {
-        return resourceFollowUpJpaRepository.save(resourceFollowUp);
+        return followUpJpaRepository.save(resourceFollowUp);
     }
 
     @Override
     public Optional<FollowUp> findById(Long idFollowUp) {
-        if(! resourceFollowUpJpaRepository.findById(idFollowUp).isPresent()) {
+        if(! followUpJpaRepository.findById(idFollowUp).isPresent()) {
             throw new NotFoundException("FollowUp with idFollowUp " + idFollowUp + "not found in database. PLease Check parameters.");
         }
-        return resourceFollowUpJpaRepository.findById(idFollowUp);
+        return followUpJpaRepository.findById(idFollowUp);
     }
 
     @Override
     public FollowUp findByResourceAndMember(Resource resource, Member member) {
-        return resourceFollowUpJpaRepository.findByResourceAndMember(resource, member);
+        return followUpJpaRepository.findByResourceAndMember(resource, member);
     }
 }

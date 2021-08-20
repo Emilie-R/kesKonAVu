@@ -4,7 +4,7 @@ import fr.epita.kesKonAVu.exposition.followUp.rest.FollowupDTO;
 
 import java.util.Set;
 
-public class MemberWithResourceFollowupsDTO {
+public class MemberWithFollowupsDTO {
 
     private Long idMember;
 
