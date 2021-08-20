@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/api/v1/member")
+@RequestMapping("/v1/member")
 public class MemberController {
 
     @Autowired
@@ -22,6 +22,7 @@ public class MemberController {
 
     @Autowired
     FollowUpMapper followUpMapper;
+
 
     @GetMapping(value="/{id}", produces={"application/json"})
     public MemberDTO getMemberAccountData(@PathVariable("id") Long idMember){

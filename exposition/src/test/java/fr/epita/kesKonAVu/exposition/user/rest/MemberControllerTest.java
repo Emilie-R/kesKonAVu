@@ -4,7 +4,7 @@ import fr.epita.kesKonAVu.application.user.MemberService;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
-import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
+import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
 import org.junit.jupiter.api.Assertions;
@@ -53,7 +53,7 @@ public class MemberControllerTest {
         member.setRoles(new HashSet<>(Arrays.asList(TypeRoleEnum.ADMIN)));
         member.setIdMember(2L);
 
-        baseURL = "http://localhost:" + this.port + "/api/v1/member/";
+        baseURL = "http://localhost:" + this.port + "/v1/member/";
     }
 
     @Test

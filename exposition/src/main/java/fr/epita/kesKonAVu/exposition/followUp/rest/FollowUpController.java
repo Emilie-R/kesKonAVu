@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("api/v1/followup")
+@RequestMapping("/v1/followup")
 public class FollowUpController {
 
     @Autowired

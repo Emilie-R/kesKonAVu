@@ -1,7 +1,7 @@
 package fr.epita.kesKonAVu.application.resource;
 
 
-import fr.epita.kesKonAVu.application.SpringBootAppTest;
+import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.domain.resource.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

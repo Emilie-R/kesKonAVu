@@ -1,9 +1,8 @@
 package fr.epita.kesKonAVu.exposition.resource.rest;
 
 import fr.epita.kesKonAVu.application.resource.ResourceService;
-import fr.epita.kesKonAVu.domain.resource.ExternalKey;
 import fr.epita.kesKonAVu.domain.resource.Resource;
-import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
+import fr.epita.kesKonAVu.SpringBootAppTest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,7 +33,7 @@ public class ResourceControllerTest {
     @BeforeEach
     public void setUp ( ) throws Exception {
 
-        this.base = new URL("http://localhost:" + port + "/api/V1/movie/title/Godzilla"); //=> permet d'instancier les paramètre de connexion
+        this.base = new URL("http://localhost:" + port + "/V1/movie/title/Godzilla"); //=> permet d'instancier les paramètre de connexion
 
     }
 
