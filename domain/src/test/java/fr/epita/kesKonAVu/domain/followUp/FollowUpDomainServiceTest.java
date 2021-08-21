@@ -2,8 +2,8 @@ package fr.epita.kesKonAVu.domain.followUp;
 
 import fr.epita.kesKonAVu.domain.SpringBootAppTest;
 import fr.epita.kesKonAVu.domain.common.BusinessException;
-import fr.epita.kesKonAVu.domain.common.ResourceTypeException;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.resource.Serie;
@@ -31,8 +31,8 @@ public class FollowUpDomainServiceTest {
         EpisodeFollowUp episodeFollowUp1 = new EpisodeFollowUp
                 ();
         EpisodeFollowUp episodeFollowUp2 = new EpisodeFollowUp();
-        episodeFollowUp1.setStatus(StatusEnum.VU);
-        episodeFollowUp2.setStatus(StatusEnum.AVOIR);
+        episodeFollowUp1.setStatus(EpisodeStatusEnum.VU);
+        episodeFollowUp2.setStatus(EpisodeStatusEnum.AVOIR);
         setEpisodes.add(episodeFollowUp1);
         setEpisodes.add(episodeFollowUp2);
         serieFollowUp.setEpisodeFollowUps(setEpisodes);
@@ -50,8 +50,8 @@ public class FollowUpDomainServiceTest {
 
         EpisodeFollowUp episodeFollowUp1 = new EpisodeFollowUp();
         EpisodeFollowUp episodeFollowUp2 = new EpisodeFollowUp();
-        episodeFollowUp1.setStatus(StatusEnum.VU);
-        episodeFollowUp2.setStatus(StatusEnum.AVOIR);
+        episodeFollowUp1.setStatus(EpisodeStatusEnum.VU);
+        episodeFollowUp2.setStatus(EpisodeStatusEnum.AVOIR);
         setEpisodes.add(episodeFollowUp1);
         setEpisodes.add(episodeFollowUp2);
         serieFollowUp.setEpisodeFollowUps(setEpisodes);

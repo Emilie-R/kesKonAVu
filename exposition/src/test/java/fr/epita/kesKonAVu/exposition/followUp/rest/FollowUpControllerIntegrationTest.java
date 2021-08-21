@@ -5,9 +5,9 @@ import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -17,15 +17,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,classes = { SpringBootAppTest.class })
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FollowUpControllerIntegrationTest {
     @LocalServerPort
     private int port;
@@ -34,7 +32,6 @@ public class FollowUpControllerIntegrationTest {
 
     private String baseURL;
 
-    private String baseURL2;
 
     private Long id;
 
@@ -44,41 +41,48 @@ public class FollowUpControllerIntegrationTest {
     @Autowired
     FollowUpService resourceFollowUpService;
 
-    @BeforeEach
+    @BeforeAll
     public void setUp() {
 
-        baseURL = "http://localhost:" + this.port + "/v1/followup/note/";
+        baseURL = "http://localhost:" + this.port + "/v1/followup/";
+
     }
 
 
     @Test
     public void SaveNoteOnlywhenFollowUpIsGiven() throws URISyntaxException {
-        //Given
+//        Given
 
-        URI uri = new URI(baseURL + "2/35");
+        URI uri = new URI(baseURL+"note");
 //        When
-        ResponseEntity<String> result = this.template.exchange(uri, HttpMethod.PUT, null, String.class);
+        FollowUpUpdateDTOLight in = new FollowUpUpdateDTOLight();
+        in.setIdMember(3L);
+        in.setNote(40);
+        HttpEntity<FollowUpUpdateDTOLight> request = new HttpEntity<>(in);
+        ResponseEntity<String> result = this.template.exchange(uri, HttpMethod.PUT, request, String.class);
         //Then
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
-        Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
-      Assertions.assertEquals("OK", result.getBody());
+        Assertions.assertEquals("OK", result.getBody());
+        FollowUp updated = resourceFollowUpService.findOne(in.getIdMember());
+        Assertions.assertEquals(40,updated.getNote());
 
     }
 
     @Test
     public void SaveStatusOnlywhenFollowUpIsGiven() throws URISyntaxException {
-        //Given
+//        Given
 
-        URI uri = new URI(baseURL + "2/35");
+        URI uri = new URI(baseURL+"status");
 //        When
-        System.out.println("status avant : " + resourceFollowUpService.findOne(2L).getStatus());
-        HttpEntity<StatusEnum> request = new HttpEntity<>(StatusEnum.VU);
-        ResponseEntity<String> result = this.template.exchange(uri, HttpMethod.PUT, null, String.class);
+        FollowUpUpdateDTOLight in = new FollowUpUpdateDTOLight();
+        in.setIdMember(3L);
+        in.setStatus(StatusEnum.AVOIR);
+        HttpEntity<FollowUpUpdateDTOLight> request = new HttpEntity<>(in);
+        ResponseEntity<String> result = this.template.exchange(uri, HttpMethod.PUT, request, String.class);
         //Then
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
-        Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals("OK", result.getBody());
-        System.out.println("status avant : " + resourceFollowUpService.findOne(2L).getStatus());
-
+        FollowUp updated = resourceFollowUpService.findOne(in.getIdMember());
+        Assertions.assertEquals(StatusEnum.AVOIR,updated.getStatus());
     }
 }

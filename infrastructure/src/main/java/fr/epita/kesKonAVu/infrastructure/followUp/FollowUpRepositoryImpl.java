@@ -36,6 +36,6 @@ public class FollowUpRepositoryImpl implements FollowUpRepository {
 
     @Override
     public void deleteById(Long idFollowUp) {
-        resourceFollowUpJpaRepository.deleteById(idFollowUp);
+        followUpJpaRepository.deleteById(idFollowUp);
     }
 }

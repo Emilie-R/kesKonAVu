@@ -5,7 +5,6 @@ import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
-import fr.epita.kesKonAVu.domain.followUp.SerieFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.domain.resource.*;
 import fr.epita.kesKonAVu.domain.user.Member;
@@ -113,7 +112,6 @@ public class FollowUpServiceImpl implements FollowUpService {
     }
 
     @Override
-<<<<<<< HEAD
     public String updateStatus (Long id, StatusEnum statusEnum) {
         FollowUp followUp = followUpRepository.findById(id).get();
         followUp.setStatus(statusEnum);
@@ -127,10 +125,11 @@ public class FollowUpServiceImpl implements FollowUpService {
         followUp.setNote(rating);
         followUpRepository.save(followUp);
         return "OK";
-=======
-    public Long deleteFollowUp(final Long idFollowUp) {
+    }
+
+    @Override
+    public Long deleteFollowUp (final Long idFollowUp) {
         followUpRepository.deleteById(idFollowUp);
         return idFollowUp;
->>>>>>> 78634657e037e64b5c48e7b5be311cca339f4b45
     }
 }

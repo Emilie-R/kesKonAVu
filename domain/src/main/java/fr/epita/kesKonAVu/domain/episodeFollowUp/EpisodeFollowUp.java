@@ -15,14 +15,10 @@ public class EpisodeFollowUp {
 
     @ManyToOne
     private Episode episode;
-<<<<<<< HEAD
-    @Enumerated(EnumType.STRING)
-    private StatusEnum status;
-=======
 
     @Enumerated(EnumType.STRING)
     private EpisodeStatusEnum status;
->>>>>>> 78634657e037e64b5c48e7b5be311cca339f4b45
+
     private LocalDate lastModificationDate;
 
     public EpisodeFollowUp(){

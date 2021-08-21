@@ -2,10 +2,7 @@ package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,15 +17,11 @@ public class FollowUpController {
     @Autowired
     FollowUpMapper followUpMapper;
 
-<<<<<<< HEAD
-    @GetMapping(value="/{id}", produces={"application/json"})
-    public FollowupDTO getResourceFollowUp(@PathVariable("id") Long id){
-        FollowUp in = followUpService.findOne(id);
-=======
+
     @GetMapping(value="/{idMember}", produces={"application/json"})
     public FollowupDTO getResourceFollowUp(@PathVariable("idMember") Long idMember){
-        FollowUp in = resourceFollowUpService.findOne(idMember);
->>>>>>> 78634657e037e64b5c48e7b5be311cca339f4b45
+        FollowUp in = followUpService.findOne(idMember);
+
         return followUpMapper.mapToDto(in);
     }
 
@@ -39,27 +32,25 @@ public class FollowUpController {
         return followUpMapper.mapToDto(followUpSaved);
     }
 
-<<<<<<< HEAD
+
 //    Mise à jour de la note du followUp
-    @PutMapping("/note/{id}/{note}")
-    public String updateRating(@PathVariable("id") Long idFollowUp, @PathVariable("note") Integer note) {
+    @PutMapping("/note")
+    public String updateRating(@Valid @RequestBody FollowUpUpdateDTOLight entered) {
 
 
-        return followUpService.updateRating(idFollowUp,note);
+        return followUpService.updateRating(entered.getIdMember(), entered.getNote());
     }
 
 //    Mise à jour du status du followUp
-    @PutMapping("/status/{id}")
-    public String updateStatus(@PathVariable("id") Long idFollowUp, @RequestBody StatusEnum statusEnum) {
+    @PutMapping("/status")
+    public String updateStatus(@Valid @RequestBody FollowUpUpdateDTOLight entered) {
 
-        return followUpService.updateStatus(idFollowUp,statusEnum);
+        return followUpService.updateStatus(entered.getIdMember(),entered.getStatus());
         }
 
-=======
     @DeleteMapping(value="/{id}")
     public Long deleteFollowUp(@PathVariable("id") Long idFollowUp){
         return followUpService.deleteFollowUp(idFollowUp);
     }
 
->>>>>>> 78634657e037e64b5c48e7b5be311cca339f4b45
 }

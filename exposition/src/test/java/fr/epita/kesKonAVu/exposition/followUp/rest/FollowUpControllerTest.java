@@ -1,23 +1,11 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
-<<<<<<< HEAD
 import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-=======
-import fr.epita.kesKonAVu.application.followUp.FollowUpService;
-import fr.epita.kesKonAVu.application.followUp.ResourceFollowUpService;
-import fr.epita.kesKonAVu.domain.followUp.FollowUp;
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
-import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
-import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
-import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
->>>>>>> 78634657e037e64b5c48e7b5be311cca339f4b45
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
@@ -48,7 +36,6 @@ public class FollowUpControllerTest {
     private URL base;
     private String baseURL;
 
-    private String baseURL;
 
     private String baseURL2;
 
@@ -60,11 +47,6 @@ public class FollowUpControllerTest {
     @MockBean
     FollowUpService resourceFollowUpService;
 
-    @BeforeEach
-    public void setUp() {
-
-        baseURL = "http://localhost:" + this.port + "/v1/followup/note/";
-    }
 
     @MockBean
     FollowUpService followUpService;
@@ -72,7 +54,7 @@ public class FollowUpControllerTest {
 
     @BeforeAll
     public void setUp() {
-        baseURL = "http://localhost:" + this.port + "/api/v1/followup/";
+        baseURL = "http://localhost:" + this.port + "/v1/followup/";
     }
 
     // test du endpoint SortResourcesListByDate
@@ -80,7 +62,7 @@ public class FollowUpControllerTest {
     public void FindResourceFollowUpWhenIdIsGiven() throws IOException {
         //=> instancier les paramètre de connexion
         id = 1L;
-        this.base = new URL("http://localhost:" + port + "/api/V1/followup/" + id);
+        this.base = new URL("http://localhost:" + port + "/V1/followup/" + id);
         //GIVEN
         // liste de suivi
         FollowUp res1 = new FollowUp();
@@ -92,7 +74,7 @@ public class FollowUpControllerTest {
         when(resourceFollowUpService.findOne(res1.getIdFollowUp())).thenReturn(res2);
         // WHEN
         FollowupDTO response = template
-                .getForObject("http://localhost:" + port + "/api/V1/followup/" + id,
+                .getForObject("http://localhost:" + port + "/V1/followup/" + id,
                 FollowupDTO.class);
 
         //Then
@@ -102,7 +84,7 @@ public class FollowUpControllerTest {
     @Test
     public void createResourceFollowUpShouldSuccess() throws URISyntaxException {
 
-        URI uri = new URI("http://localhost:" + port + "/api/V1/followup/create");
+        URI uri = new URI("http://localhost:" + port + "/V1/followup/create");
         FollowupDTO res1 = new FollowupDTO();
         res1.setStatus(StatusEnum.VU);
         res1.setIdFollowUp(1L);
@@ -124,8 +106,6 @@ public class FollowUpControllerTest {
         Assertions.assertEquals(2L, result.getBody().getIdFollowUp());
     }
 
-<<<<<<< HEAD
-=======
     @Test
     public void deleteFollowUp_when_id_is_given_should_call_followUpService_once() throws URISyntaxException {
         //Given
@@ -143,5 +123,4 @@ public class FollowUpControllerTest {
         Mockito.verify(followUpService, Mockito.times(1)).deleteFollowUp(1L);
     }
 
->>>>>>> 78634657e037e64b5c48e7b5be311cca339f4b45
 }
