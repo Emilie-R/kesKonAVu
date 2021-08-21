@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class MemberMapper extends AbstractMapper<Member,MemberDTO> {
+
     @Override
     public MemberDTO mapToDto(final Member entity) {
         MemberDTO memberDTO = new MemberDTO();
@@ -36,5 +37,14 @@ public class MemberMapper extends AbstractMapper<Member,MemberDTO> {
         member.setPassword(dtoLight.getPassword());
         member.setEmail(dtoLight.getEmail());
         return member;
+    }
+
+    public LoggedMemberDTO mapToLoggedMember(final Member entity) {
+        LoggedMemberDTO loggedMemberDTO = new LoggedMemberDTO();
+        loggedMemberDTO.setIdMember(entity.getIdMember());
+        loggedMemberDTO.setPseudo(entity.getPseudo());
+        loggedMemberDTO.setEmail(entity.getEmail());
+        loggedMemberDTO.setCreationDate(entity.getCreationDate());
+        return loggedMemberDTO;
     }
 }

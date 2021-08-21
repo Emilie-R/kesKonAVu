@@ -4,6 +4,7 @@ import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.DataFormatException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.user.Member;
+import fr.epita.kesKonAVu.domain.user.MemberDomainService;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,26 +26,26 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     MemberRepository memberRepository;
 
-    private final int miniPseudoSize = 6;
-    private final int miniPasswordSize = 6;
-
+    @Autowired
+    MemberDomainService memberDomainService;
 
     @Override
+    @Transactional
     public Member createMember(Member member) {
 
         // Check member pseudo
-        if (!this.checkMemberDataFormat(member.getPseudo(), miniPseudoSize)) {
-            throw new DataFormatException("pseudo inférieur à la longueur minimale - 6 caractères");
+        if (!memberDomainService.checkMemberPseudo(member.getPseudo())) {
+            throw new DataFormatException("Format du pseudo incorrect");
+        }
+        // Check member password
+        if (!memberDomainService.checkMemberPassword(member.getPassword()))
+        {
+            throw new DataFormatException("Format du password incorrect");
         }
 
+        // Check if pseudo isn't already used
         if (memberRepository.findByPseudo(member.getPseudo()) != null) {
             throw new AlreadyExistingException("pseudo déjà enrôlé dans l'application");
-        }
-
-        // Check member password
-        if (!this.checkMemberDataFormat(member.getPassword(), miniPasswordSize))
-        {
-            throw new DataFormatException("password inférieur à la longueur minimale - 6 caractères");
         }
 
         // Set member Role
@@ -62,20 +63,15 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.save(member);
     }
 
-    @Override
-    public void updateMember(Member member) {
-        // TODO - Don't needed actually
-    }
 
     @Override
     @Transactional(readOnly = true)
-    public Member findOne(Long id) {
-        if (memberRepository.findById(id).isPresent())
-        {
-            return memberRepository.findById(id).get();
-        } else {
-            throw new NotFoundException("member non trouvé en BDD");
+    @Secured("ADMIN")
+    public Member findOne(String pseudo) {
+        if (memberRepository.findByPseudo(pseudo) == null) {
+            throw new NotFoundException("Member non trouvé dans la base : " + pseudo) ;
         }
+        return memberRepository.findByPseudo(pseudo);
     }
 
     @Override
@@ -83,13 +79,10 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.findByIdWithAllResourceFollowUps(id);
     }
 
-    /**
-     * In order to control the format of a member data
-     * @param dataToControl data to check
-     * @param expectedMinimumSize expected minimum size
-     * @return the data is correct or not
-     */
-    private Boolean checkMemberDataFormat (String dataToControl, int expectedMinimumSize) {
-        return dataToControl.replaceAll("//s", "").length() >= expectedMinimumSize;
+
+    @Override
+    public void updateMember(Member member) {
+        // TODO - Don't needed actually
     }
+
 }

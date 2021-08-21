@@ -6,7 +6,10 @@ public class JwtResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String jwttoken;
+    private String jwttoken;
+
+    public JwtResponse() {
+    }
 
     public JwtResponse(final String jwttoken) {
         this.jwttoken = jwttoken;
@@ -16,4 +19,7 @@ public class JwtResponse implements Serializable {
         return jwttoken;
     }
 
+    public void setJwttoken(String jwttoken) {
+        this.jwttoken = jwttoken;
+    }
 }

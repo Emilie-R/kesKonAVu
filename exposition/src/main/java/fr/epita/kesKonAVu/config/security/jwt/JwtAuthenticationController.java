@@ -1,5 +1,9 @@
 package fr.epita.kesKonAVu.config.security.jwt;
 
+import fr.epita.kesKonAVu.application.user.MemberService;
+import fr.epita.kesKonAVu.domain.user.Member;
+import fr.epita.kesKonAVu.exposition.member.rest.LoggedMemberDTO;
+import fr.epita.kesKonAVu.exposition.member.rest.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,17 +27,29 @@ public class JwtAuthenticationController {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    @Autowired
+    private MemberService memberService;
+
+    @Autowired
+    private MemberMapper memberMapper;
+
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody final JwtRequest authenticationRequest) throws Exception {
-
         // Fonction lève une exception si member/mot de passe sont KO
         authenticate(authenticationRequest.getPseudo(),authenticationRequest.getPassword());
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getPseudo());
 
-        // Construction du Token avec les informations collectées du member
+        // Construction du JWT
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getPseudo());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
-        return ResponseEntity.ok(new JwtResponse(token));
+        // Recherche des informations du member dans la BDD
+        final Member member = memberService.findOne(authenticationRequest.getPseudo());
+
+        // Construction de la réponse
+        final LoggedMemberDTO loggedMemberDTO = memberMapper.mapToLoggedMember(member);
+        loggedMemberDTO.setJwtToken(new JwtResponse(token));
+
+        return ResponseEntity.ok(loggedMemberDTO);
     }
 
     private void authenticate(final String pseudo, final String password) throws Exception {
@@ -47,7 +63,5 @@ public class JwtAuthenticationController {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
-
-
 
 }

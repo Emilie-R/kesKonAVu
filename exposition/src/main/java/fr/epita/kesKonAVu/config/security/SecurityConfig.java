@@ -23,7 +23,6 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
-@Profile(value = "local")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -63,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // Accès au End-Point d'authentification du member
                 .antMatchers("/authenticate").permitAll()
                 // Accès au End-Point de création de compte
-                .antMatchers("/api/v1/member/create").permitAll()
+                .antMatchers("/v1/member/create").permitAll()
                 // Accès aux End-Point de Swagger UI
                 .antMatchers("/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**", "/").permitAll()
                 // all other requests need to be authenticated

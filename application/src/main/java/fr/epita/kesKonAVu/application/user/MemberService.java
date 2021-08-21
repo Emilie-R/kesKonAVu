@@ -6,6 +6,7 @@ public interface MemberService {
 
     /**
      * Create a new member
+     *
      * @param member the member to create
      * @return the created Member
      * RunTimeException : AlreadyExistingException + NotFoundException + DataFormatException
@@ -13,23 +14,29 @@ public interface MemberService {
     Member createMember(Member member);
 
     /**
-     *  Update the member data
-     * @param member to update
+     * Retrieve a member given the pseudo of the member
+     *
+     * @param pseudo the pseudo of the member to be found
+     * @return the retrieved member or NotFoundException if no member found
      *
      */
-    void updateMember(Member member);
-
-    /**
-     * Retrieve a member given the identifier
-     * @param id the member identifier
-     * @return the retrieved member or NotFoundException if no member found
-     */
-    Member findOne(Long id);
+    Member findOne(String pseudo);
 
     /**
      *
      * @param id id de l'utilisateur
      * @return renvoie l'utilisateur avec ses ResourceFollowUps
+     *
      */
     Member findByIdWithAllResourceFollowUps(Long id);
+
+
+    /**
+     *  TODO
+     *  Update the member data
+     *
+     * @param member to update
+     *
+     */
+    void updateMember(Member member);
 }

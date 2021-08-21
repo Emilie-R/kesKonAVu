@@ -20,8 +20,9 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
-@DataJpaTest(properties =
-        "param.url.omdbapi=http://localhost/test")
+@DataJpaTest(properties = {"keskonavu.catalogue.omdb.url=http://localhost/test",
+                            "keskonavu.catalogue.omdb.apikey = 1"}
+        )
 public class CatalogueRepositoryTest {
 
     @MockBean
