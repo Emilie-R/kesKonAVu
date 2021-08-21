@@ -1,7 +1,6 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
-import fr.epita.kesKonAVu.domain.followUp.SerieFollowUp;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.exposition.common.AbstractMapper;
@@ -46,7 +45,7 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowupDTO> {
         return result;
     }
 
-    public FollowUp mapToEntity (ResourceFollowUpDTOLight dtoLight) {
+    public FollowUp mapToEntity (FollowUpDTOLight dtoLight) {
         if (dtoLight == null) {
             return null;
         }

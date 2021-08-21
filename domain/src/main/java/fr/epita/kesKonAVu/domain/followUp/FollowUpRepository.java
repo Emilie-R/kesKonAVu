@@ -13,5 +13,6 @@ public interface FollowUpRepository {
 
     FollowUp findByResourceAndMember(Resource resource, Member member);
 
+    void deleteById(Long idFollowUp);
 
 }

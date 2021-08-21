@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @Service
 public class FollowUpRepositoryImpl implements FollowUpRepository {
+
     @Autowired
     FollowUpJpaRepository followUpJpaRepository;
 
@@ -31,5 +32,10 @@ public class FollowUpRepositoryImpl implements FollowUpRepository {
     @Override
     public FollowUp findByResourceAndMember(Resource resource, Member member) {
         return followUpJpaRepository.findByResourceAndMember(resource, member);
+    }
+
+    @Override
+    public void deleteById(Long idFollowUp) {
+        resourceFollowUpJpaRepository.deleteById(idFollowUp);
     }
 }

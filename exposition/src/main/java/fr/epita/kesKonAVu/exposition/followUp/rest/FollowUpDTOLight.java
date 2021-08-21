@@ -7,7 +7,7 @@ import org.springframework.validation.annotation.Validated;
 import javax.validation.constraints.NotNull;
 
 @Validated
-public class ResourceFollowUpDTOLight {
+public class FollowUpDTOLight {
 
     @JsonProperty("idMember")
     private Long idMember;

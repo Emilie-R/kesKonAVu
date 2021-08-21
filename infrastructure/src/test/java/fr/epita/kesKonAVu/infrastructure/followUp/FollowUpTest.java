@@ -60,28 +60,28 @@ public class FollowUpTest {
     }
 
     @Test
-    public void given_new_resourceFollowUp_save_should_success() {
+    public void given_new_followUp_save_should_success() {
         //Given
         Resource resource = resourceRepository.findById(1L);
         Member member = new Member();
         member.setIdMember(1L);
         member.setPseudo("emilie");
 
-        FollowUp resourceFollowUpToSave = new FollowUp();
-        resourceFollowUpToSave.setCreationDate(LocalDate.now());
-        resourceFollowUpToSave.setLastModificationDate(LocalDate.now());
-        resourceFollowUpToSave.setStatus(StatusEnum.AVOIR);
-        resourceFollowUpToSave.setResource(resource);
-        resourceFollowUpToSave.setMember(member);
+        FollowUp followUpToSave = new FollowUp();
+        followUpToSave.setCreationDate(LocalDate.now());
+        followUpToSave.setLastModificationDate(LocalDate.now());
+        followUpToSave.setStatus(StatusEnum.AVOIR);
+        followUpToSave.setResource(resource);
+        followUpToSave.setMember(member);
 
         //Then
-        FollowUp result = followUpRepository.save(resourceFollowUpToSave);
+        FollowUp result = followUpRepository.save(followUpToSave);
 
         //When
         Assertions.assertNotNull(result);
         Assertions.assertNotNull(result.getIdFollowUp());
-        Assertions.assertEquals(resourceFollowUpToSave.getCreationDate(), result.getCreationDate());
-        Assertions.assertEquals(resourceFollowUpToSave.getStatus(), result.getStatus());
+        Assertions.assertEquals(followUpToSave.getCreationDate(), result.getCreationDate());
+        Assertions.assertEquals(followUpToSave.getStatus(), result.getStatus());
         Assertions.assertEquals(1L, result.getMember().getIdMember());
         Assertions.assertEquals(1L, result.getResource().getIdResource());
         Assertions.assertEquals("tt0095250", result.getResource().getExternalKey());
@@ -91,7 +91,7 @@ public class FollowUpTest {
     public void given_existing_member_and_resource_findByResourceAndMember_should_succes() {
         //Given
         Member member = memberRepository.findById(1L).get();
-        Resource resource =resourceRepository.findById(1L);
+        Resource resource = resourceRepository.findById(1L);
 
         //When
         FollowUp result = followUpRepository.findByResourceAndMember(resource, member);
@@ -108,13 +108,24 @@ public class FollowUpTest {
         Member member = new Member();
         member.setIdMember(0L);
         member.setPseudo("Fake Member");
-        Resource resource =resourceRepository.findById(1L);
+        Resource resource = resourceRepository.findById(1L);
 
         //When
         FollowUp result = followUpRepository.findByResourceAndMember(resource, member);
 
         //Then
         Assertions.assertNull(result);
+    }
 
+    @Test
+    public void given_existing_idFollowUp_deleteById_should_success() {
+        //Given
+        Long idFollowUp = 3L;
+
+        //When
+        followUpRepository.deleteById(idFollowUp);
+
+        //Then
+        Assertions.assertThrows(NotFoundException.class, ()-> followUpRepository.findById(idFollowUp));
     }
 }

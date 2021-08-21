@@ -1,6 +1,5 @@
 package fr.epita.kesKonAVu.domain.episodeFollowUp;
 
-import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.domain.resource.Episode;
 
 import javax.persistence.*;
@@ -16,8 +15,14 @@ public class EpisodeFollowUp {
 
     @ManyToOne
     private Episode episode;
+<<<<<<< HEAD
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
+=======
+
+    @Enumerated(EnumType.STRING)
+    private EpisodeStatusEnum status;
+>>>>>>> 78634657e037e64b5c48e7b5be311cca339f4b45
     private LocalDate lastModificationDate;
 
     public EpisodeFollowUp(){
@@ -47,11 +52,11 @@ public class EpisodeFollowUp {
         this.lastModificationDate = lastModificationDate;
     }
 
-    public StatusEnum getStatus() {
+    public EpisodeStatusEnum getStatus() {
         return status;
     }
 
-    public void setStatus(StatusEnum status) {
+    public void setStatus(EpisodeStatusEnum status) {
         this.status = status;
     }
 }

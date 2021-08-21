@@ -1,12 +1,25 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
+<<<<<<< HEAD
 import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+=======
+import fr.epita.kesKonAVu.application.followUp.FollowUpService;
+import fr.epita.kesKonAVu.application.followUp.ResourceFollowUpService;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
+import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
+import fr.epita.kesKonAVu.exposition.SpringBootAppTest;
+import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
+import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+>>>>>>> 78634657e037e64b5c48e7b5be311cca339f4b45
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,6 +27,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -26,11 +40,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,classes = { SpringBootAppTest.class })
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FollowUpControllerTest {
     @LocalServerPort
     private int port;
 
     private URL base;
+    private String baseURL;
 
     private String baseURL;
 
@@ -48,6 +64,15 @@ public class FollowUpControllerTest {
     public void setUp() {
 
         baseURL = "http://localhost:" + this.port + "/v1/followup/note/";
+    }
+
+    @MockBean
+    FollowUpService followUpService;
+
+
+    @BeforeAll
+    public void setUp() {
+        baseURL = "http://localhost:" + this.port + "/api/v1/followup/";
     }
 
     // test du endpoint SortResourcesListByDate
@@ -71,7 +96,7 @@ public class FollowUpControllerTest {
                 FollowupDTO.class);
 
         //Then
-        Assertions.assertTrue(response.getIdFollowUp().equals(res2.getIdFollowUp()));
+        Assertions.assertEquals(response.getIdFollowUp(), res2.getIdFollowUp());
     }
 
     @Test
@@ -99,4 +124,24 @@ public class FollowUpControllerTest {
         Assertions.assertEquals(2L, result.getBody().getIdFollowUp());
     }
 
+<<<<<<< HEAD
+=======
+    @Test
+    public void deleteFollowUp_when_id_is_given_should_call_followUpService_once() throws URISyntaxException {
+        //Given
+        String idFollowUp = "1";
+        Long idFollowUpL = 1L;
+        URI uri = new URI(  baseURL + idFollowUp);
+        HttpEntity<Long> request = new HttpEntity<>(idFollowUpL);
+
+        Mockito.when(followUpService.deleteFollowUp(idFollowUpL)).thenReturn(idFollowUpL);
+
+        //When
+        HttpEntity<Long> result = template.exchange(uri, HttpMethod.DELETE, request, Long.class);
+
+        //Then
+        Mockito.verify(followUpService, Mockito.times(1)).deleteFollowUp(1L);
+    }
+
+>>>>>>> 78634657e037e64b5c48e7b5be311cca339f4b45
 }
