@@ -10,11 +10,11 @@ public class MemberDomainServiceImpl implements MemberDomainService{
 
     @Override
     public Boolean checkMemberPassword(String password) {
-        return password.replaceAll("//s", "").length() >= PASSWORD_SIZE_MIN;
+        return password.replaceAll(" ", "").length() >= PASSWORD_SIZE_MIN;
     }
 
     @Override
     public Boolean checkMemberPseudo(String pseudo) {
-        return pseudo.replaceAll("//s", "").length() >= PSEUDO_SIZE_MINI;
+        return pseudo.replaceAll(" ", "").length() >= PSEUDO_SIZE_MINI;
     }
 }
