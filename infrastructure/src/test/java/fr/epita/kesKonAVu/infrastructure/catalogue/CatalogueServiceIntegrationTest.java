@@ -13,8 +13,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Set;
 
-@DataJpaTest(properties =
-        "param.url.omdbapi=http://www.omdbapi.com/?apikey=d974f110")
+@DataJpaTest
 public class CatalogueServiceIntegrationTest {
 
     @Autowired

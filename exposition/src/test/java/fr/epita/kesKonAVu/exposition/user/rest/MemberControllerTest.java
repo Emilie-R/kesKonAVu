@@ -5,6 +5,7 @@ import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
 import fr.epita.kesKonAVu.SpringBootAppTest;
+import fr.epita.kesKonAVu.exposition.member.rest.MemberAuthenticatedDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
 import org.junit.jupiter.api.Assertions;
@@ -20,6 +21,10 @@ import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,6 +40,9 @@ public class MemberControllerTest {
 
     @MockBean
     MemberService memberService;
+
+    @MockBean
+    UserDetailsService userDetailsService;
 
     @LocalServerPort
     private int port;
@@ -66,32 +74,37 @@ public class MemberControllerTest {
         memberDTOToCreate.setPassword("12345678");
         memberDTOToCreate.setEmail("");
 
+        UserDetails user = new User("emilie","123", AuthorityUtils.NO_AUTHORITIES);
+
         Mockito.when(memberService.createMember(any(Member.class)))
                 .thenReturn(member);
+        Mockito.when(userDetailsService.loadUserByUsername("emilie")).
+                thenReturn(user);
 
         HttpEntity<MemberDTOLight> request = new HttpEntity<>(memberDTOToCreate);
 
         // When
-        ResponseEntity<MemberDTO> result = this.template.postForEntity(uri,request,MemberDTO.class);
+        ResponseEntity<MemberAuthenticatedDTO> result = this.template.postForEntity(uri,request, MemberAuthenticatedDTO.class);
 
         //Then
         Mockito.verify(memberService, Mockito.times(1)).createMember(any(Member.class));
         Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals("emilie", result.getBody().getPseudo());
         Assertions.assertEquals(2L, result.getBody().getIdMember());
+        Assertions.assertNotNull(result.getBody().getJwtToken());
     }
 
     @Test
-    public void getMemberAccountData_with_existing_idMember_should_success() throws URISyntaxException {
+    public void getMemberAccountData_with_existing_pseudo_should_success() throws URISyntaxException {
         //Given
-        URI uri = new URI(baseURL + "2");
-        Mockito.when(memberService.findOne(2L)).thenReturn(member);
+        URI uri = new URI(baseURL + "toto");
+        Mockito.when(memberService.findOne("toto")).thenReturn(member);
 
         //When
         ResponseEntity<MemberDTO> result = this.template.getForEntity(uri, MemberDTO.class);
 
         //Then
-        Mockito.verify(memberService, Mockito.times(1)).findOne(2L);
+        Mockito.verify(memberService, Mockito.times(1)).findOne("toto");
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals("emilie", result.getBody().getPseudo());
@@ -99,9 +112,9 @@ public class MemberControllerTest {
     }
 
     @Test
-    public void getMemberAccountData_with_unknown_idMember_should_throw_NotFoundException() throws URISyntaxException {
+    public void getMemberAccountData_with_unknown_pseudo_should_throw_NotFoundException() throws URISyntaxException {
         //Given
-        URI uri = new URI(baseURL + "111");
+        URI uri = new URI(baseURL + "unknown");
         Mockito.when(memberService.findOne(any())).thenThrow(NotFoundException.class);
 
         //When

@@ -89,31 +89,30 @@ public class MemberServiceTest {
     @Test
     public void findOneMember_should_failed_when_id_not_exists(){
         // Given
-        final Long id = 1L;
-        Mockito.when(memberRepositoryMock.findById(id)).thenReturn(Optional.empty());
+        final String pseudo = "unknown";
+        Mockito.when(memberRepositoryMock.findByPseudo(pseudo)).thenReturn(null);
 
         //When
-
         //Then
-        Assertions.assertThrows(NotFoundException.class, ()-> memberService.findOne(id));
+        Assertions.assertThrows(NotFoundException.class, ()-> memberService.findOne(pseudo));
 
     }
 
     @Test
     public void findOneMember_should_call_findById_repository_once(){
         // Given
-        final Long id = 1L;
+        final String pseudo = "emilie";
         final Member member = new Member();
         member.setPseudo("emilie");
         member.setPassword("123456789");
-        Mockito.when(memberRepositoryMock.findById(id)).thenReturn(Optional.of(member));
+        Mockito.when(memberRepositoryMock.findByPseudo(pseudo)).thenReturn(member);
 
         //When
-        final Member memberReturned = memberService.findOne(id);
+        final Member memberReturned = memberService.findOne(pseudo);
 
         //Then
         Assertions.assertNotNull(memberReturned);
-        Mockito.verify(memberRepositoryMock, Mockito.times(2)).findById(id);
+        Mockito.verify(memberRepositoryMock, Mockito.times(2)).findByPseudo(pseudo);
 
     }
 

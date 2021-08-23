@@ -33,7 +33,7 @@ public class ResourceControllerTest {
     @BeforeEach
     public void setUp ( ) throws Exception {
 
-        this.base = new URL("http://localhost:" + port + "/api/V1/movie/title/Godzilla"); //=> permet d'instancier les paramètre de connexion
+        this.base = new URL("http://localhost:" + port + "/V1/movie/title/Godzilla"); //=> permet d'instancier les paramètre de connexion
 
     }
 

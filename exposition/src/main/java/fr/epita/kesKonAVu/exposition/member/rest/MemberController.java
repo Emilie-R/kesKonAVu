@@ -1,10 +1,16 @@
 package fr.epita.kesKonAVu.exposition.member.rest;
 
 import fr.epita.kesKonAVu.application.user.MemberService;
+import fr.epita.kesKonAVu.config.security.jwt.JwtResponse;
+import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.exposition.followUp.rest.FollowUpMapper;
 import fr.epita.kesKonAVu.exposition.followUp.rest.FollowupDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Set;
@@ -23,17 +29,33 @@ public class MemberController {
     @Autowired
     FollowUpMapper followUpMapper;
 
-    @GetMapping(value="/{id}", produces={"application/json"})
-    public MemberDTO getMemberAccountData(@PathVariable("id") Long idMember){
-        Member member = memberService.findOne(idMember);
+    @Autowired
+    UserDetailsService userDetailsService;
+
+    @Autowired
+    JwtTokenManager jwtTokenUtil;
+
+    @GetMapping(value="/{pseudo}", produces={"application/json"})
+    public MemberDTO getMemberAccountData(@PathVariable("pseudo") String pseudo){
+        Member member = memberService.findOne(pseudo);
         return memberMapper.mapToDto(member);
     }
 
     @PostMapping(value = "/create", produces={"application/json"}, consumes = {"application/json"})
-    public MemberDTO createNewMember(@RequestBody MemberDTOLight memberDTOLight){
-        Member memberToCreate = memberMapper.mapLightToEntity(memberDTOLight);
-        Member memberCreated = memberService.createMember(memberToCreate);
-        return memberMapper.mapToDto(memberCreated);
+    public HttpEntity<?> createNewMember(@RequestBody MemberDTOLight memberDTOLight){
+        // Création du membre dans le registre
+        final Member memberToCreate = memberMapper.mapLightToEntity(memberDTOLight);
+        final Member memberCreated = memberService.createMember(memberToCreate);
+
+        // Construction du token
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(memberCreated.getPseudo());
+        final String token = jwtTokenUtil.generateToken(userDetails);
+
+        //Construction de la réponse
+        final MemberAuthenticatedDTO memberAuthenticatedDTO = memberMapper.mapToLoggedMember(memberCreated);
+        memberAuthenticatedDTO.setJwtToken(new JwtResponse(token));
+
+        return ResponseEntity.ok(memberAuthenticatedDTO);
     }
 
     @GetMapping(value="/followup/{id}", produces={"application/json"})
