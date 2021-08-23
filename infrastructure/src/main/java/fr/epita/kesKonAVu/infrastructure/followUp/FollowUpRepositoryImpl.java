@@ -38,4 +38,9 @@ public class FollowUpRepositoryImpl implements FollowUpRepository {
     public void deleteById(Long idFollowUp) {
         followUpJpaRepository.deleteById(idFollowUp);
     }
+
+    @Override
+    public FollowUp findByIdWithAllResourceFollowUps (Long idFollowUp) {
+        return followUpJpaRepository.findByIdWithAllResourceFollowUps(idFollowUp);
+    }
 }

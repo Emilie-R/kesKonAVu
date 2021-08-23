@@ -1,9 +1,11 @@
 package fr.epita.kesKonAVu.application.followUp;
 
+import fr.epita.kesKonAVu.application.episodeFollowUp.EpisodeFollowUpApplicationService;
 import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.BusinessException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 
 @Service
@@ -28,6 +32,10 @@ public class FollowUpServiceImpl implements FollowUpService {
     ResourceRepository resourceRepository;
     @Autowired
     SerieRepository serieRepository;
+    @Autowired
+    EpisodeFollowUpApplicationService episodeFollowUpApplicationService;
+    @Autowired
+    UpdateSerieProgressionApplicationService updateSerieProgressionApplicationService;
 
 
     /**
@@ -123,18 +131,48 @@ public class FollowUpServiceImpl implements FollowUpService {
         }
         return retour;
     }
-//
-//    @Override
-//    public String updateRating (Long id, Integer rating) {
-//        FollowUp followUp = followUpRepository.findById(id).get();
-//        followUp.setNote(rating);
-//        followUpRepository.save(followUp);
-//        return "OK";
-//    }
+
 
     @Override
     public Long deleteFollowUp (final Long idFollowUp) {
         followUpRepository.deleteById(idFollowUp);
         return idFollowUp;
+    }
+
+    @Override
+    public Long SaveSerieProgression (FollowUp incomplete) {
+        FollowUp retrieved = followUpRepository.findByIdWithAllResourceFollowUps(incomplete.getIdFollowUp());
+        Set<EpisodeFollowUp> temp = incomplete.getEpisodeFollowUps();
+        Set<EpisodeFollowUp> newList = new HashSet<>();
+
+        for (Iterator<EpisodeFollowUp> it1 = temp.iterator(); it1.hasNext(); ) {
+
+            String f1Existe = "KO";
+
+            EpisodeFollowUp f1 = it1.next();
+
+            for (Iterator<EpisodeFollowUp> it2 = retrieved.getEpisodeFollowUps().iterator(); it2.hasNext(); ) {
+                EpisodeFollowUp f2 = it2.next();
+                // Save the status for each actual EpisodeFollowUp
+                if (f2.getId() == f1.getId()) {
+                    f1Existe = "OK";
+                    f2.setStatus(f1.getStatus());
+                    f2.setLastModificationDate(LocalDate.now());
+                    newList.add(f2);
+                }
+            }
+            // Si créer nouvel episodefollowUp si inexistant en base
+            if (f1Existe == "KO") {
+                f1.setLastModificationDate(LocalDate.now());
+                newList.add(f1);
+            }
+        }
+        // Preparation màj en base du followUp
+        retrieved.setEpisodeFollowUps(newList);
+
+        //màj des épidodes followUp
+        episodeFollowUpApplicationService.saveSerieprogression(retrieved);
+        //màj de la série followUp
+        return updateSerieProgressionApplicationService.updateProgressionSerie(retrieved);
     }
 }

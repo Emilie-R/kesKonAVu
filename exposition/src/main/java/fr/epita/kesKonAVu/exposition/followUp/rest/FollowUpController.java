@@ -40,7 +40,7 @@ public class FollowUpController {
      * @param entered (followUpUpdateDTOLight)
      * @return "OK" ou "KO"
      */
-    @PutMapping(value = "/update",consumes = {"application/json"})
+    @PutMapping(value = "/update",consumes = {"application/json"},produces={"application/json"})
     public String updateFollowUp(@Valid @RequestBody FollowUpUpdateDTOLight entered) {
         FollowUp intermediate = followUpService.findOne(entered.getIdMember());
         if(entered.getStatus() != intermediate.getStatus()){
@@ -52,16 +52,21 @@ public class FollowUpController {
         return followUpService.updateFollowUp(intermediate);
     }
 
-//    Mise à jour du status du followUp
-//    @PutMapping("/status")
-//    public String updateStatus(@Valid @RequestBody FollowUpUpdateDTOLight entered) {
-//
-//        return followUpService.updateStatus(entered.getIdMember(),entered.getStatus());
-//        }
-
     @DeleteMapping(value="/{id}")
     public Long deleteFollowUp(@PathVariable("id") Long idFollowUp){
         return followUpService.deleteFollowUp(idFollowUp);
+    }
+
+    /**
+     * Permet d'enregistrer la progression saisie par l'utilisateur pour une série donnée
+     * @param entered FollowUpProgressionDTO
+     * @return id (Long) du FollowUp mis à jour en base
+     */
+    @PutMapping(value = "/progression",consumes = {"application/json"},produces={"application/json"})
+    public Long updateProgressionFollowUp(@Valid @RequestBody FollowUpProgressionDTO entered) {
+        FollowUpProgressionDTOMapper followUpProgressionDTOMapper = new FollowUpProgressionDTOMapper();
+        FollowUp converted = followUpProgressionDTOMapper.mapToEntity(entered);
+        return followUpService.SaveSerieProgression(converted);
     }
 
 }

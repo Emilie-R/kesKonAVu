@@ -32,4 +32,5 @@ public class FollowUpDomainServiceImpl implements FollowUpDomainService {
         return result;
 
     }
+
 }

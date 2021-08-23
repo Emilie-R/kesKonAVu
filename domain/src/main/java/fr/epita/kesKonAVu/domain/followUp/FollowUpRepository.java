@@ -15,4 +15,6 @@ public interface FollowUpRepository {
 
     void deleteById(Long idFollowUp);
 
+    FollowUp findByIdWithAllResourceFollowUps (Long idFollowUp);
+
 }

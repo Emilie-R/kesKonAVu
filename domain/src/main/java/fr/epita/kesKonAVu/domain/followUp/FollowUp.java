@@ -120,4 +120,8 @@ public class FollowUp {
     public void setEpisodeFollowUps (Set<EpisodeFollowUp> episodeFollowUps) {
         this.episodeFollowUps = episodeFollowUps;
     }
+
+    public void addEpisodeFollowup (EpisodeFollowUp episodeFollowUp) {
+        this.episodeFollowUps.add(episodeFollowUp);
+    }
 }

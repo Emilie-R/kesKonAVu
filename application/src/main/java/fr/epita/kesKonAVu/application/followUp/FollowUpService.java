@@ -16,4 +16,6 @@ public interface FollowUpService {
 
     Long deleteFollowUp(final Long idFollowUp);
 
+    Long SaveSerieProgression(FollowUp in);
+
 }

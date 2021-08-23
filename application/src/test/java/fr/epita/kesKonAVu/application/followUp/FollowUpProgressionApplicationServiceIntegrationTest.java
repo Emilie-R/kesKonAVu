@@ -6,8 +6,6 @@ import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
-import fr.epita.kesKonAVu.infrastructure.episodeFollowUp.EpisodeFollowUpJpaRepository;
-import fr.epita.kesKonAVu.infrastructure.followUp.FollowUpJpaRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,16 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class FollowUpProgressionApplicationServiceIntegrationTest {
 
     @Autowired
-    FollowUpProgressionApplicationService followUpProgressionApplicationService;
+    UpdateSerieProgressionApplicationService followUpProgressionApplicationService;
 
     @Autowired
     FollowUpRepository followUpRepository;
-
-    @Autowired
-    EpisodeFollowUpJpaRepository episodeFollowUpJpaRepository;
-
-    @Autowired
-    FollowUpJpaRepository followUpJpaRepository;
 
     @Test
     public void UpdateProgressionOKWhenFollowUpIsGiven(){
