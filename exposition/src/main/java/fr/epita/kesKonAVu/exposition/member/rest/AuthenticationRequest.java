@@ -1,18 +1,18 @@
-package fr.epita.kesKonAVu.config.security.jwt;
+package fr.epita.kesKonAVu.exposition.member.rest;
 
 import java.io.Serializable;
 
-public class JwtRequest implements Serializable {
+public class AuthenticationRequest implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private String pseudo;
     private String password;
 
-    public JwtRequest() {
+    public AuthenticationRequest() {
     }
 
-    public JwtRequest(String pseudo, String password) {
+    public AuthenticationRequest(String pseudo, String password) {
         this.pseudo = pseudo;
         this.password = password;
     }

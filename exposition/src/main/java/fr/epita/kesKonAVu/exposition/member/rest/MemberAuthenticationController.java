@@ -1,9 +1,9 @@
-package fr.epita.kesKonAVu.config.security.jwt;
+package fr.epita.kesKonAVu.exposition.member.rest;
 
 import fr.epita.kesKonAVu.application.user.MemberService;
+import fr.epita.kesKonAVu.config.security.jwt.JwtResponse;
+import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
 import fr.epita.kesKonAVu.domain.user.Member;
-import fr.epita.kesKonAVu.exposition.member.rest.LoggedMemberDTO;
-import fr.epita.kesKonAVu.exposition.member.rest.MemberMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-public class JwtAuthenticationController {
+public class MemberAuthenticationController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
@@ -34,9 +34,9 @@ public class JwtAuthenticationController {
     private MemberMapper memberMapper;
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody final JwtRequest authenticationRequest) throws Exception {
+    public ResponseEntity<?> createAuthenticationToken(@RequestBody final AuthenticationRequest authenticationRequest) throws Exception {
         // Fonction lève une exception si member/mot de passe sont KO
-        authenticate(authenticationRequest.getPseudo(),authenticationRequest.getPassword());
+        authenticate(authenticationRequest.getPseudo(), authenticationRequest.getPassword());
 
         // Construction du JWT
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getPseudo());
@@ -46,10 +46,10 @@ public class JwtAuthenticationController {
         final Member member = memberService.findOne(authenticationRequest.getPseudo());
 
         // Construction de la réponse
-        final LoggedMemberDTO loggedMemberDTO = memberMapper.mapToLoggedMember(member);
-        loggedMemberDTO.setJwtToken(new JwtResponse(token));
+        final MemberAuthenticatedDTO memberAuthenticatedDTO = memberMapper.mapToLoggedMember(member);
+        memberAuthenticatedDTO.setJwtToken(new JwtResponse(token));
 
-        return ResponseEntity.ok(loggedMemberDTO);
+        return ResponseEntity.ok(memberAuthenticatedDTO);
     }
 
     private void authenticate(final String pseudo, final String password) throws Exception {

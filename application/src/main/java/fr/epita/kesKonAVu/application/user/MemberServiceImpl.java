@@ -66,7 +66,6 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     @Transactional(readOnly = true)
-    @Secured("ADMIN")
     public Member findOne(String pseudo) {
         if (memberRepository.findByPseudo(pseudo) == null) {
             throw new NotFoundException("Member non trouvé dans la base : " + pseudo) ;

@@ -52,10 +52,10 @@ public class MemberController {
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         //Construction de la réponse
-        final LoggedMemberDTO loggedMemberDTO = memberMapper.mapToLoggedMember(memberCreated);
-        loggedMemberDTO.setJwtToken(new JwtResponse(token));
+        final MemberAuthenticatedDTO memberAuthenticatedDTO = memberMapper.mapToLoggedMember(memberCreated);
+        memberAuthenticatedDTO.setJwtToken(new JwtResponse(token));
 
-        return ResponseEntity.ok(loggedMemberDTO);
+        return ResponseEntity.ok(memberAuthenticatedDTO);
     }
 
     @GetMapping(value="/followup/{id}", produces={"application/json"})

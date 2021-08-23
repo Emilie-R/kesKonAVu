@@ -5,7 +5,7 @@ import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
 import fr.epita.kesKonAVu.SpringBootAppTest;
-import fr.epita.kesKonAVu.exposition.member.rest.LoggedMemberDTO;
+import fr.epita.kesKonAVu.exposition.member.rest.MemberAuthenticatedDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
 import org.junit.jupiter.api.Assertions;
@@ -84,7 +84,7 @@ public class MemberControllerTest {
         HttpEntity<MemberDTOLight> request = new HttpEntity<>(memberDTOToCreate);
 
         // When
-        ResponseEntity<LoggedMemberDTO> result = this.template.postForEntity(uri,request,LoggedMemberDTO.class);
+        ResponseEntity<MemberAuthenticatedDTO> result = this.template.postForEntity(uri,request, MemberAuthenticatedDTO.class);
 
         //Then
         Mockito.verify(memberService, Mockito.times(1)).createMember(any(Member.class));
