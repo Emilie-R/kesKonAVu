@@ -5,7 +5,7 @@ import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +41,7 @@ public class FollowUpControllerIntegrationTest {
     @Autowired
     FollowUpService resourceFollowUpService;
 
-    @BeforeAll
+    @BeforeEach
     public void setUp() {
 
         baseURL = "http://localhost:" + this.port + "/v1/followup/";
@@ -53,7 +53,7 @@ public class FollowUpControllerIntegrationTest {
     public void SaveNoteOnlywhenFollowUpIsGiven() throws URISyntaxException {
 //        Given
 
-        URI uri = new URI(baseURL+"note");
+        URI uri = new URI(baseURL+"update");
 //        When
         FollowUpUpdateDTOLight in = new FollowUpUpdateDTOLight();
         in.setIdMember(3L);
@@ -72,11 +72,12 @@ public class FollowUpControllerIntegrationTest {
     public void SaveStatusOnlywhenFollowUpIsGiven() throws URISyntaxException {
 //        Given
 
-        URI uri = new URI(baseURL+"status");
+        URI uri = new URI(baseURL+"update");
 //        When
         FollowUpUpdateDTOLight in = new FollowUpUpdateDTOLight();
-        in.setIdMember(3L);
+        in.setIdMember(2L);
         in.setStatus(StatusEnum.AVOIR);
+        in.setNote(0);
         HttpEntity<FollowUpUpdateDTOLight> request = new HttpEntity<>(in);
         ResponseEntity<String> result = this.template.exchange(uri, HttpMethod.PUT, request, String.class);
         //Then

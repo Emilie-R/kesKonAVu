@@ -1,6 +1,5 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import org.springframework.validation.annotation.Validated;
 
@@ -9,14 +8,11 @@ import javax.validation.constraints.NotNull;
 @Validated
 public class FollowUpUpdateDTOLight {
 
-    @JsonProperty("idMember")
     private Long idMember;
 
-    @JsonProperty("Resource")
     @NotNull
     private Integer note;
 
-    @JsonProperty("status")
     private StatusEnum status;
 
     public Long getIdMember() {

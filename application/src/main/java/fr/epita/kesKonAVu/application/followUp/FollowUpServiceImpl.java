@@ -2,6 +2,7 @@ package fr.epita.kesKonAVu.application.followUp;
 
 import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
+import fr.epita.kesKonAVu.domain.common.BusinessException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Service
+@Transactional
 public class FollowUpServiceImpl implements FollowUpService {
 
     @Autowired
@@ -35,7 +37,6 @@ public class FollowUpServiceImpl implements FollowUpService {
      * @return followUp followUp created
      */
     @Override
-    @Transactional
     public FollowUp createNewFollowUp(final FollowUp followUp) {
         final String imdbId = followUp.getResource().getExternalKey();
         final Member member = followUp.getMember();
@@ -107,25 +108,29 @@ public class FollowUpServiceImpl implements FollowUpService {
         {
             return followUpRepository.findById(id).get();
         } else {
-            throw new NotFoundException("resourceFollowUp non trouvé en BDD");
+            throw new NotFoundException("FollowUp non trouvé en BDD");
         }
     }
 
     @Override
-    public String updateStatus (Long id, StatusEnum statusEnum) {
-        FollowUp followUp = followUpRepository.findById(id).get();
-        followUp.setStatus(statusEnum);
-        followUpRepository.save(followUp);
-        return "OK";
+    public String updateFollowUp (FollowUp followUp) {
+        String retour = "KO";
+        try {
+            followUpRepository.save(followUp);
+            retour = "OK";
+        } catch (BusinessException e) {
+            throw new BusinessException("Echec création followUp pour l'id : " + followUp.getIdFollowUp() );
+        }
+        return retour;
     }
-
-    @Override
-    public String updateRating (Long id, Integer rating) {
-        FollowUp followUp = followUpRepository.findById(id).get();
-        followUp.setNote(rating);
-        followUpRepository.save(followUp);
-        return "OK";
-    }
+//
+//    @Override
+//    public String updateRating (Long id, Integer rating) {
+//        FollowUp followUp = followUpRepository.findById(id).get();
+//        followUp.setNote(rating);
+//        followUpRepository.save(followUp);
+//        return "OK";
+//    }
 
     @Override
     public Long deleteFollowUp (final Long idFollowUp) {

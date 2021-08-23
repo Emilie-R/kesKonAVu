@@ -12,7 +12,7 @@ public class FollowUpDomainServiceImpl implements FollowUpDomainService {
     public Float calculateProgressionForASerie (FollowUp in) {
 
         if (in.getResource() == null || in.getResource().getResourceType() == ResourceTypeEnum.MOVIE){
-            throw new BusinessException("Must be a Serie to calculate a progession !");
+            throw new BusinessException("Must be a Serie to calculate a progression ! idfolllowUp = " + in.getIdFollowUp());
         }
         if (in.getEpisodeFollowUps() == null) {
             throw new BusinessException("There's no episode followed for this serie !");
