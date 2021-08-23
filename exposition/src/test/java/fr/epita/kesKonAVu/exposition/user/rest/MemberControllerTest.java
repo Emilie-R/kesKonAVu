@@ -53,7 +53,7 @@ public class MemberControllerTest {
         member.setRoles(new HashSet<>(Arrays.asList(TypeRoleEnum.ADMIN)));
         member.setIdMember(2L);
 
-        baseURL = "http://localhost:" + this.port + "/api/v1/member/";
+        baseURL = "http://localhost:" + this.port + "/v1/member/";
     }
 
     @Test
