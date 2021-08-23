@@ -14,5 +14,5 @@ public interface FollowUpJpaRepository extends JpaRepository<FollowUp, Long> {
     FollowUp findByResourceAndMember(Resource resource, Member member);
 
     @Query("select f from FollowUp f left join fetch f.episodeFollowUps where f.id = :id")
-    FollowUp findByIdWithAllResourceFollowUps (@Param("id") Long idFollowUp);
+    FollowUp findByIdWithAllEpisodeFollowUps (@Param("id") Long idFollowUp);
 }

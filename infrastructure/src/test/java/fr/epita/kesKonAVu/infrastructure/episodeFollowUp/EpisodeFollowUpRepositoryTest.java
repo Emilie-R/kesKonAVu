@@ -37,4 +37,5 @@ public class EpisodeFollowUpRepositoryTest {
         EpisodeFollowUp e3 = episodeFollowUpJpaRepository.getById(e2.getId());
         Assertions.assertTrue(e2.getId() == e3.getId());
     }
+
 }

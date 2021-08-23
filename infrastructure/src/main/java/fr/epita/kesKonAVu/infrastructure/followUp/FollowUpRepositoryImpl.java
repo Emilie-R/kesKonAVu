@@ -40,7 +40,7 @@ public class FollowUpRepositoryImpl implements FollowUpRepository {
     }
 
     @Override
-    public FollowUp findByIdWithAllResourceFollowUps (Long idFollowUp) {
-        return followUpJpaRepository.findByIdWithAllResourceFollowUps(idFollowUp);
+    public FollowUp findByIdWithAllEpisodeFollowUps (Long idFollowUp) {
+        return followUpJpaRepository.findByIdWithAllEpisodeFollowUps(idFollowUp);
     }
 }

@@ -141,7 +141,7 @@ public class FollowUpServiceImpl implements FollowUpService {
 
     @Override
     public Long SaveSerieProgression (FollowUp incomplete) {
-        FollowUp retrieved = followUpRepository.findByIdWithAllResourceFollowUps(incomplete.getIdFollowUp());
+        FollowUp retrieved = followUpRepository.findByIdWithAllEpisodeFollowUps(incomplete.getIdFollowUp());
         Set<EpisodeFollowUp> temp = incomplete.getEpisodeFollowUps();
         Set<EpisodeFollowUp> newList = new HashSet<>();
 
