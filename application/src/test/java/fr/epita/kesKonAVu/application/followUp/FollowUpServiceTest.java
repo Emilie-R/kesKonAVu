@@ -2,7 +2,6 @@ package fr.epita.kesKonAVu.application.followUp;
 
 import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import fr.epita.kesKonAVu.domain.resource.*;
@@ -131,23 +130,4 @@ public class FollowUpServiceTest {
         Mockito.verify(catalogueService, Mockito.times(1)).findSerieByImdbId("123456");
         Mockito.verify(followUpRepository, Mockito.times(1)).save(Mockito.any(FollowUp.class));
     }
-
-//    @Test
-//    public void  SaveSerieProgression(){
-//        FollowUp f1 = followUpRepository.findByIdWithAllEpisodeFollowUps(3L);
-//
-//        f1.getEpisodeFollowUps().stream()
-//                        .forEach(e-> e.setStatus(EpisodeStatusEnum.VU));
-//
-//        Long id = followUpService.SaveSerieProgression(f1);
-//
-//        FollowUp f2 = followUpRepository.findById(id).get();
-//
-//        Long filteredCount = f2.getEpisodeFollowUps().stream()
-//                        .filter(e-> e.getStatus() == EpisodeStatusEnum.VU).count();
-//
-//        Assertions.assertEquals(5,filteredCount);
-//        Assertions.assertEquals(100,f2.getProgression());
-//
-//    }
 }

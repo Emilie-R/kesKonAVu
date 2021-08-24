@@ -1,9 +1,10 @@
-package fr.epita.kesKonAVu.domain.followUp;
+package fr.epita.kesKonAVu.domain.SerieProgression;
 
 import fr.epita.kesKonAVu.domain.SpringBootAppTest;
 import fr.epita.kesKonAVu.domain.common.BusinessException;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.resource.Serie;
@@ -17,10 +18,10 @@ import java.util.Set;
 
 
 @SpringBootTest(classes = { SpringBootAppTest.class })
-public class FollowUpDomainServiceTest {
+public class CalculateProgressionServiceTest {
 
     @Autowired
-    FollowUpDomainService fds;
+    CalculateProgressionService fds;
 
     @Test
     public void shouldCalculateTheRightProgressionWhenSerieFollowUpIsPassed(){
@@ -39,7 +40,7 @@ public class FollowUpDomainServiceTest {
         Serie serie = new Serie();
         serie.setNumberOfEpisodes(2);
         serieFollowUp.setResource(serie);
-        Assertions.assertEquals(50F, fds.calculateProgressionForASerie(serieFollowUp));
+        Assertions.assertEquals(50F, fds.calculateProgression(serieFollowUp));
 
     }
     @Test
@@ -59,7 +60,7 @@ public class FollowUpDomainServiceTest {
         serie.setResourceType(ResourceTypeEnum.MOVIE);// It's a Movie follow-up
         serieFollowUp.setResource(serie);
         final FollowUp payload = serieFollowUp;
-        Assertions.assertThrows(BusinessException.class, () -> fds.calculateProgressionForASerie(payload));
+        Assertions.assertThrows(BusinessException.class, () -> fds.calculateProgression(payload));
 
     }
 

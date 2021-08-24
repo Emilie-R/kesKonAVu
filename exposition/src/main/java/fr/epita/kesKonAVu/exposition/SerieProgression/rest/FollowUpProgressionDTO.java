@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.exposition.followUp.rest;
+package fr.epita.kesKonAVu.exposition.SerieProgression.rest;
 
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.resource.Episode;
@@ -6,10 +6,11 @@ import fr.epita.kesKonAVu.domain.resource.Episode;
 import java.util.List;
 
 public class FollowUpProgressionDTO {
-    Long id; // the id into the database
-    List<Long> idFollowUpList;
+    Long id; // the id of FollowUp into the database
+    List<Long> idEpisodeFollowUpList; //  id list of the episodes
     List<Episode> episodeList;
     List<EpisodeStatusEnum> episodeStatusEnumList; // that user has written
+
 
     public Long getId ( ) {
         return id;
@@ -20,11 +21,11 @@ public class FollowUpProgressionDTO {
     }
 
     public List<Long> getIdFollowUpList ( ) {
-        return idFollowUpList;
+        return idEpisodeFollowUpList;
     }
 
     public void setIdFollowUpList (List<Long> idFollowUpList) {
-        this.idFollowUpList = idFollowUpList;
+        this.idEpisodeFollowUpList = idFollowUpList;
     }
 
     public List<Episode> getEpisodeList ( ) {

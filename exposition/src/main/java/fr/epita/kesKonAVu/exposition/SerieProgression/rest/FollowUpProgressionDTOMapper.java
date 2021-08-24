@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.exposition.followUp.rest;
+package fr.epita.kesKonAVu.exposition.SerieProgression.rest;
 
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;

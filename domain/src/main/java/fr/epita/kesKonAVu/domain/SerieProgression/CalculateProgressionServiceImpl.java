@@ -1,15 +1,16 @@
-package fr.epita.kesKonAVu.domain.followUp;
+package fr.epita.kesKonAVu.domain.SerieProgression;
 
 import fr.epita.kesKonAVu.domain.common.BusinessException;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FollowUpDomainServiceImpl implements FollowUpDomainService {
+public class CalculateProgressionServiceImpl implements CalculateProgressionService {
 
     @Override
-    public Float calculateProgressionForASerie (FollowUp in) {
+    public Float calculateProgression (FollowUp in) {
 
         if (in.getResource() == null || in.getResource().getResourceType() == ResourceTypeEnum.MOVIE){
             throw new BusinessException("Must be a Serie to calculate a progression ! idfolllowUp = " + in.getIdFollowUp());

@@ -1,7 +1,10 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
+import fr.epita.kesKonAVu.application.SerieProgression.UpdateSerieProgressionApplicationService;
 import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
+import fr.epita.kesKonAVu.exposition.SerieProgression.rest.FollowUpProgressionDTO;
+import fr.epita.kesKonAVu.exposition.SerieProgression.rest.FollowUpProgressionDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +20,13 @@ public class FollowUpController {
     @Autowired
     FollowUpMapper followUpMapper;
 
+    @Autowired
+    UpdateSerieProgressionApplicationService updateSerieProgressionApplicationService;
 
-    @GetMapping(value="/{idMember}", produces={"application/json"})
-    public FollowupDTO getResourceFollowUp(@PathVariable("idMember") Long idMember){
-        FollowUp in = followUpService.findOne(idMember);
+
+    @GetMapping(value="/{id}", produces={"application/json"})
+    public FollowupDTO getFollowUp (@PathVariable("id") Long id){
+        FollowUp in = followUpService.findOne(id);
 
         return followUpMapper.mapToDto(in);
     }
@@ -66,7 +72,7 @@ public class FollowUpController {
     public Long updateProgressionFollowUp(@Valid @RequestBody FollowUpProgressionDTO entered) {
         FollowUpProgressionDTOMapper followUpProgressionDTOMapper = new FollowUpProgressionDTOMapper();
         FollowUp converted = followUpProgressionDTOMapper.mapToEntity(entered);
-        return followUpService.SaveSerieProgression(converted);
+        return updateSerieProgressionApplicationService.SaveSerieProgression(converted);
     }
 
 }
