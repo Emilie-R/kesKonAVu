@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.domain;
+package fr.epita.kesKonAVu;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;

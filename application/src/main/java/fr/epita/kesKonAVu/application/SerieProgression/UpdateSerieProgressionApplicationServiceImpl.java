@@ -83,12 +83,14 @@ public class UpdateSerieProgressionApplicationServiceImpl implements UpdateSerie
 
     @Override
     public FollowUp getEpisodeFollowUpList (Long idFollowUp) {
-        FollowUp out = followUpRepository.findByIdWithAllEpisodeFollowUps(idFollowUp);
-        if (out.getEpisodeFollowUps().size() == 0){
-            Set<EpisodeFollowUp> setOut = initializeEpisodeFollowUpList(out);
+        FollowUp retrieved = followUpRepository.findByIdWithAllEpisodeFollowUps(idFollowUp);
+        FollowUp out = new FollowUp();
+        if (retrieved.getEpisodeFollowUps().size() == 0){
+            Set<EpisodeFollowUp> setOut = initializeEpisodeFollowUpList(retrieved);
             out.setEpisodeFollowUps(setOut);
         }
-        return followUpRepository.save(out);
+        out.setIdFollowUp(retrieved.getIdFollowUp());
+        return out;
     }
 
     @Override

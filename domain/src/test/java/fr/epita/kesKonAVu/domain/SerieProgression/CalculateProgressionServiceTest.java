@@ -1,6 +1,6 @@
 package fr.epita.kesKonAVu.domain.SerieProgression;
 
-import fr.epita.kesKonAVu.domain.SpringBootAppTest;
+import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.domain.common.BusinessException;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;

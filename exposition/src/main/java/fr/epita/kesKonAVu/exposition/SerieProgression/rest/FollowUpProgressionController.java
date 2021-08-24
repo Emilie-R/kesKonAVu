@@ -20,14 +20,14 @@ public class FollowUpProgressionController {
      * @return
      */
     @GetMapping(value = "/edit/{idFollowUp}")
-    @ApiOperation("edit progression")
+    @ApiOperation("edit serie progression")
     public FollowUpProgressionDTO getEpisodesFollowUps(@PathVariable("idFollowUp") Long idFollowUp){
         FollowUpProgressionDTO out = followUpProgressionDTOMapper.mapToDto(progressionService.getEpisodeFollowUpList(idFollowUp));
         return out;
     }
 
     @PostMapping(value = "/save")
-    @ApiOperation("save progression")
+    @ApiOperation("update serie progression")
     public Long saveProgressionSerie(@RequestBody FollowUpProgressionDTO entered){
         FollowUp toSend = followUpProgressionDTOMapper.mapToEntity(entered);
         return progressionService.saveSerieProgression(toSend);

@@ -1,31 +1,23 @@
 package fr.epita.kesKonAVu.domain.SerieProgression;
 
-import fr.epita.kesKonAVu.domain.SpringBootAppTest;
+import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
-import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import fr.epita.kesKonAVu.domain.resource.Episode;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.resource.Serie;
-import fr.epita.kesKonAVu.domain.resource.SerieRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootTest(classes = { SpringBootAppTest.class })
 public class EpisodeFollowUpSaveProgressionDomainServiceTest {
-    @MockBean
-    SerieRepository serieRepository;
-    @MockBean
-    FollowUpRepository followUpRepository;
     @Autowired
-    EpisodeFollowUpSaveProgressionDomainService saveProgressionEpisodes;
+    EpisodeFollowUpSaveProgressionDomainService saveEpisodes;
 
     @Test
     public void SaveProgressionOKWhenFollowUpWithEspisodeFollowupsIsGiven(){
@@ -52,12 +44,8 @@ public class EpisodeFollowUpSaveProgressionDomainServiceTest {
         episodes.add(episode2);
         episodes.add(episode3);
         serie.setEpisodes(episodes);
-        Mockito.when(serieRepository.save(serie)).thenReturn(serie);
-        Serie serie2 = serieRepository.save(serie);
         FollowUp followUp = new FollowUp();
         followUp.setResource(serie);
-        Mockito.when(followUpRepository.save(followUp)).thenReturn(followUp);
-        FollowUp followUp2 = followUpRepository.save(followUp);
         EpisodeFollowUp e1 = new EpisodeFollowUp();
         e1.setEpisode(episode1);
         EpisodeFollowUp e2 = new EpisodeFollowUp();
@@ -65,7 +53,7 @@ public class EpisodeFollowUpSaveProgressionDomainServiceTest {
         Set<EpisodeFollowUp> list = new HashSet<>();
         list.add(e1);
         list.add(e2);
-        followUp2.setEpisodeFollowUps(list);
-        Assertions.assertEquals("OK",saveProgressionEpisodes.saveSerieprogression(followUp2.getEpisodeFollowUps()));
+        String result = saveEpisodes.saveSerieprogression(list);
+        Assertions.assertEquals("OK",result);
     }
 }
