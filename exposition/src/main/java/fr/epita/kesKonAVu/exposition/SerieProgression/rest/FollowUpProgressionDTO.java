@@ -1,46 +1,27 @@
 package fr.epita.kesKonAVu.exposition.SerieProgression.rest;
 
-import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
-import fr.epita.kesKonAVu.domain.resource.Episode;
+import fr.epita.kesKonAVu.exposition.EpisodeFollowUp.rest.EpisodeFollowUpDTO;
 
 import java.util.List;
 
 public class FollowUpProgressionDTO {
-    Long id; // the id of FollowUp into the database
-    List<Long> idEpisodeFollowUpList; //  id list of the episodes
-    List<Episode> episodeList;
-    List<EpisodeStatusEnum> episodeStatusEnumList; // that user has written
+    Long idFollowUp; // the id of FollowUp into the database
+    List<EpisodeFollowUpDTO> episodeFollowUpDTOList;
 
-
-    public Long getId ( ) {
-        return id;
+    public Long getIdFollowUp ( ) {
+        return idFollowUp;
     }
 
-    public void setId (Long id) {
-        this.id = id;
+    public void setIdFollowUp (Long idFollowUp) {
+        this.idFollowUp = idFollowUp;
     }
 
-    public List<Long> getIdFollowUpList ( ) {
-        return idEpisodeFollowUpList;
+    public List<EpisodeFollowUpDTO> getEpisodeFollowUpDTOList ( ) {
+        return episodeFollowUpDTOList;
     }
 
-    public void setIdFollowUpList (List<Long> idFollowUpList) {
-        this.idEpisodeFollowUpList = idFollowUpList;
+    public void setEpisodeFollowUpDTOList (List<EpisodeFollowUpDTO> episodeFollowUpDTOList) {
+        this.episodeFollowUpDTOList = episodeFollowUpDTOList;
     }
 
-    public List<Episode> getEpisodeList ( ) {
-        return episodeList;
-    }
-
-    public void setEpisodeList (List<Episode> episodeList) {
-        this.episodeList = episodeList;
-    }
-
-    public List<EpisodeStatusEnum> getEpisodeStatusEnumList ( ) {
-        return episodeStatusEnumList;
-    }
-
-    public void setEpisodeStatusEnumList (List<EpisodeStatusEnum> episodeStatusEnumList) {
-        this.episodeStatusEnumList = episodeStatusEnumList;
-    }
 }

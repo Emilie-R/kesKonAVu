@@ -1,6 +1,6 @@
 package fr.epita.kesKonAVu.domain.resource;
 
-import java.util.Set;
+import org.springframework.data.repository.query.Param;
 
 public interface SerieRepository {
 
@@ -11,5 +11,7 @@ public interface SerieRepository {
     Serie findByExternalKey(String externalKey);
 
     Serie save(Serie serie);
+
+    Serie findByIdWithAllEpisodes (@Param("id") Long idSerie);
 
 }

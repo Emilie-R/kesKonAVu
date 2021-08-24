@@ -1,14 +1,11 @@
 package fr.epita.kesKonAVu.infrastructure.resource;
 
+import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.resource.Episode;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import fr.epita.kesKonAVu.domain.resource.SerieRepository;
-import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.Set;
 
 @Service
 public class SerieRepositoryImpl implements SerieRepository {
@@ -62,6 +59,11 @@ public class SerieRepositoryImpl implements SerieRepository {
     @Override
     public Serie save(Serie serie) {
         return serieJpaRepository.save(serie);
+    }
+
+    @Override
+    public Serie findByIdWithAllEpisodes (Long idSerie) {
+        return serieJpaRepository.findByIdWithAllEpisodes(idSerie);
     }
 
 }

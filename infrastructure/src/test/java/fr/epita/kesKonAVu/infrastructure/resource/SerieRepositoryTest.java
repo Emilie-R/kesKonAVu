@@ -19,7 +19,7 @@ public class SerieRepositoryTest {
     SerieRepository serieRepository;
 
     @Test
-    public void given_new_serie_with_episodes_save_should_success() {
+    public void given_new_serie_with_episodes_save_should_success ( ) {
         //Given
         Serie serie = new Serie();
         serie.setTitle("Urgences");
@@ -53,6 +53,39 @@ public class SerieRepositoryTest {
         Assertions.assertNotNull(serieRepository.findByIdResource(result.getIdResource()));
         Assertions.assertEquals(serie.getNumberOfSeasons(), result.getNumberOfSeasons());
         Assertions.assertEquals(serie.getEpisodes().size(), serie.getEpisodes().size());
+    }
+    @Test
+    public void givenSerieWithItsEpisodesOK() {
+        //Given
+        Serie serie = new Serie();
+        serie.setTitle("Urgences");
+        serie.setResourceType(ResourceTypeEnum.SERIE);
+        serie.setExternalKey("1234567");
+        serie.setNumberOfSeasons(2);
+
+        Episode episode1 = new Episode();
+        episode1.setSeasonNumber(1);
+        episode1.setNumber(1);
+        episode1.setTitle("E1");
+        Episode episode2 = new Episode();
+        episode2.setSeasonNumber(1);
+        episode2.setNumber(2);
+        episode2.setTitle("E2");
+        Episode episode3 = new Episode();
+        episode3.setSeasonNumber(2);
+        episode3.setNumber(3);
+        episode3.setTitle("E3");
+        Set<Episode> episodes = new HashSet<>();
+        episodes.add(episode1);
+        episodes.add(episode2);
+        episodes.add(episode3);
+        serie.setEpisodes(episodes);
+
+        //When
+        Serie intermediaire = serieRepository.save(serie);
+        Serie result = serieRepository.findByIdWithAllEpisodes(intermediaire.getIdResource());
+        //Then
+        Assertions.assertEquals(3, result.getEpisodes().size()); // because CASCADE = ALL for Serie and Episodes
     }
 
 }

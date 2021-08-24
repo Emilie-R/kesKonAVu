@@ -23,7 +23,11 @@ public class FollowUpController {
     @Autowired
     UpdateSerieProgressionApplicationService updateSerieProgressionApplicationService;
 
-
+    /**
+     *
+     * @param id du followUp
+     * @return a followDTO without its episodeFollowUp
+     */
     @GetMapping(value="/{id}", produces={"application/json"})
     public FollowupDTO getFollowUp (@PathVariable("id") Long id){
         FollowUp in = followUpService.findOne(id);
@@ -72,7 +76,7 @@ public class FollowUpController {
     public Long updateProgressionFollowUp(@Valid @RequestBody FollowUpProgressionDTO entered) {
         FollowUpProgressionDTOMapper followUpProgressionDTOMapper = new FollowUpProgressionDTOMapper();
         FollowUp converted = followUpProgressionDTOMapper.mapToEntity(entered);
-        return updateSerieProgressionApplicationService.SaveSerieProgression(converted);
+        return updateSerieProgressionApplicationService.saveSerieProgression(converted);
     }
 
 }

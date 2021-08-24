@@ -6,6 +6,7 @@ import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.exposition.followUp.rest.FollowUpMapper;
 import fr.epita.kesKonAVu.exposition.followUp.rest.FollowupDTO;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -59,7 +60,8 @@ public class MemberController {
     }
 
     @GetMapping(value="/followup/{id}", produces={"application/json"})
-    public MemberWithFollowupsDTO getResourcesFlollowUps(@PathVariable("id") Long idMember){
+    @ApiOperation("member followUps")
+    public MemberWithFollowupsDTO getFlollowUps(@PathVariable("id") Long idMember){
 
         Member member = memberService.findByIdWithAllResourceFollowUps(idMember);
 

@@ -32,7 +32,7 @@ public class FollowUp {
     private Float progression;
     private Integer numberOfUnseenEpisodes;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinTable(name="suiviProgression")
     private Set<EpisodeFollowUp> episodeFollowUps;
 
