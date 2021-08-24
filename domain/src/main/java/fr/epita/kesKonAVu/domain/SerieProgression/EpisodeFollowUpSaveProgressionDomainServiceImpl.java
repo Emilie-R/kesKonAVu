@@ -1,6 +1,8 @@
-package fr.epita.kesKonAVu.domain.episodeFollowUp;
+package fr.epita.kesKonAVu.domain.SerieProgression;
 
 import fr.epita.kesKonAVu.domain.common.BusinessException;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +12,7 @@ import java.util.Set;
 
 @Service
 @Transactional
-public class EpisodeFollowUpDomainServiceImpl implements EpisodeFollowUpDomainService{
+public class EpisodeFollowUpSaveProgressionDomainServiceImpl implements EpisodeFollowUpSaveProgressionDomainService {
     @Autowired
     EpisodeFollowUpRepository episodeFollowUpRepository;
 
