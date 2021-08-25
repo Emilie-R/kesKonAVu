@@ -8,6 +8,9 @@ public class FollowUpProgressionDTO {
     Long idFollowUp; // the id of FollowUp into the database
     List<EpisodeFollowUpDTO> episodeFollowUpDTOList;
 
+    public FollowUpProgressionDTO ( ) {
+    }
+
     public Long getIdFollowUp ( ) {
         return idFollowUp;
     }

@@ -1,6 +1,6 @@
 package fr.epita.kesKonAVu.exposition.member.rest;
 
-import fr.epita.kesKonAVu.exposition.followUp.rest.FollowupDTO;
+import fr.epita.kesKonAVu.exposition.followUp.rest.FollowUpDTO;
 
 import java.util.Set;
 
@@ -8,13 +8,13 @@ public class MemberWithFollowupsDTO {
 
     private Long idMember;
 
-    private Set<FollowupDTO> resourceFollowUpS;
+    private Set<FollowUpDTO> resourceFollowUpS;
 
-    public Set<FollowupDTO> getResourceFollowUpS ( ) {
+    public Set<FollowUpDTO> getResourceFollowUpS ( ) {
         return resourceFollowUpS;
     }
 
-    public void setResourceFollowUpS (Set<FollowupDTO> resourceFollowUpS) {
+    public void setResourceFollowUpS (Set<FollowUpDTO> resourceFollowUpS) {
         this.resourceFollowUpS = resourceFollowUpS;
     }
 

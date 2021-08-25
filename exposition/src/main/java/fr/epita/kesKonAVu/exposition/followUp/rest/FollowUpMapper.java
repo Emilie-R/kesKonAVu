@@ -8,16 +8,16 @@ import fr.epita.kesKonAVu.exposition.resource.rest.ResourceMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class FollowUpMapper extends AbstractMapper<FollowUp, FollowupDTO> {
+public class FollowUpMapper extends AbstractMapper<FollowUp, FollowUpDTO> {
 
     ResourceMapper resourceMapper = new ResourceMapper();
 
     @Override
-    public FollowupDTO mapToDto (FollowUp entity) {
+    public FollowUpDTO mapToDto (FollowUp entity) {
         if(entity == null){
             return null;
         }
-        FollowupDTO result = new FollowupDTO();
+        FollowUpDTO result = new FollowUpDTO();
         result.setIdFollowUp(entity.getIdFollowUp());
         result.setResourceDTO(resourceMapper.mapToDto(entity.getResource()));
         if (entity.getNote() != null ) { result.setNote(entity.getNote()); }
@@ -30,7 +30,7 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowupDTO> {
     }
 
     @Override
-    public FollowUp mapToEntity (FollowupDTO dto) {
+    public FollowUp mapToEntity (FollowUpDTO dto) {
         if(dto == null){
             return null;
         }
@@ -56,8 +56,10 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowupDTO> {
         member.setIdMember(dtoLight.getIdMember());
 
         Resource resource = new Resource();
-        resource.setResourceType(dtoLight.getResourceDTOLight().getTypeResource());
-        resource.setExternalKey(dtoLight.getResourceDTOLight().getImdbId());
+        if (dtoLight.getResourceDTOLight() != null) {
+            resource.setResourceType(dtoLight.getResourceDTOLight().getTypeResource());
+            resource.setExternalKey(dtoLight.getResourceDTOLight().getImdbId());
+        }
 
         followUp.setResource(resource);
         followUp.setMember(member);

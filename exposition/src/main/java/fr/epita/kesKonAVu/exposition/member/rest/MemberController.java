@@ -4,8 +4,8 @@ import fr.epita.kesKonAVu.application.user.MemberService;
 import fr.epita.kesKonAVu.config.security.jwt.JwtResponse;
 import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
 import fr.epita.kesKonAVu.domain.user.Member;
+import fr.epita.kesKonAVu.exposition.followUp.rest.FollowUpDTO;
 import fr.epita.kesKonAVu.exposition.followUp.rest.FollowUpMapper;
-import fr.epita.kesKonAVu.exposition.followUp.rest.FollowupDTO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -67,7 +67,7 @@ public class MemberController {
 
         MemberWithFollowupsDTO memberToRetrieved = new MemberWithFollowupsDTO();
         memberToRetrieved.setIdMember(member.getIdMember());
-        Set<FollowupDTO> setTocreate =
+        Set<FollowUpDTO> setTocreate =
                 member.getFollowUps()
                         .stream()
                                 .map(r -> followUpMapper.mapToDto(r))

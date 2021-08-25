@@ -75,7 +75,7 @@ public class UpdateSerieProgressionApplicationServiceImpl implements UpdateSerie
         retrieved.setEpisodeFollowUps(newList);
 
         //màj des épidodes followUp
-        episodeFollowUpApplicationService.saveSerieprogression(retrieved);
+        String inter = episodeFollowUpApplicationService.saveSerieprogression(retrieved);
         //màj de la série followUp
         return updateProgressionSerie(retrieved);
     }
@@ -87,6 +87,8 @@ public class UpdateSerieProgressionApplicationServiceImpl implements UpdateSerie
         if (retrieved.getEpisodeFollowUps().size() == 0){
             Set<EpisodeFollowUp> setOut = initializeEpisodeFollowUpList(retrieved);
             out.setEpisodeFollowUps(setOut);
+        } else {
+            out.setEpisodeFollowUps(retrieved.getEpisodeFollowUps());
         }
         out.setIdFollowUp(retrieved.getIdFollowUp());
         return out;

@@ -3,8 +3,6 @@ package fr.epita.kesKonAVu.exposition.followUp.rest;
 import fr.epita.kesKonAVu.application.SerieProgression.UpdateSerieProgressionApplicationService;
 import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
-import fr.epita.kesKonAVu.exposition.SerieProgression.rest.FollowUpProgressionDTO;
-import fr.epita.kesKonAVu.exposition.SerieProgression.rest.FollowUpProgressionDTOMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,14 +27,14 @@ public class FollowUpController {
      * @return a followDTO without its episodeFollowUp
      */
     @GetMapping(value="/{id}", produces={"application/json"})
-    public FollowupDTO getFollowUp (@PathVariable("id") Long id){
+    public FollowUpDTO getFollowUp (@PathVariable("id") Long id){
         FollowUp in = followUpService.findOne(id);
 
         return followUpMapper.mapToDto(in);
     }
 
     @PostMapping(value = "/create", consumes = {"application/json"},produces={"application/json"})
-    public FollowupDTO createNewFollowUp(@Valid @RequestBody FollowUpDTOLight followUpDTOLight) {
+    public FollowUpDTO createNewFollowUp(@Valid @RequestBody FollowUpDTOLight followUpDTOLight) {
         FollowUp FollowUp = followUpMapper.mapToEntity(followUpDTOLight);
         FollowUp followUpSaved = followUpService.createNewFollowUp(FollowUp);
         return followUpMapper.mapToDto(followUpSaved);
@@ -67,16 +65,5 @@ public class FollowUpController {
         return followUpService.deleteFollowUp(idFollowUp);
     }
 
-    /**
-     * Permet d'enregistrer la progression saisie par l'utilisateur pour une série donnée
-     * @param entered FollowUpProgressionDTO
-     * @return id (Long) du FollowUp mis à jour en base
-     */
-    @PutMapping(value = "/progression",consumes = {"application/json"},produces={"application/json"})
-    public Long updateProgressionFollowUp(@Valid @RequestBody FollowUpProgressionDTO entered) {
-        FollowUpProgressionDTOMapper followUpProgressionDTOMapper = new FollowUpProgressionDTOMapper();
-        FollowUp converted = followUpProgressionDTOMapper.mapToEntity(entered);
-        return updateSerieProgressionApplicationService.saveSerieProgression(converted);
-    }
 
 }

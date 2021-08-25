@@ -5,7 +5,7 @@ import fr.epita.kesKonAVu.exposition.resource.rest.ResourceDTO;
 
 import java.time.LocalDate;
 
-public class FollowupDTO {
+public class FollowUpDTO {
     private Long idFollowUp;
     private ResourceDTO resourceDTO;
 
@@ -15,7 +15,7 @@ public class FollowupDTO {
     private Float progression;// Ce DTO gère (donc) les suivis de Films ET de séries
     private Integer numberOfUnseenEpisodes;
 
-    public FollowupDTO (){
+    public FollowUpDTO (){
     }
 
     public Long getIdFollowUp ( ) {
