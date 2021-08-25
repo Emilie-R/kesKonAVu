@@ -1,6 +1,5 @@
 package fr.epita.kesKonAVu.application.SerieProgression;
 
-import fr.epita.kesKonAVu.application.episodeFollowUp.EpisodeFollowUpApplicationService;
 import fr.epita.kesKonAVu.domain.SerieProgression.CalculateProgressionService;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;

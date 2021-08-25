@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.application.episodeFollowUp;
+package fr.epita.kesKonAVu.application.SerieProgression;
 
 import fr.epita.kesKonAVu.domain.SerieProgression.EpisodeFollowUpSaveProgressionDomainService;
 import fr.epita.kesKonAVu.domain.common.BusinessException;

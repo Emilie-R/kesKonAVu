@@ -24,7 +24,7 @@ public class EpisodeFollowUpSaveProgressionDomainServiceImpl implements EpisodeF
                     .forEach(e -> {e.setLastModificationDate(LocalDate.now());
                         episodeFollowUpRepository.save(e);});
         } catch (Exception e) {
-            throw new BusinessException("Echec mise à jour des épisodes : " + listIn.toString());
+            throw new BusinessException("Echec mise à jour des épisodes : " + e.getMessage());
         }
         retour = "OK";
         return retour;

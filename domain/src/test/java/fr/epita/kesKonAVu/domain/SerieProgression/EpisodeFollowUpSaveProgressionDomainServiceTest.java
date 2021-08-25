@@ -1,26 +1,35 @@
 package fr.epita.kesKonAVu.domain.SerieProgression;
 
 import fr.epita.kesKonAVu.SpringBootAppTest;
+import fr.epita.kesKonAVu.domain.common.BusinessException;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUpRepository;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.resource.Episode;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.HashSet;
 import java.util.Set;
+
+import static org.mockito.ArgumentMatchers.any;
 
 @SpringBootTest(classes = { SpringBootAppTest.class })
 public class EpisodeFollowUpSaveProgressionDomainServiceTest {
     @Autowired
     EpisodeFollowUpSaveProgressionDomainService saveEpisodes;
 
+    @MockBean
+    EpisodeFollowUpRepository episodeFollowUpRepository;
+
     @Test
-    public void SaveProgressionOKWhenFollowUpWithEspisodeFollowupsIsGiven(){
+    public void UpdateFollowUpsOKWhenFollowUpWithItsEspisodeFollowupsIsGiven(){
         Serie serie = new Serie();
         serie.setTitle("Urgences");
         serie.setResourceType(ResourceTypeEnum.SERIE);
@@ -53,7 +62,15 @@ public class EpisodeFollowUpSaveProgressionDomainServiceTest {
         Set<EpisodeFollowUp> list = new HashSet<>();
         list.add(e1);
         list.add(e2);
+        Mockito.when(episodeFollowUpRepository.save(any())).thenReturn(list.iterator().next());
         String result = saveEpisodes.saveSerieprogression(list);
         Assertions.assertEquals("OK",result);
+    }
+    @Test
+    public void UpdateFollowUpsKOWhenAnEmptyListOfEpisodeFollowUpIsGiven(){
+
+        FollowUp followUp = new FollowUp();
+
+        Assertions.assertThrows(BusinessException.class,()->saveEpisodes.saveSerieprogression(followUp.getEpisodeFollowUps()));
     }
 }
