@@ -40,7 +40,7 @@ public class FollowUpProgressionControllerTest {
     }
 
     @Test
-    public void editListEpisodeFollowUpsOKWhenExistingFollowUpIsGiven() throws IOException, URISyntaxException {
+    public void editListEpisodeFollowUpsOKWhenExistingFollowUpIsGiven() throws URISyntaxException {
         //Given
         String idFollowUp = "3";
         Long idFollowUpL = 3L;
@@ -58,7 +58,7 @@ public class FollowUpProgressionControllerTest {
     }
 
     @Test
-    public void saveListEpisodeFollowUpsOKWhenAFilledFollowProgressionDTOIsGiven() throws IOException, URISyntaxException {
+    public void saveListEpisodeFollowUpsOKWhenAFilledFollowProgressionDTOIsGiven() {
         //Given
 //
 //        FollowUp followUp = followUpRepository.findByIdWithAllEpisodeFollowUps(3L);
@@ -84,7 +84,7 @@ public class FollowUpProgressionControllerTest {
 //                .filter(e -> e.getStatus() == EpisodeStatusEnum.AVOIR)
 //                .count();
 //        Assertions.assertEquals(5,count);
-//    }
+    }
 
 
 }

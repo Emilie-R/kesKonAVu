@@ -35,7 +35,7 @@ public class FollowUpServiceTest {
     public void createNewFollowUp_with_new_Movie_should_success() {
         //Given
         Member member = new Member();
-        member.setIdMember(12L);
+        member.setIdMember("ID-XX");
         Resource resourceToCreate = new Resource();
         resourceToCreate.setExternalKey("123456");
         resourceToCreate.setResourceType(ResourceTypeEnum.MOVIE);
@@ -62,7 +62,7 @@ public class FollowUpServiceTest {
     @Test
     public void createNewFollowUp_with_existing_Movie_should_success() {
         Member member = new Member();
-        member.setIdMember(12L);
+        member.setIdMember("ID-XX");
         Resource resource = new Resource();
         resource.setIdResource(1L);
         resource.setExternalKey("123456");
@@ -88,7 +88,7 @@ public class FollowUpServiceTest {
     @Test
     public void createNewFollowUp_with_new_Serie_should_success() {
         Member member = new Member();
-        member.setIdMember(12L);
+        member.setIdMember("ID-XX");
         Serie resourceToCreate = new Serie();
         resourceToCreate.setExternalKey("123456");
         resourceToCreate.setResourceType(ResourceTypeEnum.SERIE);

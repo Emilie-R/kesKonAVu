@@ -14,7 +14,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     private MemberJpaRepository memberJpaRepository;
 
     @Override
-    public Optional<Member> findById(Long id) {
+    public Optional<Member> findById(String id) {
         return memberJpaRepository.findById(id);
     }
 
@@ -29,7 +29,7 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public Member findByIdWithAllResourceFollowUps (Long id) {
+    public Member findByIdWithAllResourceFollowUps (String id) {
         return memberJpaRepository.findByIdWithAllResourceFollowUps(id);
     }
 }

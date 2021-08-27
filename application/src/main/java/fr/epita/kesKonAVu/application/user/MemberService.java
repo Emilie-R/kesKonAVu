@@ -28,7 +28,7 @@ public interface MemberService {
      * @return renvoie l'utilisateur avec ses ResourceFollowUps
      *
      */
-    Member findByIdWithAllResourceFollowUps(Long id);
+    Member findByIdWithAllResourceFollowUps(String id);
 
 
     /**

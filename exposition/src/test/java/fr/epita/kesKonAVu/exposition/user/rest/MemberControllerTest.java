@@ -59,7 +59,7 @@ public class MemberControllerTest {
         member.setPassword("12345678");
         member.setCreationDate(LocalDate.now());
         member.setRoles(new HashSet<>(Arrays.asList(TypeRoleEnum.ADMIN)));
-        member.setIdMember(2L);
+        member.setIdMember("ID-2");
 
         baseURL = "http://localhost:" + this.port + "/v1/member/";
     }
@@ -73,6 +73,7 @@ public class MemberControllerTest {
         memberDTOToCreate.setPseudo("emilie");
         memberDTOToCreate.setPassword("12345678");
         memberDTOToCreate.setEmail("");
+
 
         UserDetails user = new User("emilie","123", AuthorityUtils.NO_AUTHORITIES);
 
@@ -89,8 +90,8 @@ public class MemberControllerTest {
         //Then
         Mockito.verify(memberService, Mockito.times(1)).createMember(any(Member.class));
         Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
-        Assertions.assertEquals("emilie", result.getBody().getPseudo());
-        Assertions.assertEquals(2L, result.getBody().getIdMember());
+        Assertions.assertEquals(member.getPseudo(), result.getBody().getPseudo());
+        Assertions.assertEquals(member.getIdMember(), result.getBody().getIdMember());
         Assertions.assertNotNull(result.getBody().getJwtToken());
     }
 
@@ -107,8 +108,8 @@ public class MemberControllerTest {
         Mockito.verify(memberService, Mockito.times(1)).findOne("toto");
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
-        Assertions.assertEquals("emilie", result.getBody().getPseudo());
-        Assertions.assertEquals(2L, result.getBody().getIdMember());
+        Assertions.assertEquals(member.getPseudo(), result.getBody().getPseudo());
+        Assertions.assertEquals(member.getIdMember(), result.getBody().getIdMember());
     }
 
     @Test

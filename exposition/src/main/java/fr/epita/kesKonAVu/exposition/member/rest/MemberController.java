@@ -61,7 +61,7 @@ public class MemberController {
 
     @GetMapping(value="/followup/{id}", produces={"application/json"})
     @ApiOperation("member followUps")
-    public MemberWithFollowupsDTO getFlollowUps(@PathVariable("id") Long idMember){
+    public MemberWithFollowupsDTO getFlollowUps(@PathVariable("id") String idMember){
 
         Member member = memberService.findByIdWithAllResourceFollowUps(idMember);
 

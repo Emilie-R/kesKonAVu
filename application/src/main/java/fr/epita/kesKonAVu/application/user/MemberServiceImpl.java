@@ -74,7 +74,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
-    public Member findByIdWithAllResourceFollowUps (Long id) {
+    public Member findByIdWithAllResourceFollowUps (String id) {
         return memberRepository.findByIdWithAllResourceFollowUps(id);
     }
 

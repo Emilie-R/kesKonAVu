@@ -35,6 +35,7 @@ public class MemberAuthenticationController {
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody final AuthenticationRequest authenticationRequest) throws Exception {
+
         // Fonction lève une exception si member/mot de passe sont KO
         authenticate(authenticationRequest.getPseudo(), authenticationRequest.getPassword());
 

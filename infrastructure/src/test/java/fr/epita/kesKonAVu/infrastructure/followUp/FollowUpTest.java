@@ -42,7 +42,7 @@ public class FollowUpTest {
         //When
         Assertions.assertEquals(StatusEnum.VU, result.getStatus());
         Assertions.assertEquals(LocalDate.now(), result.getLastModificationDate());
-        Assertions.assertEquals(1L, result.getMember().getIdMember());
+        Assertions.assertEquals("ID-1", result.getMember().getIdMember());
         Assertions.assertNotNull(result.getMember().getPassword());
         Assertions.assertEquals(1L, result.getResource().getIdResource());
         Assertions.assertEquals("Le Grand Bleu", result.getResource().getTitle());
@@ -64,7 +64,7 @@ public class FollowUpTest {
         //Given
         Resource resource = resourceRepository.findById(1L);
         Member member = new Member();
-        member.setIdMember(1L);
+        member.setIdMember("ID-1");
         member.setPseudo("emilie");
 
         FollowUp followUpToSave = new FollowUp();
@@ -82,7 +82,7 @@ public class FollowUpTest {
         Assertions.assertNotNull(result.getIdFollowUp());
         Assertions.assertEquals(followUpToSave.getCreationDate(), result.getCreationDate());
         Assertions.assertEquals(followUpToSave.getStatus(), result.getStatus());
-        Assertions.assertEquals(1L, result.getMember().getIdMember());
+        Assertions.assertEquals("ID-1", result.getMember().getIdMember());
         Assertions.assertEquals(1L, result.getResource().getIdResource());
         Assertions.assertEquals("tt0095250", result.getResource().getExternalKey());
     }
@@ -90,7 +90,7 @@ public class FollowUpTest {
     @Test
     public void given_existing_member_and_resource_findByResourceAndMember_should_succes() {
         //Given
-        Member member = memberRepository.findById(1L).get();
+        Member member = memberRepository.findById("ID-1").get();
         Resource resource = resourceRepository.findById(1L);
 
         //When
@@ -106,7 +106,7 @@ public class FollowUpTest {
     public void given_no_matching_followUp_member_and_resource_findByResourceAndMember_should_return_null() {
         //Given
         Member member = new Member();
-        member.setIdMember(0L);
+        member.setIdMember("XXXXXX");
         member.setPseudo("Fake Member");
         Resource resource = resourceRepository.findById(1L);
 

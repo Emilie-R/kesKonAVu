@@ -7,18 +7,18 @@ import java.util.Set;
 
 public class MemberDTO {
 
-    private Long idMember;
+    private String idMember;
     private String pseudo;
     private String email;
     private String password;
     private LocalDate creationDate;
     private Set<TypeRoleEnum> roles;
 
-    public Long getIdMember() {
+    public String getIdMember() {
         return idMember;
     }
 
-    public void setIdMember(Long idMember) {
+    public void setIdMember(String idMember) {
         this.idMember = idMember;
     }
 

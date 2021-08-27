@@ -84,7 +84,7 @@ public class FollowUpControllerTest {
         URI uri = new URI(  baseURL + "create");
         FollowUpDTOLight res1 = new FollowUpDTOLight();
         res1.setStatus(StatusEnum.VU);
-        res1.setIdMember(1L);
+        res1.setIdMember("ID-1");
         res1.setResourceDTOLight(new ResourceDTOLight());
         FollowUpMapper followUpMapper = new FollowUpMapper();
 

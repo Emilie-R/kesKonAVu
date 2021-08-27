@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 public class FollowUpDTOLight {
 
     @JsonProperty("idMember")
-    private Long idMember;
+    private String idMember;
 
     @JsonProperty("Resource")
     @NotNull
@@ -19,11 +19,11 @@ public class FollowUpDTOLight {
     @JsonProperty("status")
     private StatusEnum status;
 
-    public Long getIdMember() {
+    public String getIdMember() {
         return idMember;
     }
 
-    public void setIdMember(Long idMember) {
+    public void setIdMember(String idMember) {
         this.idMember = idMember;
     }
 

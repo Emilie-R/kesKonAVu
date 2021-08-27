@@ -29,7 +29,7 @@ public class MemberRepositoryTest {
     @Test
     public void given_idMember_existing_member_findById_should_success() {
         // Given Avec un idMember identifié en BDD
-        final Long idMember = 1L;
+        final String idMember = "ID-1";
 
         // When Récupération de l'objet attendu
         final Optional<Member> optionalMember = memberRepository.findById(idMember);
@@ -48,7 +48,7 @@ public class MemberRepositoryTest {
     @Test
     public void given_unknown_idMember_for_member_findById_expected_empty_optional() {
         // Avec un idMember non identifié en BDD
-        final Long idMember = 999999L;
+        final String idMember = "XXXXXX";
 
         // Contrôle de l'objet attendu
         final Optional<Member> optionalMember = memberRepository.findById(idMember);
@@ -65,6 +65,7 @@ public class MemberRepositoryTest {
         final Member member = memberRepository.findByPseudo(pseudo);
 
         //Then Contrôle du contenu des attributs
+        Assertions.assertEquals(member.getIdMember(), "ID-1");
         Assertions.assertEquals(member.getEmail(), "email@gmail.fr");
         Assertions.assertEquals(member.getPassword(), "123456");
         Assertions.assertEquals(member.getPseudo(), "emilie");
@@ -105,28 +106,11 @@ public class MemberRepositoryTest {
 
     @Test
     public void given_member_findByIdWithAllItsResourceFollowUps_Successfull() {
-        // Given Création du member à sauvegarder Puis à récupérer
-        final Member member = new Member();
-        final LocalDate dateCreation = LocalDate.now();
+        // Given
+        String idMember = "ID-1";
 
-        member.setCreationDate(dateCreation);
-        member.setEmail("toto@gmail.com");
-        member.setPseudo("Petit Poisson Rouge");
-        member.addRole(TypeRoleEnum.USER);
-        member.addRole(TypeRoleEnum.ADMIN);
-        FollowUp fw1 = new FollowUp();
-        fw1.setIdFollowUp(15L);
-        fw1.setMember(member);
-        FollowUp fw2 = new FollowUp();
-        fw2.setIdFollowUp(20L);
-        fw2.setMember(member);
-        Set<FollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
-        member.setFollowUps(set1);
-
-        // When Appel de la méthode à tester
-        final Member memberCreated = memberRepository.save(member);
         //récupérer member avec ses FollowUp
-        Member memberRetrieved = memberRepository.findByIdWithAllResourceFollowUps(memberCreated.getIdMember());
+        Member memberRetrieved = memberRepository.findByIdWithAllResourceFollowUps(idMember);
 
         //Then Contrôles
         Assertions.assertNotNull(memberRetrieved);

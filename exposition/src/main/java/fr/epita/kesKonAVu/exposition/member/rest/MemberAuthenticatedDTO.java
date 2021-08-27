@@ -11,7 +11,7 @@ import java.util.Set;
 public class MemberAuthenticatedDTO implements Serializable {
 
 
-    private Long idMember;
+    private String idMember;
     private String pseudo;
     private String email;
     private LocalDate creationDate;
@@ -19,11 +19,11 @@ public class MemberAuthenticatedDTO implements Serializable {
 
     private JwtResponse jwtToken;
 
-    public Long getIdMember() {
+    public String getIdMember() {
         return idMember;
     }
 
-    public void setIdMember(Long idMember) {
+    public void setIdMember(String idMember) {
         this.idMember = idMember;
     }
 

@@ -3,17 +3,22 @@ package fr.epita.kesKonAVu.domain.user;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 
 @Entity
 @Table(name="utilisateur")
 public class Member {
-
+    /**
+     * Member Id :
+     * Ne pas exposer cet identifiant interne dans les End-Points de l'application
+     */
+    @NotNull
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idMember;
+    protected String idMember = UUID.randomUUID().toString();
 
     private String pseudo;
     private String email;
@@ -40,11 +45,11 @@ public class Member {
 
     //getters et setters
 
-    public Long getIdMember() {
+    public String getIdMember() {
         return idMember;
     }
 
-    public void setIdMember(Long idMember) {
+    public void setIdMember(String idMember) {
         this.idMember = idMember;
     }
 

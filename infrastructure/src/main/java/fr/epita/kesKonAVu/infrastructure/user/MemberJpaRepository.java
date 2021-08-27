@@ -9,11 +9,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface MemberJpaRepository extends JpaRepository<Member, Long> {
+public interface MemberJpaRepository extends JpaRepository<Member, String> {
 
     Member findByPseudo(String pseudo);
 
-    @Query("select m from Member m left join fetch m.followUps where m.id = :id")
-    Member findByIdWithAllResourceFollowUps(@Param("id") Long id);
+    @Query("select m from Member m left join fetch m.followUps where m.idMember = :id")
+    Member findByIdWithAllResourceFollowUps(@Param("id") String id);
 
 }

@@ -5,12 +5,12 @@ import java.util.Optional;
 
 public interface MemberRepository {
 
-    Optional<Member> findById (Long id);
+    Optional<Member> findById (String id);
 
     Member findByPseudo (String pseudo);
 
     Member save (Member member);
 
-    Member findByIdWithAllResourceFollowUps(Long id);
+    Member findByIdWithAllResourceFollowUps(String id);
 
 }
