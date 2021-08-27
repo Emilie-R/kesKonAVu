@@ -49,7 +49,7 @@ public class MemberController {
         final Member memberCreated = memberService.createMember(memberToCreate);
 
         // Construction du token
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(memberCreated.getPseudo());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(memberCreated.getIdMember());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         //Construction de la réponse

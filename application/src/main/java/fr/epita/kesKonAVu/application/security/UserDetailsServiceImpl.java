@@ -24,14 +24,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     // Indique comment rechercher les utilisateurs de l'application
     // transforme des objets du domaine en objet reconnu par SpringSecurity
     @Override
-    public UserDetails loadUserByUsername(String memberPseudo) throws UsernameNotFoundException {
-        final Member member = memberRepository.findByPseudo(memberPseudo);
+    public UserDetails loadUserByUsername(String idMember) throws UsernameNotFoundException {
 
-        if (member == null) {
-            throw new UsernameNotFoundException(" Pseudo " + memberPseudo + " not found");
+        if (!memberRepository.findById(idMember).isPresent()) {
+            throw new UsernameNotFoundException(" Id Member " + idMember + " not found");
         }
+        final Member member = memberRepository.findById(idMember).get();
 
-        return new User(member.getPseudo(), member.getPassword(), getAuthorities(member));
+        return new User(member.getIdMember(), member.getPassword(), getAuthorities(member));
     }
 
     //Recherche des Authorities/ Roles du member

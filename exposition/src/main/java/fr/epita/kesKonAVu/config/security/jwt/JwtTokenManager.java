@@ -22,7 +22,7 @@ public class JwtTokenManager {
     private String secret;
 
     // Retrieve pseudo from jwt token
-    public String getMemberPseudoFromToken (final String token) {
+    public String getIdMemberFromToken(final String token) {
         return getClaimFromToken(token, Claims::getSubject);
     }
 
@@ -72,7 +72,7 @@ public class JwtTokenManager {
 
     // validate token
     public Boolean validateToken(final String token, final UserDetails userDetails) {
-        final String username = getMemberPseudoFromToken(token);
+        final String username = getIdMemberFromToken(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
 

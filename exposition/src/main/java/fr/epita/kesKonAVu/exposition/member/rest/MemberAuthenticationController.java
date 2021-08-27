@@ -36,15 +36,15 @@ public class MemberAuthenticationController {
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     public ResponseEntity<?> createAuthenticationToken(@RequestBody final AuthenticationRequest authenticationRequest) throws Exception {
 
-        // Fonction lève une exception si member/mot de passe sont KO
-        authenticate(authenticationRequest.getPseudo(), authenticationRequest.getPassword());
+        // Convertir le pseudo en idMember
+        final Member member = memberService.findOne(authenticationRequest.getPseudo());
+
+        // Fonction lève une exception si idMember/mot de passe sont KO
+        authenticate(member.getIdMember(), authenticationRequest.getPassword());
 
         // Construction du JWT
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getPseudo());
+        final UserDetails userDetails = userDetailsService.loadUserByUsername(member.getIdMember());
         final String token = jwtTokenUtil.generateToken(userDetails);
-
-        // Recherche des informations du member dans la BDD
-        final Member member = memberService.findOne(authenticationRequest.getPseudo());
 
         // Construction de la réponse
         final MemberAuthenticatedDTO memberAuthenticatedDTO = memberMapper.mapToLoggedMember(member);

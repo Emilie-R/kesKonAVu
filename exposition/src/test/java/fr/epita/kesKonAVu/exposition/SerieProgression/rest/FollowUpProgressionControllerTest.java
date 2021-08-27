@@ -22,6 +22,7 @@ import java.net.URL;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,classes = { SpringBootAppTest.class })
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FollowUpProgressionControllerTest {
+
     @Autowired
     UpdateSerieProgressionApplicationService progressionService;
     @Autowired
