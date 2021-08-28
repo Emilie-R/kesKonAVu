@@ -6,8 +6,6 @@ import java.util.Set;
 
 public class MemberWithFollowupsDTO {
 
-    private String idMember;
-
     private Set<FollowUpDTO> resourceFollowUpS;
 
     public Set<FollowUpDTO> getResourceFollowUpS ( ) {
@@ -18,12 +16,4 @@ public class MemberWithFollowupsDTO {
         this.resourceFollowUpS = resourceFollowUpS;
     }
 
-
-    public String getIdMember ( ) {
-        return idMember;
-    }
-
-    public void setIdMember (String idMember) {
-        this.idMember = idMember;
-    }
 }

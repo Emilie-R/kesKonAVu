@@ -23,7 +23,7 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true, proxyTargetClass = true)
-@Profile(value = "local")
+@Profile(value = {"local", "localk"})
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

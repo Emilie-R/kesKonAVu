@@ -10,22 +10,12 @@ import java.util.Set;
 
 public class MemberAuthenticatedDTO implements Serializable {
 
-
-    private String idMember;
     private String pseudo;
     private String email;
     private LocalDate creationDate;
     private Set<TypeRoleEnum> roles;
 
     private JwtResponse jwtToken;
-
-    public String getIdMember() {
-        return idMember;
-    }
-
-    public void setIdMember(String idMember) {
-        this.idMember = idMember;
-    }
 
     public String getPseudo() {
         return pseudo;

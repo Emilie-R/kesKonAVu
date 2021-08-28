@@ -1,13 +1,16 @@
 package fr.epita.kesKonAVu.exposition.user.rest;
 
 import fr.epita.kesKonAVu.application.user.MemberService;
+import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
 import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberAuthenticatedDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTO;
 import fr.epita.kesKonAVu.exposition.member.rest.MemberDTOLight;
+import fr.epita.kesKonAVu.exposition.member.rest.MemberWithFollowupsDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -18,9 +21,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,6 +32,9 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -43,6 +47,9 @@ public class MemberControllerTest {
 
     @MockBean
     UserDetailsService userDetailsService;
+
+    @Autowired
+    JwtTokenManager jwtTokenUtil;
 
     @LocalServerPort
     private int port;
@@ -61,6 +68,15 @@ public class MemberControllerTest {
         member.setRoles(new HashSet<>(Arrays.asList(TypeRoleEnum.ADMIN)));
         member.setIdMember("ID-2");
 
+        FollowUp fw1 = new FollowUp();
+        fw1.setIdFollowUp(15L);
+        fw1.setMember(member);
+        FollowUp fw2 = new FollowUp();
+        fw2.setIdFollowUp(20L);
+        fw2.setMember(member);
+        Set<FollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
+        member.setFollowUps(set1);
+
         baseURL = "http://localhost:" + this.port + "/v1/member/";
     }
 
@@ -75,23 +91,21 @@ public class MemberControllerTest {
         memberDTOToCreate.setEmail("");
 
 
-        UserDetails user = new User("emilie","123", AuthorityUtils.NO_AUTHORITIES);
+        UserDetails user = new User("ID-2","123", AuthorityUtils.NO_AUTHORITIES);
 
         Mockito.when(memberService.createMember(any(Member.class)))
                 .thenReturn(member);
-        Mockito.when(userDetailsService.loadUserByUsername("emilie")).
+        Mockito.when(userDetailsService.loadUserByUsername("ID-2")).
                 thenReturn(user);
 
         HttpEntity<MemberDTOLight> request = new HttpEntity<>(memberDTOToCreate);
 
         // When
         ResponseEntity<MemberAuthenticatedDTO> result = this.template.postForEntity(uri,request, MemberAuthenticatedDTO.class);
-
         //Then
         Mockito.verify(memberService, Mockito.times(1)).createMember(any(Member.class));
         Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals(member.getPseudo(), result.getBody().getPseudo());
-        Assertions.assertEquals(member.getIdMember(), result.getBody().getIdMember());
         Assertions.assertNotNull(result.getBody().getJwtToken());
     }
 
@@ -107,9 +121,7 @@ public class MemberControllerTest {
         //Then
         Mockito.verify(memberService, Mockito.times(1)).findOne("toto");
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
-        Assertions.assertEquals( HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals(member.getPseudo(), result.getBody().getPseudo());
-        Assertions.assertEquals(member.getIdMember(), result.getBody().getIdMember());
     }
 
     @Test
@@ -125,42 +137,47 @@ public class MemberControllerTest {
         Mockito.verify(memberService, Mockito.times(1)).findOne(any());
         Assertions.assertNotEquals(result.getStatusCode(),HttpStatus.OK);
     }
-//    @Test
-//    public void given_member_findByIdWithAllItsResourceFollowUps_Successfull() throws URISyntaxException, UnirestException {
-//        // Given Création du member à sauvegarder Puis à récupérer
-//        final Member member = new Member();
-//        final LocalDate dateCreation = LocalDate.now();
-//
-//        //member.setIdMember(30L);
-//        member.setCreationDate(dateCreation);
-//        member.setEmail("toto@gmail.com");
-//        member.setPseudo("Petit Poisson Rouge");
-//        member.addRole(TypeRoleEnum.USER);
-//        member.addRole(TypeRoleEnum.ADMIN);
-//        FollowUp fw1 = new FollowUp();
-//        fw1.setIdFollowUp(15L);
-//        fw1.setMember(member);
-//        FollowUp fw2 = new FollowUp();
-//        fw2.setIdFollowUp(20L);
-//        fw2.setMember(member);
-//        Set<FollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
-//        member.setFollowUps(set1);
-//
-//        // When Appel de la méthode à tester
-//        Mockito.when(memberService.createMember(any())).thenReturn(member);
-//        Mockito.when(memberService.findOne(any())).thenReturn(member);
-//        final Member memberCreated = memberService.createMember(member);
-//        //récupérer member avec ses FollowUp
-//        URI uri = new URI(baseURL + "followup/" + member.getIdMember());
-//
-//        Unirest.setTimeouts(0, 0);
-//        HttpResponse<MemberWithFollowupsDTO> response = Unirest.get("http://localhost:8080/api/v1/member/followup/"+member.getIdMember())
-//                .asObject(MemberWithFollowupsDTO.class);
-//
-//        //Then
-//
-//        MemberWithFollowupsDTO result = response.getBody();
-//        Assertions.assertEquals(2,result.getResourceFollowUpS().size());
-//
-//    }
+
+    @Test
+    public void given_member_findByIdWithAllItsResourceFollowUps_Successfull() throws URISyntaxException {
+        // Given - Création du token
+        UserDetails user = new User("ID-2","123", AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));
+        final String token = jwtTokenUtil.generateToken(user);
+        URI uri = new URI(baseURL + "followups");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token);
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+
+        Mockito.when(memberService.findByIdWithAllResourceFollowUps(member.getIdMember())).thenReturn(member);
+
+        // When Appel de la méthode à tester
+        ResponseEntity<MemberWithFollowupsDTO> response = this.template
+                .exchange(uri, HttpMethod.GET, request, MemberWithFollowupsDTO.class);
+
+        //Then
+        Assertions.assertEquals(HttpStatus.OK, response.getStatusCode());
+        Assertions.assertNotNull(response.getBody());
+        Assertions.assertEquals(2,response.getBody().getResourceFollowUpS().size());
+    }
+
+    @Test
+    public void given_unkonwn_member_findByIdWithAllItsResourceFollowUps_should_throw_exception() throws URISyntaxException {
+        // Given
+        UserDetails user = new User("ID-2","123", AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));
+        final String token = jwtTokenUtil.generateToken(user);
+        URI uri = new URI(baseURL + "followups");
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token);
+        HttpEntity<String> request = new HttpEntity<>(null, headers);
+        Mockito.when(memberService.findByIdWithAllResourceFollowUps(member.getIdMember())).thenThrow(new NotFoundException());
+
+        // When Appel de la méthode à tester
+        ResponseEntity<MemberWithFollowupsDTO> response = this.template
+                .exchange(uri, HttpMethod.GET, request, MemberWithFollowupsDTO.class);
+
+        //Then
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, response.getStatusCode());
+    }
 }

@@ -43,12 +43,13 @@ public class MemberController {
     }
 
     @PostMapping(value = "/create", produces={"application/json"}, consumes = {"application/json"})
+    @ApiOperation("This operation allows to create a new member in KeskonAvu and get a Token")
     public HttpEntity<?> createNewMember(@RequestBody MemberDTOLight memberDTOLight){
         // Création du membre dans le registre
         final Member memberToCreate = memberMapper.mapLightToEntity(memberDTOLight);
         final Member memberCreated = memberService.createMember(memberToCreate);
 
-        // Construction du token
+        // Construction du token avec les informations du member
         final UserDetails userDetails = userDetailsService.loadUserByUsername(memberCreated.getIdMember());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
@@ -56,17 +57,27 @@ public class MemberController {
         final MemberAuthenticatedDTO memberAuthenticatedDTO = memberMapper.mapToLoggedMember(memberCreated);
         memberAuthenticatedDTO.setJwtToken(new JwtResponse(token));
 
+        System.out.println("Token JWT : " + token);
+        System.out.println("ID Member " + memberCreated.getIdMember());
+
         return ResponseEntity.ok(memberAuthenticatedDTO);
     }
 
-    @GetMapping(value="/followup/{id}", produces={"application/json"})
-    @ApiOperation("member followUps")
-    public MemberWithFollowupsDTO getFlollowUps(@PathVariable("id") String idMember){
+    @GetMapping(value="/followups", produces={"application/json"})
+    @ApiOperation("This operation allows to get all member followUps")
+    public MemberWithFollowupsDTO getFollowUps(@RequestHeader("Authorization") String requestTokenHeader){
+        //Spring Security => Contrôle prélable de la validité du token transmis
+        //Récupération de l'id Member à partir du JWT du header de la requête
+        final String jwtToken = requestTokenHeader.substring(7);
+        final String idMember = jwtTokenUtil.getIdMemberFromToken(jwtToken);
 
+        System.out.println("Token JWT : " + jwtToken);
+        System.out.println("ID Member " + idMember);
+
+        //Recherche des followUps du member
         Member member = memberService.findByIdWithAllResourceFollowUps(idMember);
 
         MemberWithFollowupsDTO memberToRetrieved = new MemberWithFollowupsDTO();
-        memberToRetrieved.setIdMember(member.getIdMember());
         Set<FollowUpDTO> setTocreate =
                 member.getFollowUps()
                         .stream()

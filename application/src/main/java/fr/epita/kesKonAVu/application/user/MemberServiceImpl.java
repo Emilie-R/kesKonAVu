@@ -74,7 +74,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Member findByIdWithAllResourceFollowUps (String id) {
+        if (memberRepository.findByIdWithAllResourceFollowUps(id) == null ) {
+          throw new NotFoundException("Member with FollowUps not found - Id Member : " + id );
+        }
         return memberRepository.findByIdWithAllResourceFollowUps(id);
     }
 

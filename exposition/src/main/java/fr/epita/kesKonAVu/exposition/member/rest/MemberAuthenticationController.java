@@ -4,6 +4,7 @@ import fr.epita.kesKonAVu.application.user.MemberService;
 import fr.epita.kesKonAVu.config.security.jwt.JwtResponse;
 import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
 import fr.epita.kesKonAVu.domain.user.Member;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -33,7 +34,9 @@ public class MemberAuthenticationController {
     @Autowired
     private MemberMapper memberMapper;
 
+
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
+    @ApiOperation(value="This operation allows a member to authenticate itself in KeskonAvu and get a Token")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody final AuthenticationRequest authenticationRequest) throws Exception {
 
         // Convertir le pseudo en idMember

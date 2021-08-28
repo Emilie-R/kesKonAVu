@@ -41,7 +41,6 @@ public class MemberMapper extends AbstractMapper<Member,MemberDTO> {
 
     public MemberAuthenticatedDTO mapToLoggedMember(final Member entity) {
         MemberAuthenticatedDTO memberAuthenticatedDTO = new MemberAuthenticatedDTO();
-        memberAuthenticatedDTO.setIdMember(entity.getIdMember());
         memberAuthenticatedDTO.setPseudo(entity.getPseudo());
         memberAuthenticatedDTO.setEmail(entity.getEmail());
         memberAuthenticatedDTO.setCreationDate(entity.getCreationDate());
