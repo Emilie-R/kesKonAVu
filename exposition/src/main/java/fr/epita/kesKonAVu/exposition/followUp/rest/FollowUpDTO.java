@@ -12,7 +12,7 @@ public class FollowUpDTO {
 
     private StatusEnum status;
     private LocalDate lastModificationDate;
-    private int note;
+    private Integer note;
     private Float progression;// Ce DTO gère (donc) les suivis de Films ET de séries
     private Integer numberOfUnseenEpisodes;
 
@@ -51,11 +51,11 @@ public class FollowUpDTO {
         this.lastModificationDate = lastModificationDate;
     }
 
-    public int getNote ( ) {
+    public Integer getNote ( ) {
         return note;
     }
 
-    public void setNote (int note) {
+    public void setNote (Integer note) {
         this.note = note;
     }
 

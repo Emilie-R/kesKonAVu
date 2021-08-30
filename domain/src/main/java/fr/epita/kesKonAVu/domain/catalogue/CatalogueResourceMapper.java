@@ -22,6 +22,7 @@ public class CatalogueResourceMapper {
         resource.setDirector(itemCatalogue.getDirector());
         resource.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
         resource.setExternalKey(itemCatalogue.getImdbId());
+        resource.setDuration(itemCatalogue.getRuntime());
 
         switch (itemCatalogue.getType()) {
             case "movie" :
@@ -47,6 +48,7 @@ public class CatalogueResourceMapper {
         movie.setCategory(itemCatalogue.getGenre());
         movie.setDirector(itemCatalogue.getDirector());
         movie.setResourceType(ResourceTypeEnum.MOVIE);
+        movie.setDuration(itemCatalogue.getRuntime());
 
         movie.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
         movie.setExternalKey(itemCatalogue.getImdbId());
@@ -64,6 +66,7 @@ public class CatalogueResourceMapper {
         serie.setCategory(itemCatalogue.getGenre());
         serie.setDirector(itemCatalogue.getDirector());
         serie.setResourceType(ResourceTypeEnum.SERIE);
+        serie.setDuration(itemCatalogue.getRuntime());
 
         if (itemCatalogue.getTotalSeasons() != null ) {
             serie.setNumberOfSeasons(Integer.parseInt(itemCatalogue.getTotalSeasons()));

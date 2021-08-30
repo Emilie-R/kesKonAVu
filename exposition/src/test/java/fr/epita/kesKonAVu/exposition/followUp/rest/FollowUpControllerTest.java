@@ -128,10 +128,10 @@ public class FollowUpControllerTest {
         Mockito.when(followUpService.deleteFollowUp(idFollowUpL)).thenReturn(idFollowUpL);
 
         //When
-        HttpEntity<Long> result = template.exchange(uri, HttpMethod.DELETE, request, Long.class);
+        ResponseEntity<String> result = template.exchange(uri, HttpMethod.DELETE, request, String.class);
 
         //Then
-        Assertions.assertEquals(idFollowUpL, result.getBody());
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
         Mockito.verify(followUpService, Mockito.times(1)).deleteFollowUp(1L);
     }
 

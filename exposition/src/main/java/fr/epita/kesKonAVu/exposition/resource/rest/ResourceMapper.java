@@ -1,8 +1,6 @@
 
 package fr.epita.kesKonAVu.exposition.resource.rest;
 
-import fr.epita.kesKonAVu.domain.resource.CatalogReferenceEnum;
-import fr.epita.kesKonAVu.domain.resource.ExternalKey;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.exposition.common.AbstractMapper;
 import org.springframework.stereotype.Component;

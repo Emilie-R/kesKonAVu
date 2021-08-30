@@ -29,6 +29,7 @@ public class CatalogueDtoMapper {
         itemCatalogue.setImdbId(itemCatalogueDto.getImdbId());
         itemCatalogue.setType(itemCatalogueDto.getType());
         itemCatalogue.setTotalSeasons(itemCatalogueDto.getTotalSeasons());
+        itemCatalogue.setRuntime(itemCatalogueDto.getRuntime());
 
         return itemCatalogue;
     }

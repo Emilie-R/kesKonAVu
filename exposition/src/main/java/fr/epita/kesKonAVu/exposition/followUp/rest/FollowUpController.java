@@ -81,8 +81,8 @@ public class FollowUpController {
     }
 
     @DeleteMapping(value="/{id}")
-    public Long deleteFollowUp(@PathVariable("id") Long idFollowUp){
-        return followUpService.deleteFollowUp(idFollowUp);
+    public void deleteFollowUp(@PathVariable("id") Long idFollowUp){
+        followUpService.deleteFollowUp(idFollowUp);
     }
 
 

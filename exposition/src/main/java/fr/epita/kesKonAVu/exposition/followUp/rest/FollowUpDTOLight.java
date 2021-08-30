@@ -14,6 +14,7 @@ public class FollowUpDTOLight {
     private ResourceDTOLight resourceDTOLight;
 
     @JsonProperty("status")
+    @NotNull
     private StatusEnum status;
 
     public ResourceDTOLight getResourceDTOLight() {

@@ -12,7 +12,7 @@ public class ResourceDTO {
     private String actors;
     private String category;
     private String director;
-    private Integer duration;
+    private String duration;
     private String externalKey;
     private CatalogReferenceEnum externalCatalogName;
     private ResourceTypeEnum resourceType;
@@ -80,11 +80,11 @@ public class ResourceDTO {
         this.director = director;
     }
 
-    public Integer getDuration() {
+    public String getDuration() {
         return duration;
     }
 
-    public void setDuration(Integer duration) {
+    public void setDuration(String duration) {
         this.duration = duration;
     }
 

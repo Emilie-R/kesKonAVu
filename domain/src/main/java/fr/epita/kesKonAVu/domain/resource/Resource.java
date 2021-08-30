@@ -19,7 +19,7 @@ public class Resource {
     private String category;
     private String director;
     private LocalDate creationDate;
-    private Integer duration;
+    private String duration;
 
     @Enumerated(EnumType.STRING)
     private ResourceTypeEnum resourceType;
@@ -105,11 +105,11 @@ public class Resource {
         this.creationDate = creationDate;
     }
 
-    public Integer getDuration ( ) {
+    public String getDuration ( ) {
         return duration;
     }
 
-    public void setDuration (Integer duration) {
+    public void setDuration (String duration) {
         this.duration = duration;
     }
 
