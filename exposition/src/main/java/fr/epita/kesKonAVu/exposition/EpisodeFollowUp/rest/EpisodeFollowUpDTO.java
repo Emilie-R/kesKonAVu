@@ -4,6 +4,7 @@ import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.resource.Episode;
 
 public class EpisodeFollowUpDTO {
+
     Long idEpisodeFollowUp;
     Episode episode;
     EpisodeStatusEnum episodeStatusEnum; // that user has written

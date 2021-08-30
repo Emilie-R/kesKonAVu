@@ -6,6 +6,7 @@ import fr.epita.kesKonAVu.exposition.resource.rest.ResourceDTO;
 import java.time.LocalDate;
 
 public class FollowUpDTO {
+
     private Long idFollowUp;
     private ResourceDTO resourceDTO;
 

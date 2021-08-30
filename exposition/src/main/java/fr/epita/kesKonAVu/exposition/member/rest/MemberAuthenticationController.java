@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.exposition.member.rest;
 
+import fr.epita.kesKonAVu.application.security.AuthenticationService;
 import fr.epita.kesKonAVu.application.user.MemberService;
 import fr.epita.kesKonAVu.config.security.jwt.JwtResponse;
 import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
@@ -23,6 +24,9 @@ public class MemberAuthenticationController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
+    private AuthenticationService authenticationService;
+
+    @Autowired
     private JwtTokenManager jwtTokenUtil;
 
     @Autowired
@@ -40,7 +44,7 @@ public class MemberAuthenticationController {
     public ResponseEntity<?> createAuthenticationToken(@RequestBody final AuthenticationRequest authenticationRequest) throws Exception {
 
         // Convertir le pseudo en idMember
-        final Member member = memberService.findOne(authenticationRequest.getPseudo());
+        final Member member = authenticationService.findMemberByPseudo(authenticationRequest.getPseudo());
 
         // Fonction lève une exception si idMember/mot de passe sont KO
         authenticate(member.getIdMember(), authenticationRequest.getPassword());

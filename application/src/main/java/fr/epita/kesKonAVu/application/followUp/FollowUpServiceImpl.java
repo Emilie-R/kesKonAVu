@@ -17,7 +17,6 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Service
-@Transactional
 public class FollowUpServiceImpl implements FollowUpService {
 
     @Autowired
@@ -38,6 +37,7 @@ public class FollowUpServiceImpl implements FollowUpService {
      * @return followUp followUp created
      */
     @Override
+    @Transactional
     public FollowUp createNewFollowUp(final FollowUp followUp) {
         final String imdbId = followUp.getResource().getExternalKey();
         final Member member = followUp.getMember();
@@ -104,18 +104,21 @@ public class FollowUpServiceImpl implements FollowUpService {
         return followUpRepository.save(followUpToSave);
     }
     @Override
+    @Transactional(readOnly = true)
     public FollowUp findOne (Long id) {
         if (followUpRepository.findById(id).isPresent())
         {
             return followUpRepository.findById(id).get();
         } else {
-            throw new NotFoundException("FollowUp non trouvé en BDD");
+            throw new NotFoundException("FollowUp non trouvé en BDD " + id);
         }
     }
 
     @Override
+    @Transactional
     public String updateFollowUp (FollowUp followUp) {
         String retour = "KO";
+
         try {
             followUpRepository.save(followUp);
             retour = "OK";
@@ -127,6 +130,7 @@ public class FollowUpServiceImpl implements FollowUpService {
 
 
     @Override
+    @Transactional
     public Long deleteFollowUp (final Long idFollowUp) {
         followUpRepository.deleteById(idFollowUp);
         return idFollowUp;

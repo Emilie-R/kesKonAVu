@@ -2,6 +2,7 @@ package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.application.followUp.FollowUpService;
+import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import org.junit.jupiter.api.Assertions;
@@ -14,8 +15,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
+import org.springframework.http.*;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.io.IOException;
 import java.net.URI;
@@ -28,6 +31,7 @@ import static org.mockito.Mockito.when;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,classes = { SpringBootAppTest.class })
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class FollowUpControllerTest {
+
     @LocalServerPort
     private int port;
 
@@ -38,6 +42,12 @@ public class FollowUpControllerTest {
 
     @Autowired
     private TestRestTemplate template;
+
+    @Autowired
+    JwtTokenManager jwtTokenUtil;
+
+    @Autowired
+    FollowUpMapper followUpMapper;
 
     @MockBean
     FollowUpService followUpService;
@@ -79,24 +89,31 @@ public class FollowUpControllerTest {
     }
 
     @Test
-    public void createFollowUpShouldSuccess() throws URISyntaxException {
-        //=> instancier les paramètre de connexion
-        URI uri = new URI(  baseURL + "create");
+    public void create_followUp_should_success() throws URISyntaxException {
+        //Given => instancier les paramètre de connexion
+        // - Création du JWT pour identifier le member
+        UserDetails user = new User("ID-2","123", AuthorityUtils.commaSeparatedStringToAuthorityList("ADMIN"));
+        final String token = jwtTokenUtil.generateToken(user);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setBearerAuth(token);
+
+        // - Création du body de la requête
         FollowUpDTOLight res1 = new FollowUpDTOLight();
         res1.setStatus(StatusEnum.VU);
-        res1.setIdMember("ID-1");
         res1.setResourceDTOLight(new ResourceDTOLight());
-        FollowUpMapper followUpMapper = new FollowUpMapper();
-
         FollowUp res1Transformed = followUpMapper.mapToEntity(res1);
         res1Transformed.setStatus(StatusEnum.AVOIR); // de VU -> à AVOIR
-
-        HttpEntity<FollowUpDTOLight> request = new HttpEntity<>(res1);
-        //When
         Mockito.when(followUpService.createNewFollowUp(any())).thenReturn(res1Transformed);
-        HttpEntity<FollowUpDTO> result = template.exchange(uri, HttpMethod.POST, request, FollowUpDTO.class);
+
+        URI uri = new URI(  baseURL + "create");
+        HttpEntity<FollowUpDTOLight> request = new HttpEntity<>(res1, headers);
+
+        //When
+        ResponseEntity<FollowUpDTO> result = template.exchange(uri, HttpMethod.POST, request, FollowUpDTO.class);
 
         //Then
+        Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals(StatusEnum.AVOIR, result.getBody().getStatus());
     }
 

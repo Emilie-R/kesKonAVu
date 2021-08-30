@@ -9,23 +9,12 @@ import javax.validation.constraints.NotNull;
 @Validated
 public class FollowUpDTOLight {
 
-    @JsonProperty("idMember")
-    private String idMember;
-
     @JsonProperty("Resource")
     @NotNull
     private ResourceDTOLight resourceDTOLight;
 
     @JsonProperty("status")
     private StatusEnum status;
-
-    public String getIdMember() {
-        return idMember;
-    }
-
-    public void setIdMember(String idMember) {
-        this.idMember = idMember;
-    }
 
     public ResourceDTOLight getResourceDTOLight() {
         return resourceDTOLight;

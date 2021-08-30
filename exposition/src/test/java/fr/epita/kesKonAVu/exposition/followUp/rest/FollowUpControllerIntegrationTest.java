@@ -56,14 +56,14 @@ public class FollowUpControllerIntegrationTest {
         URI uri = new URI(baseURL+"update");
 //        When
         FollowUpUpdateDTOLight in = new FollowUpUpdateDTOLight();
-        in.setIdMember(3L);
+        in.setIdFollowUp(3L);
         in.setNote(40);
         HttpEntity<FollowUpUpdateDTOLight> request = new HttpEntity<>(in);
         ResponseEntity<String> result = this.template.exchange(uri, HttpMethod.PUT, request, String.class);
         //Then
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals("OK", result.getBody());
-        FollowUp updated = resourceFollowUpService.findOne(in.getIdMember());
+        FollowUp updated = resourceFollowUpService.findOne(in.getIdFollowUp());
         Assertions.assertEquals(40,updated.getNote());
 
     }
@@ -75,7 +75,7 @@ public class FollowUpControllerIntegrationTest {
         URI uri = new URI(baseURL+"update");
 //        When
         FollowUpUpdateDTOLight in = new FollowUpUpdateDTOLight();
-        in.setIdMember(2L);
+        in.setIdFollowUp(2L);
         in.setStatus(StatusEnum.AVOIR);
         in.setNote(0);
         HttpEntity<FollowUpUpdateDTOLight> request = new HttpEntity<>(in);
@@ -83,7 +83,7 @@ public class FollowUpControllerIntegrationTest {
         //Then
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
         Assertions.assertEquals("OK", result.getBody());
-        FollowUp updated = resourceFollowUpService.findOne(in.getIdMember());
+        FollowUp updated = resourceFollowUpService.findOne(in.getIdFollowUp());
         Assertions.assertEquals(StatusEnum.AVOIR,updated.getStatus());
     }
 }

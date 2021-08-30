@@ -8,7 +8,6 @@ public interface FollowUpService {
 
     FollowUp findOne(Long id);
 
-
     String updateFollowUp(FollowUp followUp);
 
 //    String updateRating(Long id, Integer rating);

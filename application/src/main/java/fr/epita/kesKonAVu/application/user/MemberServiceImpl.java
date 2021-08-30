@@ -59,13 +59,14 @@ public class MemberServiceImpl implements MemberService {
         // Encode memberPassword
         member.setPassword(passwordEncoder.encode(member.getPassword()));
 
-        // Return created member in DataBase
+        // Return created member from DataBase
         return memberRepository.save(member);
     }
 
 
     @Override
     @Transactional(readOnly = true)
+    @Secured("ADMIN")
     public Member findOne(String pseudo) {
         if (memberRepository.findByPseudo(pseudo) == null) {
             throw new NotFoundException("Member non trouvé dans la base : " + pseudo) ;

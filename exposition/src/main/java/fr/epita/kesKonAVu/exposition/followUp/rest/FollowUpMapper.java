@@ -52,9 +52,6 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowUpDTO> {
 
         FollowUp followUp = new FollowUp();
 
-        Member member = new Member();
-        member.setIdMember(dtoLight.getIdMember());
-
         Resource resource = new Resource();
         if (dtoLight.getResourceDTOLight() != null) {
             resource.setResourceType(dtoLight.getResourceDTOLight().getTypeResource());
@@ -62,7 +59,6 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowUpDTO> {
         }
 
         followUp.setResource(resource);
-        followUp.setMember(member);
         followUp.setStatus(dtoLight.getStatus());
 
         return followUp;
