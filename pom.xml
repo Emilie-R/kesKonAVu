@@ -14,6 +14,7 @@
         <module>infrastructure</module>
         <module>application</module>
         <module>exposition</module>
+        <module>jacoco-report-aggregator</module>
     </modules>
 
     <properties>
@@ -24,6 +25,8 @@
         <jjwt-version>0.9.1</jjwt-version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
+        <!-- Version de Jacoco plugin -->
+        <org.jacoco.version>0.8.2</org.jacoco.version>
     </properties>
 
     <dependencyManagement>
@@ -123,6 +126,24 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.0.0-M5</version>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.5.4</version>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${org.jacoco.version}</version>
+                <executions>
+                    <execution>
+                        <id>prepare-agent</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
         </plugins>

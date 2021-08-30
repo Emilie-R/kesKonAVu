@@ -19,12 +19,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!-- <dependency>
-            <groupId>com.mashape.unirest</groupId>
-            <artifactId>unirest-java</artifactId>
-            <version>1.4.9</version>
-        </dependency> -->
-        <!--dépendances inter-modules-->
+
         <dependency>
             <groupId>fr.epita</groupId>
             <artifactId>kesKonAVu-domain</artifactId>
@@ -52,7 +47,6 @@
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
         </dependency>
-
     </dependencies>
 
     <!-- Création rapport couverture du code par les tests, avec le plugin Jacoco-->

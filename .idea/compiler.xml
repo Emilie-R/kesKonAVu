@@ -14,6 +14,7 @@
         <module name="kesKonAVu-infrastructure" />
         <module name="kesKonAVu-application" />
         <module name="exposition" />
+        <module name="jacoco-report-aggregator" />
       </profile>
     </annotationProcessing>
   </component>

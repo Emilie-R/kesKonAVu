@@ -84,7 +84,7 @@ public class FollowUpProgressionControllerTest {
 //                .filter(e -> e.getStatus() == EpisodeStatusEnum.AVOIR)
 //                .count();
 //        Assertions.assertEquals(5,count);
-//    }
+    }
 
 
 }
