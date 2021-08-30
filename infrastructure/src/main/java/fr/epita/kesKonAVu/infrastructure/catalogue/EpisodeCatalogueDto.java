@@ -16,7 +16,7 @@ public class EpisodeCatalogueDto {
     @JsonProperty("imdbRating")
     private String imdbRating;
 
-    @JsonProperty("imdbId")
+    @JsonProperty("imdbID")
     private String imdbId;
 
     public String getTitle() {

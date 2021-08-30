@@ -40,6 +40,7 @@ public class FollowUpServiceImpl implements FollowUpService {
     @Transactional
     public FollowUp createNewFollowUp(final FollowUp followUp) {
         final String imdbId = followUp.getResource().getExternalKey();
+        final CatalogReferenceEnum catalogReference = followUp.getResource().getExternalCatalogName();
         final Member member = followUp.getMember();
         FollowUp followUpToSave = new FollowUp();
 
@@ -63,6 +64,7 @@ public class FollowUpServiceImpl implements FollowUpService {
                     }
                 } catch (NotFoundException e) {
                     movie = catalogueService.findMovieByImdbId(imdbId);
+                    movie.setExternalCatalogName(catalogReference);
                     movie.setCreationDate(LocalDate.now());
                     movie = resourceRepository.save(movie);
                 }
@@ -81,6 +83,7 @@ public class FollowUpServiceImpl implements FollowUpService {
                     }
                 } catch (NotFoundException e) {
                     serie = catalogueService.findSerieByImdbId(imdbId);
+                    serie.setExternalCatalogName(catalogReference);
                     serie.setCreationDate(LocalDate.now());
                     final Set<Episode> allEpisodes = catalogueService.findAllEpisodes(serie);
                     serie.setEpisodes(allEpisodes);
@@ -135,6 +138,5 @@ public class FollowUpServiceImpl implements FollowUpService {
         followUpRepository.deleteById(idFollowUp);
         return idFollowUp;
     }
-
 
 }

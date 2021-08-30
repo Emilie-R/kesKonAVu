@@ -1,6 +1,7 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import fr.epita.kesKonAVu.domain.resource.CatalogReferenceEnum;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import org.springframework.validation.annotation.Validated;
 
@@ -13,6 +14,10 @@ public class ResourceDTOLight {
     @JsonProperty("resourceType")
     @NotNull
     private ResourceTypeEnum typeResource;
+
+    @JsonProperty("catalogueReference")
+    @NotBlank
+    private CatalogReferenceEnum externalCatalogName;
 
     @JsonProperty("imdbId")
     @NotBlank
@@ -34,6 +39,11 @@ public class ResourceDTOLight {
         this.imdbId = imdbId;
     }
 
+    public CatalogReferenceEnum getExternalCatalogName() {
+        return externalCatalogName;
+    }
 
-
+    public void setExternalCatalogName(CatalogReferenceEnum externalCatalogName) {
+        this.externalCatalogName = externalCatalogName;
+    }
 }

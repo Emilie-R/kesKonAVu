@@ -56,6 +56,7 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowUpDTO> {
         if (dtoLight.getResourceDTOLight() != null) {
             resource.setResourceType(dtoLight.getResourceDTOLight().getTypeResource());
             resource.setExternalKey(dtoLight.getResourceDTOLight().getImdbId());
+            resource.setExternalCatalogName(dtoLight.getResourceDTOLight().getExternalCatalogName());
         }
 
         followUp.setResource(resource);

@@ -57,6 +57,7 @@ public class FollowUpControllerIntegrationTest {
 //        When
         FollowUpUpdateDTOLight in = new FollowUpUpdateDTOLight();
         in.setIdFollowUp(3L);
+        in.setStatus(StatusEnum.AVOIR);
         in.setNote(40);
         HttpEntity<FollowUpUpdateDTOLight> request = new HttpEntity<>(in);
         ResponseEntity<String> result = this.template.exchange(uri, HttpMethod.PUT, request, String.class);

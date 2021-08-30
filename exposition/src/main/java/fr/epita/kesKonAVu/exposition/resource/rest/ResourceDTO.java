@@ -1,9 +1,7 @@
 package fr.epita.kesKonAVu.exposition.resource.rest;
 
+import fr.epita.kesKonAVu.domain.resource.CatalogReferenceEnum;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
-
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 
 public class ResourceDTO {
     private Long idResource;
@@ -16,7 +14,7 @@ public class ResourceDTO {
     private String director;
     private Integer duration;
     private String externalKey;
-    private String externalCatalogName;
+    private CatalogReferenceEnum externalCatalogName;
     private ResourceTypeEnum resourceType;
 
     public ResourceDTO (){
@@ -106,11 +104,11 @@ public class ResourceDTO {
         this.idResource = idResource;
     }
 
-    public String getExternalCatalogName ( ) {
+    public CatalogReferenceEnum getExternalCatalogName ( ) {
         return externalCatalogName;
     }
 
-    public void setExternalCatalogName (String externalCatalogName) {
+    public void setExternalCatalogName (CatalogReferenceEnum externalCatalogName) {
         this.externalCatalogName = externalCatalogName;
     }
 
