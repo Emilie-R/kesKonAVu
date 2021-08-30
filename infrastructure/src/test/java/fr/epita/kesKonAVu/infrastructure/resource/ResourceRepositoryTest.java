@@ -7,10 +7,8 @@ import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 @DataJpaTest
 public class ResourceRepositoryTest {
@@ -124,6 +122,28 @@ public class ResourceRepositoryTest {
         Resource retrieved = resourceRepository.findMovieByExternalKey(result.getExternalKey());
         Assertions.assertEquals( resourceToSave.getExternalKey(), retrieved.getExternalKey());
         Assertions.assertNotEquals( resourceWitness.getExternalKey(), retrieved.getExternalKey());
+    }
+    @Test
+    public void FindResourceFailedShouldThrowNotFoundException() {
+        //Given
+        resourceToSave.setTitle("Le dernier métro");
+        resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
+        resourceToSave.setExternalKey("12345678");
+        resourceToSave.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+
+        Resource resourceWitness = new Resource();
+        resourceWitness.setTitle("Le premier métro");
+        resourceWitness.setResourceType(ResourceTypeEnum.MOVIE);
+        resourceWitness.setExternalKey("87654321");
+        resourceWitness.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+
+        //When
+        Resource result = resourceRepository.save(resourceToSave);
+
+        //Then
+        Assertions.assertThrows(NotFoundException.class,()-> resourceRepository.findMovieByExternalKey("8765432"));
+        Assertions.assertThrows(NotFoundException.class,()-> resourceRepository.findMovieByTitle("Le second métro"));
+        Assertions.assertThrows(NotFoundException.class,()-> resourceRepository.findById(40L));
     }
 
 
