@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.domain.catalogue;
+package fr.epita.kesKonAVu.domain.catalogueOmdb;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Episode;
@@ -73,7 +73,7 @@ public class CatalogueServiceTest {
         //Given
         Serie serie = new Serie();
         serie.setNumberOfSeasons(4);
-        serie.setExternalKey("22222");
+        serie.setImdbId("22222");
 
         EpisodeCatalogue episode1 = new EpisodeCatalogue();
         episode1.setEpisodeNumber("1");
@@ -97,13 +97,13 @@ public class CatalogueServiceTest {
         listSeason4.setSeason("4");
         listSeason4.setEpisodes(list1);
 
-        Mockito.when(catalogueRepository.findAllEpisodesOfSeason(serie.getExternalKey(), 1))
+        Mockito.when(catalogueRepository.findAllEpisodesOfSeason(serie.getImdbId(), 1))
                 .thenReturn(listSeason1);
-        Mockito.when(catalogueRepository.findAllEpisodesOfSeason(serie.getExternalKey(), 4))
+        Mockito.when(catalogueRepository.findAllEpisodesOfSeason(serie.getImdbId(), 4))
                 .thenReturn(listSeason4);
-        Mockito.when(catalogueRepository.findAllEpisodesOfSeason(serie.getExternalKey(), 2))
+        Mockito.when(catalogueRepository.findAllEpisodesOfSeason(serie.getImdbId(), 2))
                 .thenThrow(NotFoundException.class);
-        Mockito.when(catalogueRepository.findAllEpisodesOfSeason(serie.getExternalKey(), 3))
+        Mockito.when(catalogueRepository.findAllEpisodesOfSeason(serie.getImdbId(), 3))
                 .thenThrow(NotFoundException.class);
 
         //When

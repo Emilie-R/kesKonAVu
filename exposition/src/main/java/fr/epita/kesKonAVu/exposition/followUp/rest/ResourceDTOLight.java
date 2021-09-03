@@ -15,10 +15,6 @@ public class ResourceDTOLight {
     @NotNull
     private ResourceTypeEnum typeResource;
 
-    @JsonProperty("catalogueReference")
-    @NotBlank
-    private CatalogReferenceEnum externalCatalogName;
-
     @JsonProperty("imdbId")
     @NotBlank
     private String imdbId;
@@ -39,11 +35,4 @@ public class ResourceDTOLight {
         this.imdbId = imdbId;
     }
 
-    public CatalogReferenceEnum getExternalCatalogName() {
-        return externalCatalogName;
-    }
-
-    public void setExternalCatalogName(CatalogReferenceEnum externalCatalogName) {
-        this.externalCatalogName = externalCatalogName;
-    }
 }

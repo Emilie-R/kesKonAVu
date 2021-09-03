@@ -12,7 +12,7 @@ public interface SerieJpaRepository extends JpaRepository<Serie,Long> {
 
     Serie findByIdResource(Long idResource);
 
-    Serie findByExternalKey(String externalKey);
+    Serie findByImdbId(String externalKey);
 
     @Query("select s from Serie s left join fetch s.episodes where s.id = :id")
     Serie findByIdWithAllEpisodes (@Param("id") Long idSerie);

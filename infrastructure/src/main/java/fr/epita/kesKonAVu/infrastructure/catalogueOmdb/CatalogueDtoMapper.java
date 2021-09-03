@@ -1,16 +1,13 @@
-package fr.epita.kesKonAVu.infrastructure.catalogue;
+package fr.epita.kesKonAVu.infrastructure.catalogueOmdb;
 
 
-import fr.epita.kesKonAVu.domain.catalogue.EpisodeCatalogue;
-import fr.epita.kesKonAVu.domain.catalogue.ItemCatalogue;
-import fr.epita.kesKonAVu.domain.catalogue.SerieSeasonCatalogue;
-import fr.epita.kesKonAVu.domain.resource.*;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.EpisodeCatalogue;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.ItemCatalogue;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.SerieSeasonCatalogue;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class CatalogueDtoMapper {

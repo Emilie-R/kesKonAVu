@@ -1,7 +1,7 @@
 package fr.epita.kesKonAVu.application.SerieProgression;
 
 import fr.epita.kesKonAVu.SpringBootAppTest;
-import fr.epita.kesKonAVu.domain.catalogue.CatalogueRepository;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.CatalogueRepository;
 import fr.epita.kesKonAVu.domain.common.BusinessException;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
@@ -81,7 +81,7 @@ public class UpdateSerieProgressionApplicationServiceTest {
         Serie serie = new Serie();
         serie.setTitle("Urgences");
         serie.setResourceType(ResourceTypeEnum.SERIE);
-        serie.setExternalKey("1234567");
+        serie.setImdbId("1234567");
         serie.setNumberOfSeasons(2);
 
         Episode episode1 = new Episode();

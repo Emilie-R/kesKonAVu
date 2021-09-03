@@ -6,7 +6,7 @@ public interface ResourceRepository {
 
     Resource findMovieByIdResource (Long idResource);
 
-    Resource findMovieByExternalKey(String externalKey);
+    Resource findMovieByImdbId(String externalKey);
 
     Resource save(Resource resource);
 

@@ -7,10 +7,8 @@ import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 @DataJpaTest
 public class ResourceRepositoryTest {
@@ -38,7 +36,7 @@ public class ResourceRepositoryTest {
         Assertions.assertNotNull(result);
         Assertions.assertEquals("Le Grand Bleu", result.getTitle());
         Assertions.assertEquals(ResourceTypeEnum.MOVIE, result.getResourceType());
-        Assertions.assertEquals("tt0095250", result.getExternalKey());
+        Assertions.assertEquals("tt0095250", result.getImdbId());
     }
 
     @Test
@@ -56,8 +54,8 @@ public class ResourceRepositoryTest {
         //Given
         resourceToSave.setTitle("Le dernier métro");
         resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
-        resourceToSave.setExternalKey("12345678");
-        resourceToSave.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+        resourceToSave.setImdbId("12345678");
+        resourceToSave.setResourceDataSource(CatalogReferenceEnum.OMDBAPI);
 
         //When
         Resource result = resourceRepository.save(resourceToSave);
@@ -66,8 +64,8 @@ public class ResourceRepositoryTest {
         Assertions.assertNotNull(resourceRepository.findById(result.getIdResource()));
         Assertions.assertEquals( resourceToSave.getTitle(),
                 resourceRepository.findById(result.getIdResource()).getTitle());
-        Assertions.assertEquals( resourceToSave.getExternalKey(),
-                resourceRepository.findById(result.getIdResource()).getExternalKey());
+        Assertions.assertEquals( resourceToSave.getImdbId(),
+                resourceRepository.findById(result.getIdResource()).getImdbId());
     }
 
     @Test
@@ -75,17 +73,17 @@ public class ResourceRepositoryTest {
         //Given
         Resource resourceToSave = resourceRepository.findById(1L);
         resourceToSave.setTitle("Tarzan");
-        resourceToSave.setExternalKey("12345678");
+        resourceToSave.setImdbId("12345678");
 
         //When
         Resource result = resourceRepository.save(resourceToSave);
 
         //Then
         Assertions.assertEquals(resourceToSave.getTitle(), resourceRepository.findById(1L).getTitle());
-        Assertions.assertEquals(resourceToSave.getExternalKey(),
-                resourceRepository.findById(1L).getExternalKey());
+        Assertions.assertEquals(resourceToSave.getImdbId(),
+                resourceRepository.findById(1L).getImdbId());
         Assertions.assertEquals(resourceToSave.getIdResource(), result.getIdResource());
-        Assertions.assertEquals(resourceToSave.getExternalKey(), result.getExternalKey());
+        Assertions.assertEquals(resourceToSave.getImdbId(), result.getImdbId());
     }
 
     @Test
@@ -93,8 +91,8 @@ public class ResourceRepositoryTest {
         //Given
         resourceToSave.setTitle("Le dernier métro");
         resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
-        resourceToSave.setExternalKey("12345678");
-        resourceToSave.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+        resourceToSave.setImdbId("12345678");
+        resourceToSave.setResourceDataSource(CatalogReferenceEnum.OMDBAPI);
 
         //When
         Resource result = resourceRepository.save(resourceToSave);
@@ -108,22 +106,22 @@ public class ResourceRepositoryTest {
         //Given
         resourceToSave.setTitle("Le dernier métro");
         resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
-        resourceToSave.setExternalKey("12345678");
-        resourceToSave.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+        resourceToSave.setImdbId("12345678");
+        resourceToSave.setResourceDataSource(CatalogReferenceEnum.OMDBAPI);
 
         Resource resourceWitness = new Resource();
         resourceWitness.setTitle("Le premier métro");
         resourceWitness.setResourceType(ResourceTypeEnum.MOVIE);
-        resourceWitness.setExternalKey("87654321");
-        resourceWitness.setExternalCatalogName(CatalogReferenceEnum.OMDBAPI);
+        resourceWitness.setImdbId("87654321");
+        resourceWitness.setResourceDataSource(CatalogReferenceEnum.OMDBAPI);
 
         //When
         Resource result = resourceRepository.save(resourceToSave);
 
         //Then
-        Resource retrieved = resourceRepository.findMovieByExternalKey(result.getExternalKey());
-        Assertions.assertEquals( resourceToSave.getExternalKey(), retrieved.getExternalKey());
-        Assertions.assertNotEquals( resourceWitness.getExternalKey(), retrieved.getExternalKey());
+        Resource retrieved = resourceRepository.findMovieByImdbId(result.getImdbId());
+        Assertions.assertEquals( resourceToSave.getImdbId(), retrieved.getImdbId());
+        Assertions.assertNotEquals( resourceWitness.getImdbId(), retrieved.getImdbId());
     }
 
 

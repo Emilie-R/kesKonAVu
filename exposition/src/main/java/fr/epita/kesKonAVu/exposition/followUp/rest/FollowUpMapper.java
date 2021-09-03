@@ -2,7 +2,6 @@ package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.resource.Resource;
-import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.exposition.common.AbstractMapper;
 import fr.epita.kesKonAVu.exposition.resource.rest.ResourceMapper;
 import org.springframework.stereotype.Component;
@@ -55,8 +54,7 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowUpDTO> {
         Resource resource = new Resource();
         if (dtoLight.getResourceDTOLight() != null) {
             resource.setResourceType(dtoLight.getResourceDTOLight().getTypeResource());
-            resource.setExternalKey(dtoLight.getResourceDTOLight().getImdbId());
-            resource.setExternalCatalogName(dtoLight.getResourceDTOLight().getExternalCatalogName());
+            resource.setImdbId(dtoLight.getResourceDTOLight().getImdbId());
         }
 
         followUp.setResource(resource);

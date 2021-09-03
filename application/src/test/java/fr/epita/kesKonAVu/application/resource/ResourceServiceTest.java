@@ -3,6 +3,7 @@ package fr.epita.kesKonAVu.application.resource;
 
 import fr.epita.kesKonAVu.SpringBootAppTest;
 import fr.epita.kesKonAVu.domain.resource.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,11 +28,11 @@ public class ResourceServiceTest {
         when(resourceRepositoryMock.findMovieByTitle("Hello")).thenReturn(movie);
 
         // WHEN
-        final Resource createdMovie = resourceService.findByTitle("Hello");
+        final Resource createdMovie = resourceService.findMovieByTitle("Hello");
 
         //Then
         assertThat(createdMovie).isNotNull();
-        assertThat(createdMovie.getTitle() == "Friends 1");
+        Assertions.assertEquals("Friends 1", createdMovie.getTitle());
     }
 
     @Test
@@ -43,11 +44,11 @@ public class ResourceServiceTest {
         when(resourceRepositoryMock.findMovieByIdResource(3L)).thenReturn(movie);
 
         // WHEN
-        final Resource createdMovie = resourceService.findByIdResource(3L);
+        final Resource createdMovie = resourceService.findMovieByIdResource(3L);
 
         //Then
         assertThat(createdMovie).isNotNull();
-        assertThat(1L == createdMovie.getIdResource());
+        Assertions.assertEquals(1L, createdMovie.getIdResource());
     }
 
     @Test
@@ -55,14 +56,14 @@ public class ResourceServiceTest {
         // GIVEN
         final Resource movie = new Resource();
         movie.setTitle("Friends 1");
-        movie.setExternalKey("123arc");
-        when(resourceRepositoryMock.findMovieByExternalKey("Hello")).thenReturn(movie);
+        movie.setImdbId("123arc");
+        when(resourceRepositoryMock.findMovieByImdbId("Hello")).thenReturn(movie);
 
         // WHEN
-        final Resource createdMovie = resourceService.findByExternalKey("Hello");
+        final Resource createdMovie = resourceService.findMovieByImdbId("Hello");
 
         //Then
         assertThat(createdMovie).isNotNull();
-        assertThat(createdMovie.getExternalKey() == movie.getExternalKey());
+        Assertions.assertEquals(createdMovie.getImdbId(), movie.getImdbId());
     }
 }

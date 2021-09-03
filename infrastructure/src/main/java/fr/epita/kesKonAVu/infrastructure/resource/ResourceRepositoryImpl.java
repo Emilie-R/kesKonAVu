@@ -4,7 +4,7 @@ import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
-import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.CatalogueService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +45,9 @@ public class ResourceRepositoryImpl implements ResourceRepository {
     }
 
     @Override
-    public Resource findMovieByExternalKey(String externalKey) {
+    public Resource findMovieByImdbId(String externalKey) {
         Resource resourceOut;
-        Resource result = resourceJpaRepository.findByExternalKeyAndResourceType(externalKey,ResourceTypeEnum.MOVIE);
+        Resource result = resourceJpaRepository.findByImdbIdAndResourceType(externalKey,ResourceTypeEnum.MOVIE);
         if (result != null){
             resourceOut = result;
         } else {

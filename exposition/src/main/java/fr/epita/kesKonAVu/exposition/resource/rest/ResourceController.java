@@ -19,24 +19,21 @@ public class ResourceController {
     @GetMapping("/id/{id}")
     public ResourceDTO getResourceById(@PathVariable("id") Long resourceId) {
 
-        ResourceMapper resourceMapper = new ResourceMapper();
-        return resourceMapper.mapToDto(resourceService.findByIdResource(resourceId));
+        return resourceMapper.mapToDto(resourceService.findMovieByIdResource(resourceId));
 
     }
 
     @GetMapping("/title/{title}")
     public ResourceDTO getResourceByTitle(@PathVariable("title") String title) {
 
-        ResourceMapper resourceMapper = new ResourceMapper();
-        return resourceMapper.mapToDto(resourceService.findByTitle(title));
+        return resourceMapper.mapToDto(resourceService.findMovieByTitle(title));
 
     }
 
-    @GetMapping("/external/{externalId}")
+    @GetMapping("/imdb/{externalId}")
     public ResourceDTO getResourceByExternalReference(@PathVariable("externalId") String externalId) {
 
-        ResourceMapper resourceMapper = new ResourceMapper();
-        return resourceMapper.mapToDto(resourceService.findByExternalKey(externalId));
+        return resourceMapper.mapToDto(resourceService.findMovieByImdbId(externalId));
 
     }
 }

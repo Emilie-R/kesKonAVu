@@ -104,7 +104,7 @@ public class FollowUpControllerTest {
         res1.setResourceDTOLight(new ResourceDTOLight());
         FollowUp res1Transformed = followUpMapper.mapToEntity(res1);
         res1Transformed.setStatus(StatusEnum.AVOIR); // de VU -> à AVOIR
-        Mockito.when(followUpService.createNewFollowUp(any())).thenReturn(res1Transformed);
+        Mockito.when(followUpService.createNewFollowUpFromImdbId(any())).thenReturn(res1Transformed);
 
         URI uri = new URI(  baseURL + "create");
         HttpEntity<FollowUpDTOLight> request = new HttpEntity<>(res1, headers);

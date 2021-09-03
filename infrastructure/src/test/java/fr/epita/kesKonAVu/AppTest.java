@@ -1,7 +1,7 @@
 package fr.epita.kesKonAVu;
 
-import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
-import fr.epita.kesKonAVu.domain.catalogue.CatalogueServiceImpl;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.CatalogueService;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.CatalogueServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

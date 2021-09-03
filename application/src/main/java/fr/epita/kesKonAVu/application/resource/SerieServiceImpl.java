@@ -21,7 +21,7 @@ public class SerieServiceImpl implements SerieService{
     }
 
     @Override
-    public Serie findByExternalKey (String externalKey) {
-        return serieRepository.findByExternalKey(externalKey);
+    public Serie findByImdbId(String externalKey) {
+        return serieRepository.findByImdbId(externalKey);
     }
 }

@@ -3,10 +3,10 @@ package fr.epita.kesKonAVu.application.resource;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 
 public interface ResourceService {
-    Resource findByTitle(String title);
+    Resource findMovieByTitle(String title);
 
-    Resource findByIdResource(Long idResource);
+    Resource findMovieByIdResource(Long idResource);
 
-    Resource findByExternalKey(String externalKey);
+    Resource findMovieByImdbId(String imdbId);
 
 }

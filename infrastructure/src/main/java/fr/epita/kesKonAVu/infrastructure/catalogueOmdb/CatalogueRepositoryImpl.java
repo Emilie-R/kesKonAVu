@@ -1,8 +1,8 @@
-package fr.epita.kesKonAVu.infrastructure.catalogue;
+package fr.epita.kesKonAVu.infrastructure.catalogueOmdb;
 
-import fr.epita.kesKonAVu.domain.catalogue.CatalogueRepository;
-import fr.epita.kesKonAVu.domain.catalogue.ItemCatalogue;
-import fr.epita.kesKonAVu.domain.catalogue.SerieSeasonCatalogue;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.CatalogueRepository;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.ItemCatalogue;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.SerieSeasonCatalogue;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.common.TechnicalException;
 import org.springframework.beans.factory.annotation.Autowired;

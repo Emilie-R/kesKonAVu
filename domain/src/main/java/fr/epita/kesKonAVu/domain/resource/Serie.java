@@ -13,7 +13,7 @@ public class Serie extends Resource {
     private int numberOfEpisodes;
 
     @OneToMany (cascade = CascadeType.ALL)
-    @JoinTable(name = "catalogueSerieEpisode")
+    @JoinTable(name = "SerieEpisode")
     private Set<Episode> episodes;
 
     // constructeurs

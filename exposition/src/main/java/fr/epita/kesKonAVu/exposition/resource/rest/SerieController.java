@@ -32,11 +32,11 @@ public class SerieController {
 
     }
 
-    @GetMapping("/external/{externalId}")
+    @GetMapping("/imdb/{externalId}")
     public SerieDTO getResourceByExternalReference(@PathVariable("externalId") String externalId) {
 
         SerieMapper serieMapper = new SerieMapper();
-        return serieMapper.mapToDto(serieService.findByExternalKey(externalId));
+        return serieMapper.mapToDto(serieService.findByImdbId(externalId));
 
     }
 }

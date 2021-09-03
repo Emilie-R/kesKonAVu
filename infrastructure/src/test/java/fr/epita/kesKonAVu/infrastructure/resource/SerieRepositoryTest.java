@@ -24,7 +24,7 @@ public class SerieRepositoryTest {
         Serie serie = new Serie();
         serie.setTitle("Urgences");
         serie.setResourceType(ResourceTypeEnum.SERIE);
-        serie.setExternalKey("1234567");
+        serie.setImdbId("1234567");
         serie.setNumberOfSeasons(2);
 
         Episode episode1 = new Episode();
@@ -60,7 +60,7 @@ public class SerieRepositoryTest {
         Serie serie = new Serie();
         serie.setTitle("Urgences");
         serie.setResourceType(ResourceTypeEnum.SERIE);
-        serie.setExternalKey("1234567");
+        serie.setImdbId("1234567");
         serie.setNumberOfSeasons(2);
 
         Episode episode1 = new Episode();

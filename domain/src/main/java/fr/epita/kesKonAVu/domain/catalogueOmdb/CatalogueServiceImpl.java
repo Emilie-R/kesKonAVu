@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.domain.catalogue;
+package fr.epita.kesKonAVu.domain.catalogueOmdb;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Episode;
@@ -40,7 +40,7 @@ public class CatalogueServiceImpl implements CatalogueService {
         for (int season = 1; season <= serie.getNumberOfSeasons(); season++) {
             try {
                 allEpisodes.addAll(catalogueResourceMapper.SerieSeasonToSetOfEpisodes(
-                        catalogueRepository.findAllEpisodesOfSeason(serie.getExternalKey(), season)));
+                        catalogueRepository.findAllEpisodesOfSeason(serie.getImdbId(), season)));
             } catch (NotFoundException e) {
                 /* No Episodes for the season : Case can happen with the oldest series */
             }

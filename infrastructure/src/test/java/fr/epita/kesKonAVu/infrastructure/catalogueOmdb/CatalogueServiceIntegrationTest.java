@@ -1,6 +1,6 @@
-package fr.epita.kesKonAVu.infrastructure.catalogue;
+package fr.epita.kesKonAVu.infrastructure.catalogueOmdb;
 
-import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Episode;
 import fr.epita.kesKonAVu.domain.resource.Resource;
@@ -29,7 +29,7 @@ public class CatalogueServiceIntegrationTest {
 
         //Then
         Assertions.assertNotNull(resourceResult);
-        Assertions.assertEquals(id, resourceResult.getExternalKey());
+        Assertions.assertEquals(id, resourceResult.getImdbId());
         Assertions.assertEquals("OSS 117: Le Caire, nid d'espions", resourceResult.getTitle());
         Assertions.assertEquals(ResourceTypeEnum.MOVIE, resourceResult.getResourceType());
     }
@@ -54,7 +54,7 @@ public class CatalogueServiceIntegrationTest {
 
         //Then
         Assertions.assertNotNull(resourceResult);
-        Assertions.assertEquals(id, resourceResult.getExternalKey());
+        Assertions.assertEquals(id, resourceResult.getImdbId());
         Assertions.assertEquals("OSS 117: Le Caire, nid d'espions", resourceResult.getTitle());
         Assertions.assertEquals(ResourceTypeEnum.MOVIE, resourceResult.getResourceType());
     }
@@ -69,7 +69,7 @@ public class CatalogueServiceIntegrationTest {
 
         //Then
         Assertions.assertNotNull(resourceResult);
-        Assertions.assertEquals(id, resourceResult.getExternalKey());
+        Assertions.assertEquals(id, resourceResult.getImdbId());
         Assertions.assertEquals("Maguy", resourceResult.getTitle());
         Assertions.assertEquals(ResourceTypeEnum.SERIE, resourceResult.getResourceType());
         Assertions.assertEquals(7, resourceResult.getNumberOfSeasons());

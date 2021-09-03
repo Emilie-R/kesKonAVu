@@ -55,7 +55,7 @@ public class FollowUpController {
         FollowUp followUp = followUpMapper.mapToEntity(followUpDTOLight);
         followUp.setMember(member);
 
-        FollowUp followUpSaved = followUpService.createNewFollowUp(followUp);
+        FollowUp followUpSaved = followUpService.createNewFollowUpFromImdbId(followUp);
         return followUpMapper.mapToDto(followUpSaved);
     }
 

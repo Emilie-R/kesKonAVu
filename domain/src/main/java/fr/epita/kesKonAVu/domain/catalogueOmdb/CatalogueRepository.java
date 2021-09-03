@@ -1,4 +1,4 @@
-package fr.epita.kesKonAVu.domain.catalogue;
+package fr.epita.kesKonAVu.domain.catalogueOmdb;
 
 public interface CatalogueRepository {
 

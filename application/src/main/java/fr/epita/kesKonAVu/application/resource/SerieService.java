@@ -7,5 +7,5 @@ public interface SerieService {
 
     Serie findByIdResource(Long idResource);
 
-    Serie findByExternalKey(String externalKey);
+    Serie findByImdbId(String imdbId);
 }

@@ -23,7 +23,7 @@ public class SerieServiceTest {
         // GIVEN
         final Serie serie1 = new Serie();
         serie1.setTitle("Friends 2");
-        serie1.setExternalKey("1234ABC");
+        serie1.setImdbId("1234ABC");
         serie1.setIdResource(2L);
         when(serieRepositoryMock.findByTitle("Hello")).thenReturn(serie1);
 
@@ -40,12 +40,12 @@ public class SerieServiceTest {
         // GIVEN
         final Serie serie1 = new Serie();
         serie1.setTitle("Friends 2");
-        serie1.setExternalKey("1234ABC");
+        serie1.setImdbId("1234ABC");
         serie1.setIdResource(2L);
-        when(serieRepositoryMock.findByExternalKey("1234ABC")).thenReturn(serie1);
+        when(serieRepositoryMock.findByImdbId("1234ABC")).thenReturn(serie1);
 
         // WHEN
-        final Resource createdSerie = serieService.findByExternalKey("1234ABC");
+        final Resource createdSerie = serieService.findByImdbId("1234ABC");
 
         //Then
         Assertions.assertNotNull(createdSerie);
@@ -57,7 +57,7 @@ public class SerieServiceTest {
         // GIVEN
         final Serie serie1 = new Serie();
         serie1.setTitle("Friends 2");
-        serie1.setExternalKey("1234ABC");
+        serie1.setImdbId("1234ABC");
         serie1.setIdResource(2L);
         when(serieRepositoryMock.findByIdResource(2L)).thenReturn(serie1);
 

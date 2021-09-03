@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name="catalogueResource")
+@Table(name="resource")
 public class Resource {
 
     @Id
@@ -24,10 +24,11 @@ public class Resource {
     @Enumerated(EnumType.STRING)
     private ResourceTypeEnum resourceType;
 
-    private String externalKey;
+    private String imdbId;
 
     @Enumerated(EnumType.STRING)
-    private CatalogReferenceEnum externalCatalogName;
+    @Column(name = "datasource")
+    private CatalogReferenceEnum resourceDataSource;
 
 
     public Resource ( ) {
@@ -121,20 +122,20 @@ public class Resource {
         this.resourceType = resourceType;
     }
 
-    public String getExternalKey ( ) {
-        return externalKey;
+    public String getImdbId( ) {
+        return imdbId;
     }
 
-    public void setExternalKey (String externalKey) {
-        this.externalKey = externalKey;
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
-    public CatalogReferenceEnum getExternalCatalogName ( ) {
-        return externalCatalogName;
+    public CatalogReferenceEnum getResourceDataSource( ) {
+        return resourceDataSource;
     }
 
-    public void setExternalCatalogName (CatalogReferenceEnum externalCatalogName) {
-        this.externalCatalogName = externalCatalogName;
+    public void setResourceDataSource(CatalogReferenceEnum resourceDataSource) {
+        this.resourceDataSource = resourceDataSource;
     }
 
     @Override
@@ -143,8 +144,8 @@ public class Resource {
         resource.append(" Resource : ");
         resource.append("+ idResource " + this.idResource + " ");
         resource.append("+ title " + this.getTitle() + " ");
-        resource.append("+ External ID " + this.getExternalKey());
-        resource.append("+ from catalog " + this.getExternalCatalogName());
+        resource.append("+ External ID " + this.getImdbId());
+        resource.append("+ from catalog " + this.getResourceDataSource());
         return resource.toString();
     }
 }

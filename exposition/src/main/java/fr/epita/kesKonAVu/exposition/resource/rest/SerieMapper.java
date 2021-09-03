@@ -20,7 +20,8 @@ public class SerieMapper extends AbstractMapper<Serie, SerieDTO> {
         dto.setCategory(entity.getCategory());
         dto.setDuration(entity.getDuration());
         dto.setActors(entity.getActors());
-        dto.setExternalKey(entity.getExternalKey());
+        dto.setImdbId(entity.getImdbId());
+        dto.setResourceDataSource(entity.getResourceDataSource());
         dto.setNumberOfEpisodes(entity.getNumberOfEpisodes());
         if(entity.getNumberOfSeasons() != null){
         dto.setNumberOfSeasons(entity.getNumberOfSeasons());}
@@ -42,7 +43,7 @@ public class SerieMapper extends AbstractMapper<Serie, SerieDTO> {
         entity.setCategory(dto.getCategory());
         entity.setDuration(dto.getDuration());
         entity.setActors(dto.getActors());
-        entity.setExternalKey("OMDB api");
+        entity.setImdbId(dto.getImdbId());
         entity.setNumberOfEpisodes(dto.getNumberOfEpisodes());
         entity.setNumberOfSeasons(dto.getNumberOfSeasons());
         entity.setIdResource(dto.getIdResource());

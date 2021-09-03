@@ -1,6 +1,6 @@
 package fr.epita.kesKonAVu.infrastructure.resource;
 
-import fr.epita.kesKonAVu.domain.catalogue.CatalogueService;
+import fr.epita.kesKonAVu.domain.catalogueOmdb.CatalogueService;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Serie;
 import fr.epita.kesKonAVu.domain.resource.SerieRepository;
@@ -44,9 +44,9 @@ public class SerieRepositoryImpl implements SerieRepository {
     }
 
     @Override
-    public Serie findByExternalKey (String externalKey) {
+    public Serie findByImdbId(String externalKey) {
         Serie serieOut;
-        Serie result = serieJpaRepository.findByExternalKey(externalKey);
+        Serie result = serieJpaRepository.findByImdbId(externalKey);
         if (result != null){
             serieOut = result;
         } else {

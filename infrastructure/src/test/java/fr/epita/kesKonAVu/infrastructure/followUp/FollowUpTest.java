@@ -46,7 +46,7 @@ public class FollowUpTest {
         Assertions.assertNotNull(result.getMember().getPassword());
         Assertions.assertEquals(1L, result.getResource().getIdResource());
         Assertions.assertEquals("Le Grand Bleu", result.getResource().getTitle());
-        Assertions.assertEquals("tt0095250", result.getResource().getExternalKey());
+        Assertions.assertEquals("tt0095250", result.getResource().getImdbId());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class FollowUpTest {
         Assertions.assertEquals(followUpToSave.getStatus(), result.getStatus());
         Assertions.assertEquals("ID-1", result.getMember().getIdMember());
         Assertions.assertEquals(1L, result.getResource().getIdResource());
-        Assertions.assertEquals("tt0095250", result.getResource().getExternalKey());
+        Assertions.assertEquals("tt0095250", result.getResource().getImdbId());
     }
 
     @Test

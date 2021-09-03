@@ -33,19 +33,19 @@ public class SerieControllerTest {
     @BeforeEach
     public void setUp ( ) throws Exception {
 
-        this.base = new URL("http://localhost:" + port + "/V1/serie/external/Jumanji"); //=> permet d'instancier les paramètre de connexion
+        this.base = new URL("http://localhost:" + port + "/V1/serie/imdb/Jumanji"); //=> permet d'instancier les paramètre de connexion
 
     }
 
 // test du endPoint "findByExternalKey"
     @Test
-    public void getSerieDTO ( )  {
+    public void getSerieDTOByImdbId_with_existing_ImdbId_should_success ( )  {
 
         // GIVEN
         final Serie createdSerie = new Serie();
         createdSerie.setTitle("Friends 4");
-        createdSerie.setExternalKey("OMDB api");
-        when(serieService.findByExternalKey("Jumanji")).thenReturn(createdSerie);
+        createdSerie.setImdbId("xxxxx");
+        when(serieService.findByImdbId("Jumanji")).thenReturn(createdSerie);
 
         // WHEN
         ResponseEntity<SerieDTO> response = template.getForEntity(base.toString(),
@@ -55,9 +55,7 @@ public class SerieControllerTest {
         //Then
         //Verify request succeed
         Assertions.assertEquals(200, response.getStatusCodeValue());
-        String result = response.getBody().getExternalKey();
-        System.out.println(result);
-        Assertions.assertTrue(result.equals(createdSerie.getExternalKey()));
+        Assertions.assertEquals(response.getBody().getImdbId(), createdSerie.getImdbId());
 
     }
 }

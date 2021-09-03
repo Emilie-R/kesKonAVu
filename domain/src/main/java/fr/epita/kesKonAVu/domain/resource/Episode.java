@@ -3,7 +3,7 @@ package fr.epita.kesKonAVu.domain.resource;
 import javax.persistence.*;
 
 @Entity
-@Table(name="catalogueEpisode")
+@Table(name="episode")
 public class Episode {
 
     @Id
@@ -15,10 +15,11 @@ public class Episode {
 
     private String title;
 
-    private String externalKey;
+    private String imdbId;
 
     @Enumerated(EnumType.STRING)
-    private CatalogReferenceEnum externalCatalogName;
+    @Column(name = "datasource")
+    private CatalogReferenceEnum episodeDataSource;
 
     public Episode(){
 
@@ -56,19 +57,19 @@ public class Episode {
         this.title = title;
     }
 
-    public String getExternalKey ( ) {
-        return externalKey;
+    public String getImdbId( ) {
+        return imdbId;
     }
 
-    public void setExternalKey (String externalKey) {
-        this.externalKey = externalKey;
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
-    public CatalogReferenceEnum getExternalCatalogName ( ) {
-        return externalCatalogName;
+    public CatalogReferenceEnum getEpisodeDataSource( ) {
+        return episodeDataSource;
     }
 
-    public void setExternalCatalogName (CatalogReferenceEnum externalCatalogName) {
-        this.externalCatalogName = externalCatalogName;
+    public void setEpisodeDataSource(CatalogReferenceEnum episodeDataSource) {
+        this.episodeDataSource = episodeDataSource;
     }
 }

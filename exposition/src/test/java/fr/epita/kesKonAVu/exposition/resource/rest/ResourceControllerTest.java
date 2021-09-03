@@ -39,25 +39,22 @@ public class ResourceControllerTest {
 
     // test du endPoint "findByTitle"
     @Test
-    public void getResourceDTO ( ) throws Exception {
+    public void getResourceDTOByTitle_with_existing_title_should_success ( ) {
 
         // GIVEN
         final Resource movie = new Resource();
-        //this.base = new URL("http://localhost:" + port + "/api/V1/movie/title/Godzilla"); //=> permet d'instancier les paramètre de connexion
         movie.setTitle("Friends 1");
-        movie.setExternalKey("OMDB api");
-        when(resourceService.findByTitle("Godzilla")).thenReturn(movie);
+        movie.setImdbId("xxxxxx");
+        when(resourceService.findMovieByTitle("Godzilla")).thenReturn(movie);
 
         // WHEN
         ResponseEntity<ResourceDTO> response = template.getForEntity(base.toString(),
-
                 ResourceDTO.class);
 
         //Then
         //Verify request succeed
         Assertions.assertEquals(200, response.getStatusCodeValue());
-        String result = response.getBody().getTitle();
-        Assertions.assertTrue(result.equals(movie.getTitle()));
+        Assertions.assertEquals(response.getBody().getTitle(), movie.getTitle());
 
     }
 }

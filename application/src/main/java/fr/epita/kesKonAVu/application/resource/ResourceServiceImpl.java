@@ -12,18 +12,17 @@ public class ResourceServiceImpl implements ResourceService{
     ResourceRepository resourceRepository;
 
     @Override
-    public Resource findByTitle (String title) {
+    public Resource findMovieByTitle(String title) {
         return resourceRepository.findMovieByTitle(title);
     }
 
     @Override
-    public Resource findByIdResource (Long idResource) {
+    public Resource findMovieByIdResource(Long idResource) {
         return resourceRepository.findMovieByIdResource(idResource);
     }
 
     @Override
-    public Resource findByExternalKey (String externalKey) {
-        return resourceRepository.findMovieByExternalKey(externalKey);
+    public Resource findMovieByImdbId(String externalKey) {return resourceRepository.findMovieByImdbId(externalKey);
     }
 
 }

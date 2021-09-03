@@ -13,8 +13,8 @@ public class ResourceDTO {
     private String category;
     private String director;
     private String duration;
-    private String externalKey;
-    private CatalogReferenceEnum externalCatalogName;
+    private String imdbId;
+    private CatalogReferenceEnum resourceDataSource;
     private ResourceTypeEnum resourceType;
 
     public ResourceDTO (){
@@ -88,12 +88,12 @@ public class ResourceDTO {
         this.duration = duration;
     }
 
-    public String getExternalKey ( ) {
-        return externalKey;
+    public String getImdbId( ) {
+        return imdbId;
     }
 
-    public void setExternalKey (String externalKey) {
-        this.externalKey = externalKey;
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
     }
 
     public Long getIdResource ( ) {
@@ -104,12 +104,12 @@ public class ResourceDTO {
         this.idResource = idResource;
     }
 
-    public CatalogReferenceEnum getExternalCatalogName ( ) {
-        return externalCatalogName;
+    public CatalogReferenceEnum getResourceDataSource( ) {
+        return resourceDataSource;
     }
 
-    public void setExternalCatalogName (CatalogReferenceEnum externalCatalogName) {
-        this.externalCatalogName = externalCatalogName;
+    public void setResourceDataSource(CatalogReferenceEnum resourceDataSource) {
+        this.resourceDataSource = resourceDataSource;
     }
 
     public ResourceTypeEnum getResourceType ( ) {

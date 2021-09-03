@@ -33,7 +33,7 @@ public class FollowUp {
     private Integer numberOfUnseenEpisodes;
 
     @OneToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
-    @JoinTable(name="suiviProgression")
+    @JoinTable(name="suiviResourceSuiviEpisode")
     private Set<EpisodeFollowUp> episodeFollowUps;
 
 
