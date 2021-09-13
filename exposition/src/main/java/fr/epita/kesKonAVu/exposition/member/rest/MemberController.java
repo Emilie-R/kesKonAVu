@@ -19,6 +19,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/v1/member")
+@CrossOrigin
 public class MemberController {
 
     @Autowired

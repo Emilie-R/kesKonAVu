@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.exposition.member.rest;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import fr.epita.kesKonAVu.config.security.jwt.JwtResponse;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
@@ -10,11 +11,16 @@ import java.util.Set;
 
 public class MemberAuthenticatedDTO implements Serializable {
 
+    @JsonProperty(value = "pseudo")
     private String pseudo;
+    @JsonProperty(value = "email")
     private String email;
+    @JsonProperty(value="creationDate")
     private LocalDate creationDate;
+    @JsonProperty(value="roles")
     private Set<TypeRoleEnum> roles;
 
+    @JsonProperty(value = "jwt")
     private JwtResponse jwtToken;
 
     public String getPseudo() {

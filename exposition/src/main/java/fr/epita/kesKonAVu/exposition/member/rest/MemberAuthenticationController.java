@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
+@RequestMapping("/v1")
 public class MemberAuthenticationController {
 
     @Autowired
@@ -40,7 +41,7 @@ public class MemberAuthenticationController {
 
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
-    @ApiOperation(value="This operation allows a member to authenticate itself in KeskonAvu and get a Token")
+    @ApiOperation(value="This operation allows a member to authenticate itself in KeskonAvu and get a jwtToken.")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody final AuthenticationRequest authenticationRequest) throws Exception {
 
         // Convertir le pseudo en idMember

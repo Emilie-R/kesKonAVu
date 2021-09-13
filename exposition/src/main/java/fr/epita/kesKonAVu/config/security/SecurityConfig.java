@@ -61,7 +61,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 // dont authenticate this authentication request
                 .authorizeRequests()
                 // Accès au End-Point d'authentification du member
-                .antMatchers("/authenticate").permitAll()
+                .antMatchers("/v1/authenticate").permitAll()
                 // Accès au End-Point de création de compte
                 .antMatchers("/v1/member/create").permitAll()
                 // Accès aux End-Point de Swagger UI
