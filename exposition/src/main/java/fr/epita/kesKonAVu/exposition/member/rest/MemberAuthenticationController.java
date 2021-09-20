@@ -6,7 +6,10 @@ import fr.epita.kesKonAVu.config.security.jwt.JwtResponse;
 import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
 import fr.epita.kesKonAVu.domain.user.Member;
 import io.swagger.annotations.ApiOperation;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -16,13 +19,13 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import java.util.stream.Stream;
+
 @RestController
 @CrossOrigin
 @RequestMapping("/v1")
 public class MemberAuthenticationController {
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -34,23 +37,25 @@ public class MemberAuthenticationController {
     private UserDetailsService userDetailsService;
 
     @Autowired
-    private MemberService memberService;
-
-    @Autowired
     private MemberMapper memberMapper;
+
+    private static final Logger LOG = LoggerFactory.getLogger(MemberAuthenticationController.class);
 
 
     @RequestMapping(value = "/authenticate", method = RequestMethod.POST)
     @ApiOperation(value="This operation allows a member to authenticate itself in KeskonAvu and get a jwtToken.")
-    public ResponseEntity<?> createAuthenticationToken(@RequestBody final AuthenticationRequest authenticationRequest) throws Exception {
+    public HttpEntity<?> createAuthenticationToken(@Valid @RequestBody final AuthenticationRequest authenticationRequest) {
+        String pass = "";
+        if (!authenticationRequest.getPassword().equals("") && authenticationRequest.getPassword() != null) {
+            pass = "***";
+        }
 
-        // Convertir le pseudo en idMember
-        final Member member = authenticationService.findMemberByPseudo(authenticationRequest.getPseudo());
+        LOG.info("Tentative connexion : pseudo/ password = " + authenticationRequest.getPseudo() + " / " + pass );
 
-        // Fonction lève une exception si idMember/mot de passe sont KO
-        authenticate(member.getIdMember(), authenticationRequest.getPassword());
+        // Rechercher si le member est autorisé à se connecter sinon InvalidCredentialsException
+        final Member member = authenticationService.authenticateMember(authenticationRequest.getPseudo(), authenticationRequest.getPassword());
 
-        // Construction du JWT
+        // Tout est OK - Construction du JWT
         final UserDetails userDetails = userDetailsService.loadUserByUsername(member.getIdMember());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
@@ -58,19 +63,8 @@ public class MemberAuthenticationController {
         final MemberAuthenticatedDTO memberAuthenticatedDTO = memberMapper.mapToLoggedMember(member);
         memberAuthenticatedDTO.setJwtToken(new JwtResponse(token));
 
+        LOG.info("Connexion OK : pseudo/ password/ id Member = " + authenticationRequest.getPseudo() + " / " + pass + " / " + member.getIdMember() );
         return ResponseEntity.ok(memberAuthenticatedDTO);
-    }
-
-    private void authenticate(final String pseudo, final String password) throws Exception {
-        try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(pseudo, password));
-
-        } catch (final DisabledException e) {
-            throw new Exception("USER_DISABLED", e);
-
-        } catch (final BadCredentialsException e) {
-            throw new Exception("INVALID_CREDENTIALS", e);
-        }
     }
 
 }

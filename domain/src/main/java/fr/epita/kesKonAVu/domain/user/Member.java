@@ -5,6 +5,7 @@ import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -24,6 +25,7 @@ public class Member {
     private String email;
     private String password;
     private LocalDate creationDate;
+    private LocalDateTime lastConnexionDateTime;
 
     @OneToMany(fetch = FetchType.LAZY,mappedBy = "member")
     private Set<FollowUp> followUps;
@@ -99,6 +101,14 @@ public class Member {
 
     public void setRoles(Set<TypeRoleEnum> roles) {
         this.roles = roles;
+    }
+
+    public LocalDateTime getLastConnexionDateTime() {
+        return lastConnexionDateTime;
+    }
+
+    public void setLastConnexionDateTime(LocalDateTime lastConnexionDateTime) {
+        this.lastConnexionDateTime = lastConnexionDateTime;
     }
 
 

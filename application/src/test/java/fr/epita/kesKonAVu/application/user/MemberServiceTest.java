@@ -4,6 +4,8 @@ import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.DataFormatException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
+import fr.epita.kesKonAVu.domain.resource.Resource;
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
@@ -41,7 +43,7 @@ public class MemberServiceTest {
         final String password = "12345678";
         memberToCreate.setPseudo("emilie");
         memberToCreate.setPassword(password);
-        Mockito.when(memberRepositoryMock.findByPseudo(memberToCreate.getPseudo())).thenReturn(null);
+        Mockito.when(memberRepositoryMock.findByPseudo(memberToCreate.getPseudo())).thenReturn(Optional.empty());
         Mockito.when(memberRepositoryMock.save(memberToCreate)).thenReturn(memberToCreate);
 
         // When
@@ -59,7 +61,7 @@ public class MemberServiceTest {
         final Member memberToCreate = new Member();
         memberToCreate.setPseudo("emilie");
         memberToCreate.setPassword("12345678");
-        Mockito.when(memberRepositoryMock.findByPseudo(memberToCreate.getPseudo())).thenReturn(memberToCreate);
+        Mockito.when(memberRepositoryMock.findByPseudo(memberToCreate.getPseudo())).thenReturn(Optional.of(memberToCreate));
 
         //When
 
@@ -77,7 +79,7 @@ public class MemberServiceTest {
         final Member memberToCreate2 = new Member();
         memberToCreate2.setPseudo("emilie");
         memberToCreate2.setPassword("12345");
-        Mockito.when(memberRepositoryMock.findByPseudo(memberToCreate2.getPseudo())).thenReturn(null);
+        Mockito.when(memberRepositoryMock.findByPseudo(memberToCreate2.getPseudo())).thenReturn(Optional.empty());
 
         //When
 
@@ -90,7 +92,7 @@ public class MemberServiceTest {
     public void findOneMember_should_failed_when_id_not_exists(){
         // Given
         final String pseudo = "unknown";
-        Mockito.when(memberRepositoryMock.findByPseudo(pseudo)).thenReturn(null);
+        Mockito.when(memberRepositoryMock.findByPseudo(pseudo)).thenReturn(Optional.empty());
 
         //When
         //Then
@@ -105,7 +107,7 @@ public class MemberServiceTest {
         final Member member = new Member();
         member.setPseudo("emilie");
         member.setPassword("123456789");
-        Mockito.when(memberRepositoryMock.findByPseudo(pseudo)).thenReturn(member);
+        Mockito.when(memberRepositoryMock.findByPseudo(pseudo)).thenReturn(Optional.of(member));
 
         //When
         final Member memberReturned = memberService.findOne(pseudo);
@@ -139,10 +141,43 @@ public class MemberServiceTest {
         //When
         Mockito.when(memberRepositoryMock.findByIdWithAllResourceFollowUps(member.getIdMember()))
                 .thenReturn(member); // accès aux données testées OK dans infra/src/test
-        final Member memberReturned = memberService.findByIdWithAllResourceFollowUps(member.getIdMember());
+        final Member memberReturned = memberService.findByIdWithAllResourceFollowUps(member.getIdMember(),Optional.empty());
         Assertions.assertEquals(2,memberReturned.getFollowUps().size());
 
     }
 
+    @Test
+    public void Given_Movie_MemberWithResourceFollowUps_RetrieveSuccessfull() {
+
+        // Given Création du member à sauvegarder Puis à récupérer
+        final Member member = new Member();
+        final LocalDate dateCreation = LocalDate.now();
+        member.setCreationDate(dateCreation);
+        member.setEmail("toto@gmail.com");
+        member.setPseudo("Petit Poisson Rouge");
+        member.addRole(TypeRoleEnum.USER);
+        member.addRole(TypeRoleEnum.ADMIN);
+        Resource r1 = new Resource();
+        r1.setResourceType(ResourceTypeEnum.MOVIE);
+        Resource r2 = new Resource();
+        r2.setResourceType(ResourceTypeEnum.SERIE);
+        FollowUp fw1 = new FollowUp();
+        fw1.setIdFollowUp(15L);
+        fw1.setResource(r1);
+        fw1.setMember(member);
+        FollowUp fw2 = new FollowUp();
+        fw2.setIdFollowUp(20L);
+        fw2.setResource(r2);
+        fw2.setMember(member);
+        Set<FollowUp> set1 = Stream.of(fw1,fw2).collect(Collectors.toSet());
+        member.setFollowUps(set1);
+
+        //When
+        Mockito.when(memberRepositoryMock.findByIdWithAllResourceFollowUps(member.getIdMember()))
+                .thenReturn(member); // accès aux données testées OK dans infra/src/test
+        final Member memberReturned = memberService.findByIdWithAllResourceFollowUps(member.getIdMember(),Optional.of(ResourceTypeEnum.MOVIE));
+        Assertions.assertEquals(1,memberReturned.getFollowUps().size());
+
+    }
 
 }

@@ -4,5 +4,5 @@ import fr.epita.kesKonAVu.domain.user.Member;
 
 public interface AuthenticationService {
 
-    Member findMemberByPseudo (String pseudo);
+    Member authenticateMember(String pseudo, String password);
 }

@@ -62,24 +62,27 @@ public class MemberRepositoryTest {
         final String pseudo = "emilie";
 
         //When Récupération de l'objet attendu
-        final Member member = memberRepository.findByPseudo(pseudo);
+        final Optional<Member> member = memberRepository.findByPseudo(pseudo);
 
         //Then Contrôle du contenu des attributs
-        Assertions.assertEquals(member.getIdMember(), "ID-1");
-        Assertions.assertEquals(member.getEmail(), "email@gmail.fr");
-        Assertions.assertEquals(member.getPassword(), "123456");
-        Assertions.assertEquals(member.getPseudo(), "emilie");
-        Assertions.assertEquals(member.getRoles().size(), 2);
+        Assertions.assertTrue(member.isPresent());
+        Assertions.assertEquals(member.get().getIdMember(), "ID-1");
+        Assertions.assertEquals(member.get().getEmail(), "email@gmail.fr");
+        Assertions.assertEquals(member.get().getPassword(), "123456");
+        Assertions.assertEquals(member.get().getPseudo(), "emilie");
+        Assertions.assertEquals(member.get().getRoles().size(), 2);
     }
 
     @Test
-    public void given_unknown_pseudo_for_member_findByPseudo_expected_null() {
+    public void given_unknown_pseudo_for_member_findByPseudo_expected_empty_optional() {
         // Given Avec un pseudo inconnu en BDD
         final String pseudo = "Unknown";
 
         //When Contrôle de l'objet attendu
+        final Optional<Member> member = memberRepository.findByPseudo(pseudo);
+
         //Then
-        Assertions.assertNull(memberRepository.findByPseudo(pseudo));
+        Assertions.assertFalse(member.isPresent());
     }
 
     @Test
@@ -119,5 +122,4 @@ public class MemberRepositoryTest {
         set2.stream().forEach(e -> System.out.println(e.getIdFollowUp()));
 
     }
-
 }

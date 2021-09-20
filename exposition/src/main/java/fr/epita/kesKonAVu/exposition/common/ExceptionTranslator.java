@@ -2,7 +2,10 @@ package fr.epita.kesKonAVu.exposition.common;
 
 import fr.epita.kesKonAVu.domain.common.AlreadyExistingException;
 import fr.epita.kesKonAVu.domain.common.DataFormatException;
+import fr.epita.kesKonAVu.domain.common.InvalidCredentialsException;
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +22,8 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ExceptionTranslator extends ResponseEntityExceptionHandler {
 
+    private static final Logger LOG = LoggerFactory.getLogger(ExceptionTranslator.class);
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(final MethodArgumentNotValidException ex,
                                                                   final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
@@ -34,8 +39,34 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
                 .description("Please check your parameters")//
                 .build();
 
+        LOG.info(ex.getMessage());
         return handleExceptionInternal(ex, apiError, headers, HttpStatus.BAD_REQUEST, request);
     }
+
+    @ExceptionHandler(value = { IllegalArgumentException.class })
+    @ResponseBody
+    public ResponseEntity<Object> handleIllegalArgumentException(final IllegalArgumentException ex) {
+
+        final ErrorModel apiError = ErrorModel.builder() //
+                .message(ex.getMessage()) //
+                .description("Please check your parameters")//
+                .build();
+        LOG.info(ex.getMessage());
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = { InvalidCredentialsException.class })
+    @ResponseBody
+    public ResponseEntity<Object> handleInvalidCredentialsException(final InvalidCredentialsException ex) {
+
+        final ErrorModel apiError = ErrorModel.builder() //
+                .message("Invalid pseudo or password") //
+                .description("Invalid credentials : please check your pseudo and password")//
+                .build();
+        LOG.error(ex.getMessage());
+        return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(value = { NotFoundException.class })
     @ResponseBody
     public ResponseEntity<Object> handleNotFoundException(final NotFoundException ex) {
@@ -44,7 +75,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
                 .message(ex.getLocalizedMessage()) //
                 .description("")//
                 .build();
-
+        LOG.info(ex.getMessage());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
@@ -55,7 +86,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
         final ErrorModel apiError = ErrorModel.builder() //
                 .message(ex.getLocalizedMessage()) //
                 .build();
-
+        LOG.info(ex.getMessage());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.CONFLICT);
     }
 
@@ -67,7 +98,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
                 .message(ex.getLocalizedMessage()) //
                 .description("")//
                 .build();
-
+        LOG.info(ex.getMessage());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.PRECONDITION_FAILED);
     }
 
@@ -80,7 +111,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
                 .message(ex.getLocalizedMessage()) //
                 .description("internal error occurred, please contact your administrator")//
                 .build();
-
+        LOG.error(ex.getMessage());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

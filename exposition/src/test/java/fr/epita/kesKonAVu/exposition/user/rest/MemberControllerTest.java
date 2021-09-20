@@ -32,6 +32,7 @@ import java.net.URISyntaxException;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -125,7 +126,7 @@ public class MemberControllerTest {
     }
 
     @Test
-    public void getMemberAccountData_with_unknown_pseudo_should_throw_NotFoundException() throws URISyntaxException {
+    public void getMemberAccountData_with_unknown_pseudo_should_throw_Unauthorized() throws URISyntaxException {
         //Given
         URI uri = new URI(baseURL + "unknown");
         Mockito.when(memberService.findOne(any())).thenThrow(NotFoundException.class);
@@ -135,7 +136,7 @@ public class MemberControllerTest {
 
         //Then
         Mockito.verify(memberService, Mockito.times(1)).findOne(any());
-        Assertions.assertNotEquals(result.getStatusCode(),HttpStatus.OK);
+        Assertions.assertEquals(HttpStatus.NOT_FOUND, result.getStatusCode());
     }
 
     @Test
@@ -149,7 +150,7 @@ public class MemberControllerTest {
         headers.setBearerAuth(token);
         HttpEntity<String> request = new HttpEntity<>(null, headers);
 
-        Mockito.when(memberService.findByIdWithAllResourceFollowUps(member.getIdMember())).thenReturn(member);
+        Mockito.when(memberService.findByIdWithAllResourceFollowUps(member.getIdMember(), Optional.empty())).thenReturn(member);
 
         // When Appel de la méthode à tester
         ResponseEntity<MemberWithFollowupsDTO> response = this.template
@@ -171,7 +172,7 @@ public class MemberControllerTest {
         HttpHeaders headers = new HttpHeaders();
         headers.setBearerAuth(token);
         HttpEntity<String> request = new HttpEntity<>(null, headers);
-        Mockito.when(memberService.findByIdWithAllResourceFollowUps(member.getIdMember())).thenThrow(new NotFoundException());
+        Mockito.when(memberService.findByIdWithAllResourceFollowUps(member.getIdMember(), Optional.empty())).thenThrow(new NotFoundException());
 
         // When Appel de la méthode à tester
         ResponseEntity<MemberWithFollowupsDTO> response = this.template

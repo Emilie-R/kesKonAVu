@@ -17,4 +17,18 @@ public class MemberDomainServiceImpl implements MemberDomainService{
     public Boolean checkMemberPseudo(String pseudo) {
         return pseudo.replaceAll(" ", "").length() >= PSEUDO_SIZE_MINI;
     }
+
+    @Override
+    public Member duplicateMember(Member memberToDuplicate) {
+        final Member member = new Member();
+        member.setIdMember(memberToDuplicate.getIdMember());
+        member.setPseudo(memberToDuplicate.getPseudo());
+        member.setEmail(memberToDuplicate.getEmail());
+        member.setCreationDate(memberToDuplicate.getCreationDate());
+        member.setLastConnexionDateTime(memberToDuplicate.getLastConnexionDateTime());
+        member.setPassword(memberToDuplicate.getPassword());
+        member.setFollowUps(memberToDuplicate.getFollowUps());
+        member.setRoles(memberToDuplicate.getRoles());
+        return member;
+    }
 }

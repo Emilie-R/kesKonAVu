@@ -13,9 +13,9 @@ public class MemberMapper extends AbstractMapper<Member,MemberDTO> {
         memberDTO.setIdMember(entity.getIdMember());
         memberDTO.setPseudo(entity.getPseudo());
         memberDTO.setEmail(entity.getEmail());
-        memberDTO.setPassword(entity.getPassword());
         memberDTO.setCreationDate(entity.getCreationDate());
         memberDTO.setRoles(entity.getRoles());
+        memberDTO.setLastConnexionDateTime(entity.getLastConnexionDateTime());
         return memberDTO;
     }
 
@@ -25,9 +25,9 @@ public class MemberMapper extends AbstractMapper<Member,MemberDTO> {
         member.setIdMember(dto.getIdMember());
         member.setPseudo(dto.getPseudo());
         member.setEmail(dto.getEmail());
-        member.setPassword(dto.getPassword());
         member.setCreationDate(dto.getCreationDate());
-        member.setRoles(member.getRoles());
+        member.setRoles(dto.getRoles());
+        member.setLastConnexionDateTime(dto.getLastConnexionDateTime());
         return null;
     }
 
@@ -44,6 +44,7 @@ public class MemberMapper extends AbstractMapper<Member,MemberDTO> {
         memberAuthenticatedDTO.setPseudo(entity.getPseudo());
         memberAuthenticatedDTO.setEmail(entity.getEmail());
         memberAuthenticatedDTO.setCreationDate(entity.getCreationDate());
+        memberAuthenticatedDTO.setLastConnexionDateTime(entity.getLastConnexionDateTime());
         memberAuthenticatedDTO.setRoles(entity.getRoles());
         return memberAuthenticatedDTO;
     }

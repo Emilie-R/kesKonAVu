@@ -1,5 +1,6 @@
 package fr.epita.kesKonAVu.infrastructure.user;
 
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.user.Member;
 import fr.epita.kesKonAVu.domain.user.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +20,8 @@ public class MemberRepositoryImpl implements MemberRepository {
     }
 
     @Override
-    public Member findByPseudo(String pseudo) {
-        return memberJpaRepository.findByPseudo(pseudo);
+    public Optional<Member> findByPseudo(String pseudo) {
+        return Optional.ofNullable(memberJpaRepository.findByPseudo(pseudo));
     }
 
     @Override

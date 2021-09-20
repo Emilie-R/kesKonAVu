@@ -1,6 +1,9 @@
 package fr.epita.kesKonAVu.application.user;
 
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import fr.epita.kesKonAVu.domain.user.Member;
+
+import java.util.Optional;
 
 public interface MemberService {
 
@@ -28,7 +31,7 @@ public interface MemberService {
      * @return renvoie l'utilisateur avec ses ResourceFollowUps
      *
      */
-    Member findByIdWithAllResourceFollowUps(String id);
+    Member findByIdWithAllResourceFollowUps(String id, Optional<ResourceTypeEnum> typeResource);
 
 
     /**

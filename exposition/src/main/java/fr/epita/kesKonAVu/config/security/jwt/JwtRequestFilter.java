@@ -1,6 +1,9 @@
 package fr.epita.kesKonAVu.config.security.jwt;
 
+import fr.epita.kesKonAVu.exposition.member.rest.MemberAuthenticationController;
 import io.jsonwebtoken.ExpiredJwtException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,6 +23,8 @@ import java.io.IOException;
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
+    private static final Logger LOG = LoggerFactory.getLogger(JwtRequestFilter.class);
+
     @Autowired
     private JwtTokenManager jwtTokenUtil;
 
@@ -31,6 +36,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                                     FilterChain filterChain)
             throws ServletException, IOException {
 
+        LOG.info("JWT doInternalFilter - begin");
 
         final String requestTokenHeader = request.getHeader("Authorization");
         String idMember = null;
@@ -44,12 +50,12 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 idMember = jwtTokenUtil.getIdMemberFromToken(jwtToken);
 
             } catch (final IllegalArgumentException e) {
-                // logger.error("Unable to get JWT Token");
+                LOG.error("Unable to get JWT Token");
             } catch (final ExpiredJwtException e) {
-                // logger.error("JWT Token has expired");
+                LOG.error("JWT Token has expired");
             }
         } else {
-            // logger.warn("JWT Token does not begin with Bearer String");
+                LOG.warn("JWT Token does not begin with Bearer String");
         }
 
         // validate the token extracted from the request

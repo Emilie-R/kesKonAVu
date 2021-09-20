@@ -3,6 +3,7 @@ package fr.epita.kesKonAVu.exposition.member.rest;
 import fr.epita.kesKonAVu.domain.user.TypeRoleEnum;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public class MemberDTO {
@@ -10,8 +11,8 @@ public class MemberDTO {
     private String idMember;
     private String pseudo;
     private String email;
-    private String password;
     private LocalDate creationDate;
+    private LocalDateTime lastConnexionDateTime;
     private Set<TypeRoleEnum> roles;
 
     public String getIdMember() {
@@ -38,20 +39,20 @@ public class MemberDTO {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public LocalDate getCreationDate() {
         return creationDate;
     }
 
     public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getLastConnexionDateTime() {
+        return lastConnexionDateTime;
+    }
+
+    public void setLastConnexionDateTime(LocalDateTime lastConnexionDateTime) {
+        this.lastConnexionDateTime = lastConnexionDateTime;
     }
 
     public Set<TypeRoleEnum> getRoles() {

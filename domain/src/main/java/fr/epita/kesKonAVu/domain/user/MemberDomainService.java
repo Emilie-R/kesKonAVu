@@ -18,4 +18,12 @@ public interface MemberDomainService {
      */
 
     Boolean checkMemberPseudo(String pseudo);
+
+    /**
+     * allow to create a new member from an existing one
+     * @param memberToDuplicate Member to diplicate
+     * @return the copy of the member
+     */
+
+    Member duplicateMember(Member memberToDuplicate);
 }
