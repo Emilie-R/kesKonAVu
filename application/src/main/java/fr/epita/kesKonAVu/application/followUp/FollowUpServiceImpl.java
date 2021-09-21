@@ -124,17 +124,14 @@ public class FollowUpServiceImpl implements FollowUpService {
 
     @Override
     @Transactional
-    public String updateFollowUp (FollowUp followUp) {
-        String retour = "KO";
+    public FollowUp updateFollowUp (FollowUp followUp) {
 
         try {
-            followUpRepository.save(followUp);
-            retour = "OK";
+            return followUpRepository.save(followUp);
 
         } catch (BusinessException e) {
             throw new BusinessException("Echec mise à jour followUp pour l'id : " + followUp.getIdFollowUp() );
         }
-        return retour;
     }
 
 

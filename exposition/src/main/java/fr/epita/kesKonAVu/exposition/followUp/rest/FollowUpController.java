@@ -68,8 +68,8 @@ public class FollowUpController {
      * @param entered (followUpUpdateDTOLight)
      * @return "OK" ou "KO"
      */
-    @PutMapping(value = "/update",consumes = {"application/json"},produces={"application/json"})
-    public String updateFollowUp(@Valid @RequestBody FollowUpUpdateDTOLight entered) {
+    @PutMapping(value = "/update",consumes = {"application/json"})
+    public FollowUpDTO updateFollowUp(@Valid @RequestBody FollowUpUpdateDTOLight entered) {
         FollowUp intermediate = followUpService.findOne(entered.getIdFollowUp());
 
         if(entered.getStatus() != intermediate.getStatus()){
@@ -80,7 +80,7 @@ public class FollowUpController {
             intermediate.setNote(entered.getNote());
             intermediate.setLastModificationDateTime(LocalDateTime.now());
         }
-        return followUpService.updateFollowUp(intermediate);
+        return followUpMapper.mapToDto(followUpService.updateFollowUp(intermediate));
     }
 
     @DeleteMapping(value="/{id}")

@@ -8,7 +8,7 @@ public interface FollowUpService {
 
     FollowUp findOne(Long id);
 
-    String updateFollowUp(FollowUp followUp);
+    FollowUp updateFollowUp(FollowUp followUp);
 
     Long deleteFollowUp(final Long idFollowUp);
 
