@@ -10,37 +10,9 @@ import java.util.Set;
 @Component
 public class CatalogueResourceMapper {
 
-    public Resource itemCatalogueToResource(final ItemCatalogue itemCatalogue){
+    public Movie itemCatalogueToMovie(final ItemCatalogue itemCatalogue){
 
-        Resource resource = new Resource();
-        resource.setResourceDataSource(CatalogReferenceEnum.OMDBAPI);
-
-        resource.setTitle(itemCatalogue.getTitle());
-        resource.setYear(itemCatalogue.getYear());
-        resource.setPictureUrl(itemCatalogue.getPoster());
-        resource.setSynopsis(itemCatalogue.getPlot());
-        resource.setActors(itemCatalogue.getActors());
-        resource.setCategory(itemCatalogue.getGenre());
-        resource.setDirector(itemCatalogue.getDirector());
-        resource.setImdbId(itemCatalogue.getImdbId());
-        resource.setDuration(itemCatalogue.getRuntime());
-
-        switch (itemCatalogue.getType()) {
-            case "movie" :
-                resource.setResourceType(ResourceTypeEnum.MOVIE);
-                break;
-            case "series" :
-                resource.setResourceType(ResourceTypeEnum.SERIE);
-        }
-
-
-
-        return resource;
-    }
-
-    public Resource itemCatalogueToMovie(final ItemCatalogue itemCatalogue){
-
-        Resource movie = new Resource();
+        Movie movie = new Movie();
         movie.setResourceDataSource(CatalogReferenceEnum.OMDBAPI);
 
         movie.setTitle(itemCatalogue.getTitle());
@@ -71,7 +43,7 @@ public class CatalogueResourceMapper {
         serie.setDirector(itemCatalogue.getDirector());
         serie.setResourceType(ResourceTypeEnum.SERIE);
         serie.setDuration(itemCatalogue.getRuntime());
-        if (itemCatalogue.getTotalSeasons() != null ) {
+        if (itemCatalogue.getTotalSeasons() != null && !itemCatalogue.getTotalSeasons().equals("N/A")) {
             serie.setNumberOfSeasons(Integer.parseInt(itemCatalogue.getTotalSeasons()));
         }
 

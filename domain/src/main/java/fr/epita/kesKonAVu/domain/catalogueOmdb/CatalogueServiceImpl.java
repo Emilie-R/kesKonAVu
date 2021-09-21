@@ -2,8 +2,11 @@ package fr.epita.kesKonAVu.domain.catalogueOmdb;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
 import fr.epita.kesKonAVu.domain.resource.Episode;
+import fr.epita.kesKonAVu.domain.resource.Movie;
 import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.resource.Serie;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,13 +22,10 @@ public class CatalogueServiceImpl implements CatalogueService {
     @Autowired
     CatalogueRepository catalogueRepository;
 
-    @Override
-    public Resource findResourceByImdbId(final String imdbId) {
-        return catalogueResourceMapper.itemCatalogueToResource(catalogueRepository.findItemByImdbId(imdbId));
-    }
+    private static final Logger LOG = LoggerFactory.getLogger(CatalogueServiceImpl.class);
 
     @Override
-    public Resource findMovieByImdbId(final String imdbId) {
+    public Movie findMovieByImdbId(final String imdbId) {
         return catalogueResourceMapper.itemCatalogueToMovie(catalogueRepository.findItemByImdbId(imdbId));
     }
 
@@ -37,6 +37,13 @@ public class CatalogueServiceImpl implements CatalogueService {
     @Override
     public Set<Episode> findAllEpisodes(final Serie serie) {
         Set<Episode> allEpisodes = new HashSet<>();
+
+        if (serie.getNumberOfSeasons() == null) {
+            LOG.warn("Serie sans Episode/ ni saison : Id / Titre / ImdbId = "
+                    + serie.getIdResource() + " / " + serie.getTitle() + " / " + serie.getImdbId());
+            return allEpisodes;
+        }
+
         for (int season = 1; season <= serie.getNumberOfSeasons(); season++) {
             try {
                 allEpisodes.addAll(catalogueResourceMapper.SerieSeasonToSetOfEpisodes(

@@ -1,9 +1,10 @@
 package fr.epita.kesKonAVu.infrastructure.resource;
 
 import fr.epita.kesKonAVu.domain.common.NotFoundException;
-import fr.epita.kesKonAVu.domain.resource.CatalogReferenceEnum;
+import fr.epita.kesKonAVu.domain.resource.Movie;
+import fr.epita.kesKonAVu.domain.resource.MovieRepository;
 import fr.epita.kesKonAVu.domain.resource.Resource;
-import fr.epita.kesKonAVu.domain.resource.ResourceRepository;
+
 import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -11,26 +12,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 @DataJpaTest
-public class ResourceRepositoryTest {
-
-
+public class MovieRepositoryTest {
     /*
      *  Tous les jeux d'essais de la BDD sont injectés dans la base H2 avec le fichier import.sql
      */
 
 
     @Autowired
-    ResourceRepository resourceRepository;
+    MovieRepository movieRepository;
 
-    Resource resourceToSave = new Resource();
+    Movie resourceToSave = new Movie();
 
     @Test
-    public void given_idResource_existing_member_findById_should_success () {
+    public void given_idResource_existing_Movie_findById_should_success () {
         //Given
         Long id = 1L;
 
         //When
-        Resource result = resourceRepository.findById(1L);
+        Movie result = movieRepository.findByIdResource(1L);
 
         //Then
         Assertions.assertNotNull(result);
@@ -46,79 +45,79 @@ public class ResourceRepositoryTest {
 
         //When
         //Then
-        Assertions.assertThrows(NotFoundException.class, () -> resourceRepository.findById(id));
+        Assertions.assertThrows(NotFoundException.class, () -> movieRepository.findByIdResource(id));
     }
 
     @Test
-    public void given_new_resource_save_should_success() {
+    public void given_new_movie_save_should_success() {
         //Given
         resourceToSave.setTitle("Le dernier métro");
         resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
         resourceToSave.setImdbId("12345678");
 
         //When
-        Resource result = resourceRepository.save(resourceToSave);
+        Resource result = movieRepository.save(resourceToSave);
 
         //Then
-        Assertions.assertNotNull(resourceRepository.findById(result.getIdResource()));
+        Assertions.assertNotNull(movieRepository.findByIdResource(result.getIdResource()));
         Assertions.assertEquals( resourceToSave.getTitle(),
-                resourceRepository.findById(result.getIdResource()).getTitle());
+                movieRepository.findByIdResource(result.getIdResource()).getTitle());
         Assertions.assertEquals( resourceToSave.getImdbId(),
-                resourceRepository.findById(result.getIdResource()).getImdbId());
+                movieRepository.findByIdResource(result.getIdResource()).getImdbId());
     }
 
     @Test
-    public void given_existing_resource_save_should_success() {
+    public void given_existing_movie_save_should_success() {
         //Given
-        Resource resourceToSave = resourceRepository.findById(1L);
+        Movie resourceToSave = movieRepository.findByIdResource(1L);
         resourceToSave.setTitle("Tarzan");
         resourceToSave.setImdbId("12345678");
 
         //When
-        Resource result = resourceRepository.save(resourceToSave);
+        Resource result = movieRepository.save(resourceToSave);
 
         //Then
-        Assertions.assertEquals(resourceToSave.getTitle(), resourceRepository.findById(1L).getTitle());
+        Assertions.assertEquals(resourceToSave.getTitle(), movieRepository.findByIdResource(1L).getTitle());
         Assertions.assertEquals(resourceToSave.getImdbId(),
-                resourceRepository.findById(1L).getImdbId());
+                movieRepository.findByIdResource(1L).getImdbId());
         Assertions.assertEquals(resourceToSave.getIdResource(), result.getIdResource());
         Assertions.assertEquals(resourceToSave.getImdbId(), result.getImdbId());
     }
 
     @Test
-    public void ShouldFindByTitleWhenResourceIsGiven() {
+    public void ShouldFindByTitleWhenMovieIsGiven() {
         //Given
         resourceToSave.setTitle("Le dernier métro");
         resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
         resourceToSave.setImdbId("12345678");
+        resourceToSave.setIdResource(null);
 
         //When
-        Resource result = resourceRepository.save(resourceToSave);
+        Movie result = movieRepository.save(resourceToSave);
+        Movie retrieved = movieRepository.findByTitle(result.getTitle());
 
         //Then
-        Resource retrieved = resourceRepository.findMovieByTitle(result.getTitle());
         Assertions.assertEquals( resourceToSave.getTitle(), retrieved.getTitle());
     }
     @Test
-    public void ShouldFindByExternalkeyWhenResourceIsGiven() {
+    public void ShouldFindByExternalkeyWhenMovieIsGiven() {
         //Given
         resourceToSave.setTitle("Le dernier métro");
         resourceToSave.setResourceType(ResourceTypeEnum.MOVIE);
         resourceToSave.setImdbId("12345678");
 
-        Resource resourceWitness = new Resource();
+        Movie resourceWitness = new Movie();
         resourceWitness.setTitle("Le premier métro");
         resourceWitness.setResourceType(ResourceTypeEnum.MOVIE);
         resourceWitness.setImdbId("87654321");
 
         //When
-        Resource result = resourceRepository.save(resourceToSave);
+        Movie result = movieRepository.save(resourceToSave);
+        Movie retrieved = movieRepository.findByImdbId(result.getImdbId());
 
         //Then
-        Resource retrieved = resourceRepository.findMovieByImdbId(result.getImdbId());
-        Assertions.assertEquals( resourceToSave.getImdbId(), retrieved.getImdbId());
-        Assertions.assertNotEquals( resourceWitness.getImdbId(), retrieved.getImdbId());
+        Assertions.assertEquals(resourceToSave.getImdbId(), retrieved.getImdbId());
+        Assertions.assertNotEquals(resourceWitness.getImdbId(), retrieved.getImdbId());
     }
-
 
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -36,7 +37,7 @@ public class UpdateSerieProgressionApplicationServiceImpl implements UpdateSerie
         //Caculate and set the progression for the followUp
         //And update the followUp
         in.setProgression(calculateProgressionService.calculateProgression(in));
-        in.setLastModificationDate(LocalDate.now());
+        in.setLastModificationDateTime(LocalDateTime.now());
         FollowUp followUpUpdated = followUpRepository.save(in);
         result = followUpUpdated.getIdFollowUp();
 

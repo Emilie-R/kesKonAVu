@@ -56,7 +56,7 @@ public class CalculateProgressionServiceTest {
         setEpisodes.add(episodeFollowUp1);
         setEpisodes.add(episodeFollowUp2);
         serieFollowUp.setEpisodeFollowUps(setEpisodes);
-        Resource serie = new Resource();
+        Serie serie = new Serie();
         serie.setResourceType(ResourceTypeEnum.MOVIE);// It's a Movie follow-up
         serieFollowUp.setResource(serie);
         final FollowUp payload = serieFollowUp;

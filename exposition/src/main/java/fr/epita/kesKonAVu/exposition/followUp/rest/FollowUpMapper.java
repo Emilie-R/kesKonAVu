@@ -21,7 +21,7 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowUpDTO> {
         result.setResourceDTO(resourceMapper.mapToDto(entity.getResource()));
         if (entity.getNote() != null ) { result.setNote(entity.getNote()); }
         result.setStatus(entity.getStatus());
-        result.setLastModificationDate(entity.getLastModificationDate());
+        result.setLastModificationDate(entity.getLastModificationDateTime());
         result.setProgression(entity.getProgression());
         result.setNumberOfUnseenEpisodes(entity.getNumberOfUnseenEpisodes());
 
@@ -38,7 +38,7 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowUpDTO> {
         result.setResource(resourceMapper.mapToEntity(dto.getResourceDTO()));
         result.setNote(dto.getNote());
         result.setStatus(dto.getStatus());
-        result.setLastModificationDate(dto.getLastModificationDate());
+        result.setLastModificationDateTime(dto.getLastModificationDate());
         result.setProgression(dto.getProgression());
         result.setNumberOfUnseenEpisodes(dto.getNumberOfUnseenEpisodes());
         return result;
@@ -52,9 +52,8 @@ public class FollowUpMapper extends AbstractMapper<FollowUp, FollowUpDTO> {
         FollowUp followUp = new FollowUp();
 
         Resource resource = new Resource();
-        if (dtoLight.getResourceDTOLight() != null) {
-            resource.setResourceType(dtoLight.getResourceDTOLight().getTypeResource());
-            resource.setImdbId(dtoLight.getResourceDTOLight().getImdbId());
+        if (dtoLight.getResourceDTO() != null) {
+            resource = resourceMapper.mapToEntity(dtoLight.getResourceDTO());
         }
 
         followUp.setResource(resource);

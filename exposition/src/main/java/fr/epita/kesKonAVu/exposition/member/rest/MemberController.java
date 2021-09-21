@@ -81,9 +81,9 @@ public class MemberController {
         //Récupération de l'id Member à partir du JWT du header de la requête
         final String jwtToken = requestTokenHeader.substring(7);
         final String idMember = jwtTokenUtil.getIdMemberFromToken(jwtToken);
-        Optional<ResourceTypeEnum> typeResourceFollowUp;
 
         LOG.info("Demande consultation Followup member / type = " + idMember +  " / " + type );
+        Optional<ResourceTypeEnum> typeResourceFollowUp;
         //Contrôle du format du RequestParam
         switch (type){
             case "serie" : {

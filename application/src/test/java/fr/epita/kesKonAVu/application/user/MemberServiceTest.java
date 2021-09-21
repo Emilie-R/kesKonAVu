@@ -114,7 +114,7 @@ public class MemberServiceTest {
 
         //Then
         Assertions.assertNotNull(memberReturned);
-        Mockito.verify(memberRepositoryMock, Mockito.times(2)).findByPseudo(pseudo);
+        Mockito.verify(memberRepositoryMock, Mockito.times(1)).findByPseudo(pseudo);
 
     }
 

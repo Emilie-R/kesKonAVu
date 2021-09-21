@@ -33,7 +33,7 @@ public class SerieControllerTest {
     @BeforeEach
     public void setUp ( ) throws Exception {
 
-        this.base = new URL("http://localhost:" + port + "/V1/serie/imdb/Jumanji"); //=> permet d'instancier les paramètre de connexion
+        this.base = new URL("http://localhost:" + port + "/v1/serie/imdb/Jumanji"); //=> permet d'instancier les paramètre de connexion
 
     }
 

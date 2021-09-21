@@ -14,21 +14,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @SpringBootTest(classes = { SpringBootAppTest.class })
-public class ResourceServiceTest {
+public class MovieServiceTest {
     @Autowired
-    ResourceService resourceService;
+    MovieService movieService;
     @MockBean
-    ResourceRepository resourceRepositoryMock;
+    MovieRepository movieRepository;
 
     @Test
     public void find_another_movie_When_Title_Does_Not_Exists(){
         // GIVEN
-        final Resource movie = new Resource();
+        final Movie movie = new Movie();
         movie.setTitle("Friends 1");
-        when(resourceRepositoryMock.findMovieByTitle("Hello")).thenReturn(movie);
+        when(movieRepository.findByTitle("Hello")).thenReturn(movie);
 
         // WHEN
-        final Resource createdMovie = resourceService.findMovieByTitle("Hello");
+        final Movie createdMovie = movieService.findByTitle("Hello");
 
         //Then
         assertThat(createdMovie).isNotNull();
@@ -38,13 +38,13 @@ public class ResourceServiceTest {
     @Test
     public void find_movie_When_IdIsGiven(){
         // GIVEN
-        final Resource movie = new Resource();
+        final Movie movie = new Movie();
         movie.setTitle("Friends 1");
         movie.setIdResource(1L);
-        when(resourceRepositoryMock.findMovieByIdResource(3L)).thenReturn(movie);
+        when(movieRepository.findByIdResource(3L)).thenReturn(movie);
 
         // WHEN
-        final Resource createdMovie = resourceService.findMovieByIdResource(3L);
+        final Movie createdMovie = movieService.findByIdResource(3L);
 
         //Then
         assertThat(createdMovie).isNotNull();
@@ -54,13 +54,13 @@ public class ResourceServiceTest {
     @Test
     public void find_another_movie_When_ExternalKey_Is_Given(){
         // GIVEN
-        final Resource movie = new Resource();
+        final Movie movie = new Movie();
         movie.setTitle("Friends 1");
         movie.setImdbId("123arc");
-        when(resourceRepositoryMock.findMovieByImdbId("Hello")).thenReturn(movie);
+        when(movieRepository.findByImdbId("Hello")).thenReturn(movie);
 
         // WHEN
-        final Resource createdMovie = resourceService.findMovieByImdbId("Hello");
+        final Resource createdMovie = movieService.findByImdbId("Hello");
 
         //Then
         assertThat(createdMovie).isNotNull();

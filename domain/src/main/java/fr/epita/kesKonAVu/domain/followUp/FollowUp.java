@@ -5,7 +5,7 @@ import fr.epita.kesKonAVu.domain.resource.Resource;
 import fr.epita.kesKonAVu.domain.user.Member;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -26,8 +26,8 @@ public class FollowUp {
 
     private Integer note;
 
-    private LocalDate creationDate;
-    private LocalDate lastModificationDate;
+    private LocalDateTime creationDateTime;
+    private LocalDateTime lastModificationDateTime;
 
     private Float progression;
     private Integer numberOfUnseenEpisodes;
@@ -57,20 +57,20 @@ public class FollowUp {
         this.resource = resource;
     }
 
-    public LocalDate getCreationDate() {
-        return creationDate;
+    public LocalDateTime getCreationDateTime() {
+        return creationDateTime;
     }
 
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
+    public void setCreationDateTime(LocalDateTime creationDateTime) {
+        this.creationDateTime = creationDateTime;
     }
 
-    public LocalDate getLastModificationDate() {
-        return lastModificationDate;
+    public LocalDateTime getLastModificationDateTime() {
+        return lastModificationDateTime;
     }
 
-    public void setLastModificationDate(LocalDate lastModificationDate) {
-        this.lastModificationDate = lastModificationDate;
+    public void setLastModificationDateTime(LocalDateTime lastModificationDateTime) {
+        this.lastModificationDateTime = lastModificationDateTime;
     }
 
     public Integer getNote() {

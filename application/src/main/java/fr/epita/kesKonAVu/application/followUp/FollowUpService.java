@@ -10,9 +10,6 @@ public interface FollowUpService {
 
     String updateFollowUp(FollowUp followUp);
 
-//    String updateRating(Long id, Integer rating);
-
-
     Long deleteFollowUp(final Long idFollowUp);
 
 }

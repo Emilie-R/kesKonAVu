@@ -26,7 +26,7 @@ public class CatalogueServiceTest {
     CatalogueService catalogueService;
 
     @Test
-    public void findMovieByImdbId_exiting_item_should_success() {
+    public void findMovieByImdbId_existing_item_should_success() {
         //Given
         String imdbId = "12345678";
 

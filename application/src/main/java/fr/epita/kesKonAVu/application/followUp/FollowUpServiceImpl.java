@@ -9,25 +9,31 @@ import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.domain.resource.*;
 import fr.epita.kesKonAVu.domain.user.Member;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Service
 public class FollowUpServiceImpl implements FollowUpService {
+
 
     @Autowired
     FollowUpRepository followUpRepository;
     @Autowired
     CatalogueService catalogueService;
     @Autowired
-    ResourceRepository resourceRepository;
+    MovieRepository movieRepository;
     @Autowired
     SerieRepository serieRepository;
+    @Autowired
+    ResourceRepository resourceRepository;
 
+    private static final Logger LOG = LoggerFactory.getLogger(FollowUpServiceImpl.class);
 
     /**
      * allow to Create a new FollowUp for the user (CU : Ajouter une ressource à ma sélection)
@@ -38,6 +44,8 @@ public class FollowUpServiceImpl implements FollowUpService {
     @Override
     @Transactional
     public FollowUp createNewFollowUpFromImdbId(final FollowUp followUp) {
+        LOG.info("createNewFollowUpFromImdbId - begin");
+
         final String imdbId = followUp.getResource().getImdbId();
         final Member member = followUp.getMember();
 
@@ -53,18 +61,19 @@ public class FollowUpServiceImpl implements FollowUpService {
 
             if(followUp.getResource().getResourceType() == ResourceTypeEnum.MOVIE) {
                 /* FOR a Movie (Resource of ResourceType MOVIE) */
-                Resource movie;
+                Movie movie;
 
                 try {
-                    movie = resourceRepository.findMovieByImdbId(imdbId);
+                    movie = movieRepository.findByImdbId(imdbId);
                     if (followUpRepository.findByResourceAndMember(movie,member) != null) {
                         /* FollowUp already created => skip */
                         throw new AlreadyExistingException("ressourceFollowUp already exists");
                     }
                 } catch (NotFoundException e) {
                     movie = catalogueService.findMovieByImdbId(imdbId);
-                    movie.setCreationDate(LocalDate.now());
-                    movie = resourceRepository.save(movie);
+                    movie.setLastModificationDateTime(LocalDateTime.now());
+                    movie = movieRepository.save(movie);
+                    LOG.info("createNewFollowUpFromImdbId - New movie : " + movie.getTitle() + " / " + movie.getIdResource());
                 }
 
                 followUpToSave.setResource(movie);
@@ -81,7 +90,7 @@ public class FollowUpServiceImpl implements FollowUpService {
                     }
                 } catch (NotFoundException e) {
                     serie = catalogueService.findSerieByImdbId(imdbId);
-                    serie.setCreationDate(LocalDate.now());
+                    serie.setLastModificationDateTime(LocalDateTime.now());
                     final Set<Episode> allEpisodes = catalogueService.findAllEpisodes(serie);
                     serie.setEpisodes(allEpisodes);
 
@@ -91,6 +100,7 @@ public class FollowUpServiceImpl implements FollowUpService {
                         serie.setNumberOfEpisodes(0);
                     }
                     serie = serieRepository.save(serie);
+                    LOG.info("createNewFollowUpFromImdbId - New serie : " + serie.getTitle() + " / " + serie.getIdResource());
                 }
 
                 followUpToSave.setResource(serie);
@@ -99,19 +109,17 @@ public class FollowUpServiceImpl implements FollowUpService {
 
         followUpToSave.setMember(member);
         followUpToSave.setStatus(statusToCreate);
-        followUpToSave.setCreationDate(LocalDate.now());
-        followUpToSave.setLastModificationDate(LocalDate.now());
+        followUpToSave.setCreationDateTime(LocalDateTime.now());
+        followUpToSave.setLastModificationDateTime(LocalDateTime.now());
+        LOG.info("createNewFollowUpFromImdbId - end");
         return followUpRepository.save(followUpToSave);
     }
+
     @Override
     @Transactional(readOnly = true)
     public FollowUp findOne (Long id) {
-        if (followUpRepository.findById(id).isPresent())
-        {
-            return followUpRepository.findById(id).get();
-        } else {
-            throw new NotFoundException("FollowUp non trouvé en BDD " + id);
-        }
+        return followUpRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("FollowUp non trouvé en BDD " + id));
     }
 
     @Override
@@ -122,6 +130,7 @@ public class FollowUpServiceImpl implements FollowUpService {
         try {
             followUpRepository.save(followUp);
             retour = "OK";
+
         } catch (BusinessException e) {
             throw new BusinessException("Echec mise à jour followUp pour l'id : " + followUp.getIdFollowUp() );
         }

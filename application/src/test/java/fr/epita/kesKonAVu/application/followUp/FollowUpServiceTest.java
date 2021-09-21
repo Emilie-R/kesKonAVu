@@ -22,7 +22,7 @@ public class FollowUpServiceTest {
     @MockBean
     FollowUpRepository followUpRepository;
     @MockBean
-    ResourceRepository resourceRepository;
+    MovieRepository movieRepository;
     @MockBean
     SerieRepository serieRepository;
     @MockBean
@@ -36,16 +36,16 @@ public class FollowUpServiceTest {
         //Given
         Member member = new Member();
         member.setIdMember("ID-XX");
-        Resource resourceToCreate = new Resource();
+        Movie resourceToCreate = new Movie();
         resourceToCreate.setImdbId("123456");
         resourceToCreate.setResourceType(ResourceTypeEnum.MOVIE);
         FollowUp followUpToCreate = new FollowUp();
         followUpToCreate.setMember(member);
         followUpToCreate.setResource(resourceToCreate);
 
-        Mockito.when(resourceRepository.findMovieByImdbId("123456")).thenThrow(NotFoundException.class);
+        Mockito.when(movieRepository.findByImdbId("123456")).thenThrow(NotFoundException.class);
         Mockito.when(catalogueService.findMovieByImdbId("123456")).thenReturn(resourceToCreate);
-        Mockito.when(resourceRepository.save(Mockito.any(Resource.class))).thenReturn(resourceToCreate);
+        Mockito.when(movieRepository.save(Mockito.any(Movie.class))).thenReturn(resourceToCreate);
         Mockito.when(followUpRepository.save(Mockito.any(FollowUp.class))).thenReturn(followUpToCreate);
 
         //When
@@ -53,8 +53,8 @@ public class FollowUpServiceTest {
 
         //Then
         Assertions.assertNotNull(followUpCreated);
-        Mockito.verify(resourceRepository, Mockito.times(1)).save(Mockito.any());
-        Mockito.verify(resourceRepository, Mockito.times(1)).findMovieByImdbId("123456");
+        Mockito.verify(movieRepository, Mockito.times(1)).save(Mockito.any());
+        Mockito.verify(movieRepository, Mockito.times(1)).findByImdbId("123456");
         Mockito.verify(catalogueService, Mockito.times(1)).findMovieByImdbId("123456");
         Mockito.verify(followUpRepository, Mockito.times(1)).save(Mockito.any());
     }
@@ -63,7 +63,7 @@ public class FollowUpServiceTest {
     public void createNewFollowUp_with_existing_Movie_should_success() {
         Member member = new Member();
         member.setIdMember("ID-XX");
-        Resource resource = new Resource();
+        Movie resource = new Movie();
         resource.setIdResource(1L);
         resource.setImdbId("123456");
         resource.setResourceType(ResourceTypeEnum.MOVIE);
@@ -71,7 +71,7 @@ public class FollowUpServiceTest {
         followUpToCreate.setMember(member);
         followUpToCreate.setResource(resource);
 
-        Mockito.when(resourceRepository.findMovieByImdbId("123456")).thenReturn(resource);
+        Mockito.when(movieRepository.findByImdbId("123456")).thenReturn(resource);
         Mockito.when(followUpRepository.findByResourceAndMember(resource,member)).thenReturn(null);
         Mockito.when(followUpRepository.save(Mockito.any(FollowUp.class))).thenReturn(followUpToCreate);
 
@@ -80,7 +80,7 @@ public class FollowUpServiceTest {
 
         //Then
         Assertions.assertNotNull(followUpCreated);
-        Mockito.verify(resourceRepository, Mockito.times(1)).findMovieByImdbId("123456");
+        Mockito.verify(movieRepository, Mockito.times(1)).findByImdbId("123456");
         Mockito.verify(followUpRepository, Mockito.times(1)).findByResourceAndMember(resource, member);
         Mockito.verify(followUpRepository, Mockito.times(1)).save(Mockito.any(FollowUp.class));
     }
@@ -116,7 +116,7 @@ public class FollowUpServiceTest {
         Mockito.when(serieRepository.findByImdbId("123456")).thenThrow(NotFoundException.class);
         Mockito.when(catalogueService.findSerieByImdbId("123456")).thenReturn(resourceToCreate);
         Mockito.when(catalogueService.findAllEpisodes(Mockito.any(Serie.class))).thenReturn(episodes);
-        Mockito.when(resourceRepository.save(Mockito.any(Serie.class))).thenReturn(resourceToCreate);
+        Mockito.when(serieRepository.save(Mockito.any(Serie.class))).thenReturn(resourceToCreate);
         Mockito.when(followUpRepository.save(Mockito.any(FollowUp.class))).thenReturn(followUpToCreate);
 
         //When

@@ -20,28 +20,13 @@ public class CatalogueServiceIntegrationTest {
     CatalogueService catalogueService;
 
     @Test
-    public void findResourceByImdbId_with_existing_ImdbId_should_success() {
-        // Given
-        String id = "tt0464913";
-
-        //When
-        Resource resourceResult = catalogueService.findResourceByImdbId(id);
-
-        //Then
-        Assertions.assertNotNull(resourceResult);
-        Assertions.assertEquals(id, resourceResult.getImdbId());
-        Assertions.assertEquals("OSS 117: Le Caire, nid d'espions", resourceResult.getTitle());
-        Assertions.assertEquals(ResourceTypeEnum.MOVIE, resourceResult.getResourceType());
-    }
-
-    @Test
-    public void findResourceByImdbId_with_unknown_ImdbId_should_throw_NotFoundException() {
+    public void findMovieByImdbId_with_unknown_ImdbId_should_throw_NotFoundException() {
         // Given
         String id = "12345678";
 
         //When
         //Then
-        Assertions.assertThrows(NotFoundException.class, () -> catalogueService.findResourceByImdbId(id));
+        Assertions.assertThrows(NotFoundException.class, () -> catalogueService.findMovieByImdbId(id));
     }
 
     @Test

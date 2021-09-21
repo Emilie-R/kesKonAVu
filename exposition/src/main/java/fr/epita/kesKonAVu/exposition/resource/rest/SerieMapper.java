@@ -6,12 +6,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class SerieMapper extends AbstractMapper<Serie, SerieDTO> {
+
     @Override
     public SerieDTO mapToDto (Serie entity) {
         if(entity == null){
             return null;
         }
         SerieDTO dto = new SerieDTO();
+        dto.setIdResource(entity.getIdResource());
+        dto.setResourceType(entity.getResourceType());
+
         dto.setTitle(entity.getTitle());
         dto.setYear(entity.getYear());
         dto.setPictureUrl(entity.getPictureUrl());
@@ -22,6 +26,8 @@ public class SerieMapper extends AbstractMapper<Serie, SerieDTO> {
         dto.setActors(entity.getActors());
         dto.setImdbId(entity.getImdbId());
         dto.setResourceDataSource(entity.getResourceDataSource());
+        dto.setLastModificationDate(entity.getLastModificationDateTime());
+
         dto.setNumberOfEpisodes(entity.getNumberOfEpisodes());
         if(entity.getNumberOfSeasons() != null){
         dto.setNumberOfSeasons(entity.getNumberOfSeasons());}

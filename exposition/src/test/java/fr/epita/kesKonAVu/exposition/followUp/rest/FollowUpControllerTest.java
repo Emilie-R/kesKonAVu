@@ -5,6 +5,8 @@ import fr.epita.kesKonAVu.application.followUp.FollowUpService;
 import fr.epita.kesKonAVu.config.security.jwt.JwtTokenManager;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
+import fr.epita.kesKonAVu.exposition.resource.rest.ResourceDTO;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -101,7 +103,9 @@ public class FollowUpControllerTest {
         // - Création du body de la requête
         FollowUpDTOLight res1 = new FollowUpDTOLight();
         res1.setStatus(StatusEnum.VU);
-        res1.setResourceDTOLight(new ResourceDTOLight());
+        ResourceDTO resource = new ResourceDTO();
+        resource.setResourceType(ResourceTypeEnum.MOVIE);
+        res1.setResourceDTO(resource);
         FollowUp res1Transformed = followUpMapper.mapToEntity(res1);
         res1Transformed.setStatus(StatusEnum.AVOIR); // de VU -> à AVOIR
         Mockito.when(followUpService.createNewFollowUpFromImdbId(any())).thenReturn(res1Transformed);

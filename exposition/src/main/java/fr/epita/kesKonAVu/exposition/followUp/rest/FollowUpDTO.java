@@ -1,19 +1,32 @@
 package fr.epita.kesKonAVu.exposition.followUp.rest;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
 import fr.epita.kesKonAVu.exposition.resource.rest.ResourceDTO;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class FollowUpDTO {
 
+    @JsonProperty("idFollowUp")
     private Long idFollowUp;
+
+    @JsonProperty("Resource")
     private ResourceDTO resourceDTO;
 
+    @JsonProperty("status")
     private StatusEnum status;
-    private LocalDate lastModificationDate;
+
+    @JsonProperty("note")
     private Integer note;
+
+    @JsonProperty("lastModificationDate")
+    private LocalDateTime lastModificationDate;
+
+    @JsonProperty("progression")
     private Float progression;// Ce DTO gère (donc) les suivis de Films ET de séries
+
+    @JsonProperty("numberOfUnseenEpisodes")
     private Integer numberOfUnseenEpisodes;
 
     public FollowUpDTO (){
@@ -43,11 +56,11 @@ public class FollowUpDTO {
         this.status = status;
     }
 
-    public LocalDate getLastModificationDate ( ) {
+    public LocalDateTime getLastModificationDate ( ) {
         return lastModificationDate;
     }
 
-    public void setLastModificationDate (LocalDate lastModificationDate) {
+    public void setLastModificationDate (LocalDateTime lastModificationDate) {
         this.lastModificationDate = lastModificationDate;
     }
 

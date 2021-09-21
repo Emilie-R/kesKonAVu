@@ -2,6 +2,7 @@ package fr.epita.kesKonAVu.exposition.followUp.rest;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import fr.epita.kesKonAVu.domain.followUp.StatusEnum;
+import fr.epita.kesKonAVu.exposition.resource.rest.ResourceDTO;
 import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ public class FollowUpUpdateDTOLight {
     private Long idFollowUp;
 
     @JsonProperty("Resource")
-    private ResourceDTOLight resourceDTOLight;
+    private ResourceDTO resourceDTO;
 
     @JsonProperty("note")
     private Integer note;
@@ -47,11 +48,11 @@ public class FollowUpUpdateDTOLight {
         this.note = note;
     }
 
-    public ResourceDTOLight getResourceDTOLight() {
-        return resourceDTOLight;
+    public ResourceDTO getResourceDTO() {
+        return resourceDTO;
     }
 
-    public void setResourceDTOLight(ResourceDTOLight resourceDTOLight) {
-        this.resourceDTOLight = resourceDTOLight;
+    public void setResourceDTO(ResourceDTO resourceDTO) {
+        this.resourceDTO = resourceDTO;
     }
 }

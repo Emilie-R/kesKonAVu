@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping("/v1/followup")
@@ -73,9 +74,11 @@ public class FollowUpController {
 
         if(entered.getStatus() != intermediate.getStatus()){
             intermediate.setStatus(entered.getStatus());
+            intermediate.setLastModificationDateTime(LocalDateTime.now());
         }
         if(entered.getNote() != null && entered.getNote()!= intermediate.getNote()){
             intermediate.setNote(entered.getNote());
+            intermediate.setLastModificationDateTime(LocalDateTime.now());
         }
         return followUpService.updateFollowUp(intermediate);
     }

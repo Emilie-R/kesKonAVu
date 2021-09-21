@@ -1,53 +1,46 @@
 
 package fr.epita.kesKonAVu.exposition.resource.rest;
 
+import fr.epita.kesKonAVu.domain.resource.Movie;
 import fr.epita.kesKonAVu.domain.resource.Resource;
+import fr.epita.kesKonAVu.domain.resource.ResourceTypeEnum;
+import fr.epita.kesKonAVu.domain.resource.Serie;
 import fr.epita.kesKonAVu.exposition.common.AbstractMapper;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ResourceMapper extends AbstractMapper<Resource, ResourceDTO> {
+public class ResourceMapper extends AbstractMapper<Resource, ResourceDTO>{
 
-    @Override
     public ResourceDTO mapToDto (Resource entity) {
         if(entity == null){
             return null;
         }
         ResourceDTO dto = new ResourceDTO();
         dto.setTitle(entity.getTitle());
-        dto.setYear(entity.getYear());
         dto.setPictureUrl(entity.getPictureUrl());
-        dto.setDirector(entity.getDirector());
-        dto.setSynopsis(entity.getSynopsis());
-        dto.setCategory(entity.getCategory());
-        dto.setDuration(entity.getDuration());
-        dto.setActors(entity.getActors());
         dto.setIdResource(entity.getIdResource());
         dto.setImdbId(entity.getImdbId());
-        dto.setResourceDataSource(entity.getResourceDataSource());
         dto.setResourceType(entity.getResourceType());
+        dto.setLastModificationDate(entity.getLastModificationDateTime());
 
         return dto;
     }
 
     @Override
-    public Resource mapToEntity (ResourceDTO dto) {
-        if(dto == null){
-            return null;
-        }
-        Resource entity = new Resource();
-        entity.setTitle(dto.getTitle());
-        entity.setYear(dto.getYear());
-        entity.setPictureUrl(dto.getPictureUrl());
-        entity.setDirector(dto.getDirector());
-        entity.setSynopsis(dto.getSynopsis());
-        entity.setCategory(dto.getCategory());
-        entity.setDuration(dto.getDuration());
-        entity.setActors(dto.getActors());
-        entity.setImdbId(dto.getImdbId());
-        entity.setResourceDataSource(dto.getResourceDataSource());
-        entity.setResourceType(dto.getResourceType());
+    public Resource mapToEntity(ResourceDTO dto) {
+        Resource entity;
 
+        if (dto.getResourceType().equals(ResourceTypeEnum.MOVIE)){
+            entity = new Movie();
+        } else {
+            entity = new Serie();
+        }
+        entity.setResourceType(dto.getResourceType());
+        entity.setIdResource(dto.getIdResource());
+        entity.setTitle(dto.getTitle());
+        entity.setImdbId(dto.getImdbId());
+        entity.setPictureUrl(dto.getPictureUrl());
+        entity.setLastModificationDateTime(dto.getLastModificationDate());
         return entity;
     }
 }
