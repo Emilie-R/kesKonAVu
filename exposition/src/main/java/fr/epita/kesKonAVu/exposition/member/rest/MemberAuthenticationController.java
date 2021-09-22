@@ -50,7 +50,7 @@ public class MemberAuthenticationController {
             pass = "***";
         }
 
-        LOG.info("Tentative connexion : pseudo/ password = " + authenticationRequest.getPseudo() + " / " + pass );
+        LOG.warn("Tentative connexion : pseudo/ password = " + authenticationRequest.getPseudo() + " / " + pass );
 
         // Rechercher si le member est autorisé à se connecter sinon InvalidCredentialsException
         final Member member = authenticationService.authenticateMember(authenticationRequest.getPseudo(), authenticationRequest.getPassword());

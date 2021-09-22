@@ -51,7 +51,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
                 .message(ex.getMessage()) //
                 .description("Please check your parameters")//
                 .build();
-        LOG.info(ex.getMessage());
+        LOG.warn(ex.getMessage());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.BAD_REQUEST);
     }
 
@@ -75,7 +75,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
                 .message(ex.getLocalizedMessage()) //
                 .description("")//
                 .build();
-        LOG.info(ex.getMessage());
+        LOG.warn(ex.getMessage());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.NOT_FOUND);
     }
 
@@ -86,7 +86,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
         final ErrorModel apiError = ErrorModel.builder() //
                 .message(ex.getLocalizedMessage()) //
                 .build();
-        LOG.info(ex.getMessage());
+        LOG.warn(ex.getMessage());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.CONFLICT);
     }
 
@@ -98,7 +98,7 @@ public class ExceptionTranslator extends ResponseEntityExceptionHandler {
                 .message(ex.getLocalizedMessage()) //
                 .description("")//
                 .build();
-        LOG.info(ex.getMessage());
+        LOG.warn(ex.getMessage());
         return new ResponseEntity<Object>(apiError, new HttpHeaders(), HttpStatus.PRECONDITION_FAILED);
     }
 

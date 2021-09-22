@@ -6,7 +6,7 @@
 
     <groupId>fr.epita</groupId>
     <artifactId>kesKonAVu</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -41,22 +41,22 @@
             <dependency>
                 <groupId>fr.epita</groupId>
                 <artifactId>kesKonAVu-domain</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>fr.epita</groupId>
                 <artifactId>kesKonAVu-application</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>fr.epita</groupId>
                 <artifactId>kesKonAVu-infrastructure</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>fr.epita</groupId>
                 <artifactId>kesKonAVu-exposition</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
+                <version>1.0.1-SNAPSHOT</version>
             </dependency>
 
 

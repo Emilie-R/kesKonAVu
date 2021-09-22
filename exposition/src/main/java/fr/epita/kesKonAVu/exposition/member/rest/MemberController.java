@@ -54,7 +54,7 @@ public class MemberController {
     @PostMapping(value = "/create", produces={"application/json"}, consumes = {"application/json"})
     @ApiOperation("This operation allows to create a new member in KeskonAvu and get a Token")
     public HttpEntity<?> createNewMember(@Valid @RequestBody MemberDTOLight memberDTOLight){
-        LOG.info("Demande création compte pseudo / email = " + memberDTOLight.getPseudo() + " / " + memberDTOLight.getEmail());
+        LOG.warn("Demande création compte pseudo / email = " + memberDTOLight.getPseudo() + " / " + memberDTOLight.getEmail());
 
         // Création du membre dans le registre
         final Member memberToCreate = memberMapper.mapLightToEntity(memberDTOLight);

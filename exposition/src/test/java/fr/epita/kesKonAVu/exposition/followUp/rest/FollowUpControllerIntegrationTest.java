@@ -63,7 +63,6 @@ public class FollowUpControllerIntegrationTest {
         ResponseEntity<String> result = this.template.exchange(uri, HttpMethod.PUT, request, String.class);
         //Then
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
-        Assertions.assertEquals("OK", result.getBody());
         FollowUp updated = resourceFollowUpService.findOne(in.getIdFollowUp());
         Assertions.assertEquals(40,updated.getNote());
 
@@ -83,7 +82,6 @@ public class FollowUpControllerIntegrationTest {
         ResponseEntity<String> result = this.template.exchange(uri, HttpMethod.PUT, request, String.class);
         //Then
         Assertions.assertEquals(HttpStatus.OK, result.getStatusCode());
-        Assertions.assertEquals("OK", result.getBody());
         FollowUp updated = resourceFollowUpService.findOne(in.getIdFollowUp());
         Assertions.assertEquals(StatusEnum.AVOIR,updated.getStatus());
     }
