@@ -15,20 +15,20 @@
 
     <dependencies>
         <!-- Module dependencies -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId>-->
+<!--            <artifactId>spring-boot-starter-web</artifactId>-->
+<!--        </dependency>-->
         <!-- <dependency>
             <groupId>com.mashape.unirest</groupId>
             <artifactId>unirest-java</artifactId>
             <version>1.4.9</version>
         </dependency> -->
         <!--dépendances inter-modules-->
-        <dependency>
-            <groupId>fr.epita</groupId>
-            <artifactId>kesKonAVu-domain</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>fr.epita</groupId>-->
+<!--            <artifactId>kesKonAVu-domain</artifactId>-->
+<!--        </dependency>-->
 
         <dependency>
             <groupId>fr.epita</groupId>
@@ -36,10 +36,10 @@
         </dependency>
         <!--  -->
 
-        <dependency>
-            <groupId>org.postgresql</groupId>
-            <artifactId>postgresql</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.postgresql</groupId>-->
+<!--            <artifactId>postgresql</artifactId>-->
+<!--        </dependency>-->
 
         <!-- Dépendances pour la gestion du swagger -->
         <dependency>
