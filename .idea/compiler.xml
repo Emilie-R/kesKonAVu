@@ -16,5 +16,9 @@
         <module name="exposition" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="jacoco-report-aggregator" target="8" />
+      <module name="surefire-report-aggregator" target="8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
