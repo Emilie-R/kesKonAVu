@@ -6,6 +6,7 @@ import fr.epita.kesKonAVu.domain.user.Member;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -34,7 +35,7 @@ public class FollowUp {
 
     @OneToMany(fetch = FetchType.LAZY,cascade=CascadeType.ALL)
     @JoinTable(name="suiviResourceSuiviEpisode")
-    private Set<EpisodeFollowUp> episodeFollowUps;
+    private Set<EpisodeFollowUp> episodeFollowUps = new HashSet<>();;
 
 
     public FollowUp (){

@@ -27,6 +27,8 @@ public class EpisodeFollowUpApplicationServiceTest {
     @Test
     public void UpdateKOWhenFollowUpWithoutItsEpisodeFollowUpsIsGiven(){
         FollowUp followUp = new FollowUp();
+        followUp.setEpisodeFollowUps(null);
+
         Assertions.assertThrows(BusinessException.class,
                 ()->episodeApplicationService.saveSerieprogression(followUp));
     }

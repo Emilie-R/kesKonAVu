@@ -18,6 +18,9 @@ public class FollowUpProgressionController {
     @Autowired
     UpdateSerieProgressionApplicationService progressionService;
 
+    @Autowired
+    FollowUpMapper followUpMapper;
+
     /**
      *
      * @param idFollowUp
@@ -32,9 +35,9 @@ public class FollowUpProgressionController {
 
     @PostMapping(value = "/save")
     @ApiOperation("This operation allows to update serie progression")
-    public Long saveProgressionSerie(@RequestBody FollowUpProgressionDTO entered){
+    public FollowUpDTO saveProgressionSerie(@RequestBody FollowUpProgressionDTO entered){
         FollowUp toSend = followUpProgressionDTOMapper.mapToEntity(entered);
-        return progressionService.saveSerieProgression(toSend);
+        return followUpMapper.mapToDto(progressionService.saveSerieProgression(toSend));
     }
 
     /**
@@ -43,9 +46,9 @@ public class FollowUpProgressionController {
      * @return id (Long) du FollowUp mis à jour en base
      */
     @PutMapping(value = "/update",consumes = {"application/json"},produces={"application/json"})
-    public Long updateProgressionFollowUp(@Valid @RequestBody FollowUpDTO entered) {
+    public FollowUpDTO updateProgressionFollowUp(@Valid @RequestBody FollowUpDTO entered) {
         FollowUpMapper followUpDTOMapper = new FollowUpMapper();
         FollowUp converted = followUpDTOMapper.mapToEntity(entered);
-        return progressionService.updateProgressionSerie(converted);
+        return followUpMapper.mapToDto(progressionService.updateProgressionSerie(converted));
     }
 }

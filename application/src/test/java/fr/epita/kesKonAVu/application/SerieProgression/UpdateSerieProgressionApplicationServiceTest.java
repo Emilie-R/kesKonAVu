@@ -35,9 +35,9 @@ public class UpdateSerieProgressionApplicationServiceTest {
     public void UpdateProgressionOKWhenFollowUpIsGiven(){
         FollowUp followUp = followUpRepository.findByIdWithAllEpisodeFollowUps(3L);
 
-        Long idFollowUpUpdated = updateSerieProgressionApplicationService.updateProgressionSerie(followUp);
+        FollowUp FollowUpUpdated = updateSerieProgressionApplicationService.updateProgressionSerie(followUp);
 
-        Assertions.assertEquals(followUp.getIdFollowUp() ,idFollowUpUpdated);
+        Assertions.assertEquals(followUp.getIdFollowUp() ,FollowUpUpdated.getIdFollowUp());
         Assertions.assertEquals(100L,followUp.getProgression());
 
 
@@ -64,9 +64,9 @@ public class UpdateSerieProgressionApplicationServiceTest {
         f1.getEpisodeFollowUps().stream()
                 .forEach(e -> e.setStatus(EpisodeStatusEnum.VU));
 
-        Long id = updateSerieProgressionApplicationService.saveSerieProgression(f1);
+        FollowUp fpr = updateSerieProgressionApplicationService.saveSerieProgression(f1);
 
-        FollowUp f2 = followUpRepository.findByIdWithAllEpisodeFollowUps(id);
+        FollowUp f2 = followUpRepository.findByIdWithAllEpisodeFollowUps(fpr.getIdFollowUp());
 
         Long filteredCount = f2.getEpisodeFollowUps().stream()
                 .filter(e -> e.getStatus() == EpisodeStatusEnum.VU).count();

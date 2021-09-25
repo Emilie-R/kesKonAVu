@@ -7,9 +7,9 @@ import java.util.Set;
 
 public interface UpdateSerieProgressionApplicationService {
 
-    Long updateProgressionSerie(FollowUp in);
+    FollowUp updateProgressionSerie(FollowUp in);
 
-    Long saveSerieProgression (FollowUp in);
+    FollowUp saveSerieProgression (FollowUp in);
 
     FollowUp getEpisodeFollowUpList(Long idFollowUp);
 

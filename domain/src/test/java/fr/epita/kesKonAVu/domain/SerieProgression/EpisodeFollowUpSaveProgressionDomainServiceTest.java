@@ -70,6 +70,7 @@ public class EpisodeFollowUpSaveProgressionDomainServiceTest {
     public void UpdateFollowUpsKOWhenAnEmptyListOfEpisodeFollowUpIsGiven(){
 
         FollowUp followUp = new FollowUp();
+        followUp.setEpisodeFollowUps(null);
 
         Assertions.assertThrows(BusinessException.class,()->saveEpisodes.saveSerieprogression(followUp.getEpisodeFollowUps()));
     }

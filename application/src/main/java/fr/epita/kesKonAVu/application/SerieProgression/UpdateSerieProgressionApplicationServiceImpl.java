@@ -2,6 +2,7 @@ package fr.epita.kesKonAVu.application.SerieProgression;
 
 import fr.epita.kesKonAVu.domain.SerieProgression.CalculateProgressionService;
 import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeFollowUp;
+import fr.epita.kesKonAVu.domain.episodeFollowUp.EpisodeStatusEnum;
 import fr.epita.kesKonAVu.domain.followUp.FollowUp;
 import fr.epita.kesKonAVu.domain.followUp.FollowUpRepository;
 import fr.epita.kesKonAVu.domain.resource.Episode;
@@ -31,22 +32,27 @@ public class UpdateSerieProgressionApplicationServiceImpl implements UpdateSerie
     SerieRepository serieRepository;
 
     @Override
-    public Long updateProgressionSerie (FollowUp in) { // a followUp without its episodeFollowUps
+    public FollowUp updateProgressionSerie (FollowUp in) { // a followUp without its episodeFollowUps
 
         Long result = 0L;
         //Caculate and set the progression for the followUp
         //And update the followUp
         in.setProgression(calculateProgressionService.calculateProgression(in));
+        in.setNumberOfUnseenEpisodes(
+                (int) in.getEpisodeFollowUps().stream()
+                       .filter(e -> e.getStatus() == EpisodeStatusEnum.AVOIR)
+                       .count()
+        );
         in.setLastModificationDateTime(LocalDateTime.now());
         FollowUp followUpUpdated = followUpRepository.save(in);
         result = followUpUpdated.getIdFollowUp();
 
-        return result;
+        return followUpUpdated;
 
     }
 
     @Override
-    public Long saveSerieProgression (FollowUp incomplete) {
+    public FollowUp saveSerieProgression (FollowUp incomplete) {
         FollowUp retrieved = followUpRepository.findByIdWithAllEpisodeFollowUps(incomplete.getIdFollowUp());
         Set<EpisodeFollowUp> temp = incomplete.getEpisodeFollowUps();
         Set<EpisodeFollowUp> newList = new HashSet<>();
